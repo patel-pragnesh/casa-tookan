@@ -1,0 +1,105 @@
+".success": {
+	backgroundColor: "#79af7e"
+}
+
+".passphrase": {
+	backgroundColor: "#d58645"
+}
+
+".pincode": {
+	backgroundColor: "#6a84bf"
+}
+
+".touchid": {
+	backgroundColor: "#9579af"
+}
+
+".push": {
+	backgroundColor: "#9579af"
+}
+
+".complete": {
+	backgroundColor: "#79af7e"
+}
+
+".icon": {
+	width: 90,
+	height: 90,
+	top: 30
+}
+".aChain":{
+	width:'100%',
+	height:70,
+	top:10,
+	backgroundColor:'#33FFFFFF'
+	
+}
+".chainIcon":{
+	left:15,
+	width:50,
+	height:50,
+	
+}
+".radioButton":{
+	right:15,
+	width:50,
+	height:50,
+	
+}
+".icon[if=Alloy.Globals.isiPhoneX]": { 
+	top: 90
+}
+
+
+".title": {
+	top: 140
+}
+
+".textMargin": {
+	top: 10,
+	width: "95%"
+}
+
+".passphraseBack": {
+	width: Ti.UI.FILL,
+	height: 150,
+	top: 10,
+	backgroundColor: "#48ffffff"
+}
+
+".passphraseBackIn": {
+	width: "80%"
+}
+
+".nextButton": {
+	width: "90%",
+	height: 50,
+	bottom: 20,
+	color: "#ffffff",
+	backgroundColor: "#48ffffff",
+	font: {
+		fontFamily: "Helvetica Neue",
+		fontSize: 20,
+		fontWeight: "normal"
+	}
+}
+".selectLabel":{
+	color: "#ffffff",
+	font: {
+		fontFamily: "Helvetica Neue",
+		fontSize: 20,
+		fontWeight: "normal"
+	}
+}
+".touchidButton": {
+	width: "90%",
+	height: 50,
+	bottom: 80,
+	color: "#ffffff",
+	backgroundColor: "#48ffffff",
+	font: {
+		fontFamily: "Helvetica Neue",
+		fontSize: 20,
+		fontWeight: "normal"
+	}
+}

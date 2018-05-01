@@ -1,0 +1,58 @@
+<Alloy>
+	
+	<View class="transparent">
+		
+		<View class="tifill background" id="background"></View>
+		
+		<View class="tifill mainView" id="mainView">
+			
+			
+			<View class="tifill" id="listWrapper">
+				  <SearchBar id="search" barColor="#ffffff" showCancel="true" height="50"  />
+				 
+			 		<TableView class="tifill tokenList" id="tokenList">
+	    <FooterView>
+	 	   	
+	 	   	 <View class="tableViewFooter"   id="tableViewFooter" visible="false">
+		
+            <View class="tisize" layout="horizontal">
+		
+		<ActivityIndicator class="indiecaterDark" visible="true" />
+		<Label class="loadingLabelFooter">L("label_loading")</Label>
+			</View>
+			</View>
+        </FooterView>
+ 
+	 				</TableView>
+		 
+			</View>
+	
+			<View class="error" id="errorMessage" visible="false">
+				<Label class="size15 white center">L("label_error_loading")</Label>
+			</View>
+	
+			<View class="activityIndicatorFull" id="activityIndicator" visible="false">
+				<ActivityIndicator class="indiecaterDark" visible="true" />
+			</View>
+			
+				<View class="activityIndicatorFull" id="activityIndicator" visible="false">
+		<View class="tisize" layout="horizontal">
+		
+		<ActivityIndicator class="indiecaterDark" visible="true" />
+		<Label id="loadingLabel">L("label_loading")</Label>
+			</View>
+		
+	</View>
+	
+		<View class="topbar" id="topbar">
+				<Label class="title size15 white pull-left" id="backButton">L("label_tab_tokens")</Label>
+			 
+			<View class="addToken" id="addTokenButton" onClick="showAddContract">
+		 	
+		 		<Label class="size12 addTokenLabel" >L("label_enter_contract_address")</Label>
+		 		<ImageView class="addTokenIcon"   image="/images/icon_plus.png" />
+			</View>
+		</View>
+		</View>
+			</View>
+</Alloy>

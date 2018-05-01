@@ -1,0 +1,151 @@
+".background": {
+	backgroundColor: "#000000",
+	opacity: 0
+}
+
+".mainView": {
+	width: "80%",
+	left: Alloy.Globals.display.width,
+	backgroundColor: "#ebebeb",
+}
+".blockchainTitle": {
+	left:5,
+	top:13,
+	color:'white',
+	 font: { 
+        fontWeight: 'bold'
+    }		
+	
+}
+".blockchainTitle[if=Alloy.Globals.isiPhoneX]": {
+	 
+	visible:false,
+}
+
+".walletTitle": {
+	left:5, 
+	color:'white',
+	 font: { 
+        fontWeight: 'bold'
+    }		
+	
+}
+".blockchainView": {
+	width: Ti.UI.SIZE,
+	height: 410,
+	top: 0
+}
+
+".aChain":{
+
+	top:0,
+	height:48, 
+}
+".chainIcon":{
+left:5,
+height:30,
+width:30, 
+top:11,
+}
+".chainName":{ 
+left:10,
+top:11,
+ 
+}
+
+ 
+
+
+".walletView": {
+	width: Ti.UI.SIZE,
+	height: 112,
+	top: 136
+}
+
+".menuTopbar": {
+	width: Ti.UI.FILL,
+	height: 40,
+	top: 0,
+	backgroundColor: Alloy.Globals.mainColor
+}
+
+".currentWallet": {
+	width: Ti.UI.FILL,
+	height: 70,
+	backgroundColor: "#ffffff"
+}
+
+".walletIcon": {
+	width: 25,
+	height: 23,
+	top: 10,
+	left: 10
+}
+
+".tagCurrentWallet": {
+	top: 10,
+	left: 50
+}
+
+".addressCurrentWallet": {
+	top: 40,
+	left: 10
+}
+
+".arrowIcon": {
+	width: 12,
+	height: 16,
+	top: 15
+}
+
+".addressListWrapper": {
+	top: 250,
+}
+
+".listView": {
+	top: -400,
+	backgroundColor: "#ffffff"
+}
+
+".addressList": {
+	width: Ti.UI.FILL,
+	height: 200,
+	top: 0
+}
+
+".newaddress": {
+	width: Ti.UI.FILL,
+	height: 40,
+	top: 300,
+	backgroundColor: Alloy.Globals.mainColor
+}
+
+".menuListWrapper": {
+	top: 250
+}
+
+".menuLabels": {
+	width: Ti.UI.FILL,
+	height: 50,
+	top: 10
+}
+
+".menuIcon": {
+	width: 25,
+	height: 23,
+	top: 10,
+	left: 10
+}
+
+
+"#faqIcon": {
+	width: 25,
+	height: 27,
+	 
+}
+
+
+".menuLabel": {
+	top: 10,
+	left: 50
+}

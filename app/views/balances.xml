@@ -1,0 +1,37 @@
+<Alloy>
+	
+	<View class="tifill" id="listWrapper">
+		 <TableView class="tifill tokenList" id="tokenList">
+	 	   <FooterView>
+	 	   	
+	 	   	 <View class="tableViewFooter"   id="tableViewFooter" visible="false">
+		
+            <View class="tisize" layout="horizontal">
+		
+		<ActivityIndicator class="indiecaterDark" visible="true" />
+		<Label class="loadingLabelFooter">L("label_loading")</Label>
+			</View>
+			</View>
+        </FooterView>
+	 	</TableView>
+		 
+	</View>
+	
+	<View class="error" id="errorMessage" visible="false">
+		<Label class="size15 gray center">L("label_error_loading")</Label>
+	</View>
+	
+	<View class="activityIndicatorFull" id="activityIndicator" visible="false">
+		<View class="tisize" layout="horizontal">
+		
+		<ActivityIndicator class="indiecaterDark" visible="true" />
+		<Label id="loadingLabel">L("label_loading")</Label>
+			</View>
+		
+	</View>
+	
+	<View class="topbar" id="tokenTopBar">
+		
+		<Label class="title">L("label_tab_casa")</Label>
+	</View>
+</Alloy>

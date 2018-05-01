@@ -1,0 +1,13 @@
+<Alloy>
+	<View class="topView" id="mainView" layout="horizontal">
+		<View class="casaHomeView" id="casaHomeView" >
+			<ImageView class="caseHomeImage" id="caseHomeImage" image="/images/casa_home.png" />
+		</View>	
+		<View class="balancesView" id="balancesView" layout="vertical">
+			<Label class="infoLab" id="btc_address"> </Label>
+			<Label  class="infoLab" id="eth_address"  > </Label>
+			<Label  class="infoLab" id="usd_value" > </Label>
+    	</View>
+    
+    </View>
+</Alloy>

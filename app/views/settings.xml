@@ -1,0 +1,61 @@
+<Alloy>
+	<View class="transparent">
+		
+		<View class="tifill background" id="background"></View>
+		<View class="tifill mainView" id="mainView" layout="vertical">
+		 	<View class="topbar">
+				<Label class="size15 gray pull-left pull-bottom" id="gobackButton">L("label_goback")</Label>
+				
+				<Label class="size15 gray signout  pull-bottom" id="signoutButton">L("label_settings_signout")</Label>
+			</View>
+			 
+			 
+	 		<View class="topView" id="topView" layout="horizontal">
+			 	
+				<View class="casaHomeView" id="casaHomeView" >
+					<ImageView class="caseHomeImage" id="caseHomeImage" image="/images/tookan.png" />
+				</View>	
+		
+				<View class="balancesView" id="balancesView" layout="vertical">
+					 <TextField 
+           			 borderStyle="Ti.UI.INPUT_BORDERSTYLE_BEZEL"
+            keyboardToolbarColor="#999" keyboardToolbarHeight="40"
+         			   top="10" height="35"  
+            value="" hintText="username">
+            
+        </TextField>  
+					 <TextField 
+            borderStyle="Ti.UI.INPUT_BORDERSTYLE_BEZEL"
+            keyboardToolbarColor="#999" keyboardToolbarHeight="40"
+            top="10" height="35" 
+            hintText="password">
+            
+        </TextField>
+					<Button id="addAvatarButton" class="casaButton">CHANGE PASSWORD</Button>
+					 <TextField 
+            borderStyle="Ti.UI.INPUT_BORDERSTYLE_BEZEL"
+            keyboardToolbarColor="#999" keyboardToolbarHeight="40"
+            top="10" height="35"  
+             hintText="pincode">
+            
+        </TextField>
+					<Button id="addAvatarButton" class="casaButton">CHANGE PINCODE</Button>
+    			</View>
+    		</View>
+    		
+    		 <TableView class="casaList" id="casaList">
+	 	    <FooterView>
+	 	   	
+	 	   	 <View class="tableViewFooter"   id="tableViewFooter" >
+		
+            <View class="tisize">
+		
+		<ActivityIndicator class="indiecaterDark" visible="false" />
+		<Label class="loadingLabelFooter"  id="addCasa" >add new casa</Label>
+			</View>
+			</View>
+        </FooterView>
+	 	</TableView>
+				 
+	</View>
+</Alloy>

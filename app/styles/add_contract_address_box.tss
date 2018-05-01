@@ -1,0 +1,103 @@
+".background": {
+	backgroundColor: "#000000",
+	opacity: 0
+}
+".mainView": {
+	width: "100%",
+	top:0,
+	left:0,
+	height:Ti.UI.FILL, 
+	backgroundColor: "#transparent",
+}
+
+".contractBox": {
+ 	 
+	backgroundColor: "#ebebeb",
+	width:300,
+	height:200, 
+	 borderRadius:10,
+}
+
+"#closeButton":{ 
+		
+	left:5,
+	top:5,  
+	 height:18,
+	 width:18,
+	 backgroundImage:"/images/browser_close_blue.png",
+}
+"#contractAddressField":{ 
+	top:15,
+	height:40,
+}
+"#title":{
+	top:10,
+ 	color:"#7083be",
+ 	font:{
+ 		 fontWeight: 'bold'
+ 	}
+}
+"#searchButton":{ 
+	top:15,  
+	height:40,
+	width:100,
+	backgroundColor: "#7083be",
+	color:'white',
+}
+"#backButton":{ 
+	top:15,  
+	height:40,
+	width:100,
+	backgroundColor: "#7083be",
+	color:'white',
+}
+"#addButton":{ 
+	left:10,
+	top:15,  
+	height:40,
+	width:100,
+	backgroundColor: "#7083be",
+	color:'white',
+}
+ 
+ "#tokenImage":{ 
+	  
+	height:50,
+	width:50, 
+}
+  "#tokenInfo":{
+  	
+  		 
+  }
+".controls":{
+	top:20,
+}
+".topInfo":{
+	 top:15,
+	width:Ti.UI.SIZE,
+	height:Ti.UI.SIZE,
+}
+".bottomInfo":{
+	width:Ti.UI.SIZE,
+	height:Ti.UI.SIZE,
+}
+
+"#tokenSymbol":{
+	textAlign:'left',
+	 
+}
+"#tokenName":{
+	textAlign:'left',
+	 
+}
+"#tokenLabels":{
+	left:15,
+	 
+}
+"#activityIndicator":{
+	style: Ti.UI.ActivityIndicatorStyle.DARK,
+}
+
+
+
+ 

@@ -1,0 +1,31 @@
+<Alloy>
+	<View class="tisize">
+		 <View class="shadow">
+		 	</View>
+		<View class="tokenBoxHistory" id="tokenBoxHistory">
+			<View class="tisize section1"> 
+				<ImageView class="tokenImage" id="tokenImage" defaultImage="/images/image_blank.png" />
+			</View>
+			<View class="section2" id="centerBox">
+				
+				<View class="messages" layout="vertical" >
+					<Label class="size12 historyMessage" id="historyMessage"></Label>
+					<Label class="size12 historyAddress" id="historyAddress"></Label>
+				</View>
+			</View>
+			<View class="tisize section3" >
+				<Label class="size8 historyTime" id="historyTime"></Label>
+				<View class="tisize infoButton" id="infoButton">
+					<ImageView class="tokenInfoIcon" image="/images/icon_info.png" />
+				</View>
+			</View>
+		</View>
+		<View class="tokenBoxLoading" id="tokenBoxLoading" visible="false" >
+			<View class="tisize" layout="horizontal">
+				<ActivityIndicator class="indiecaterDark" visible="true" />
+				<Label class="size15 gray"> loading...</Label>
+			</View>
+		</View>
+		
+	</View>
+</Alloy>

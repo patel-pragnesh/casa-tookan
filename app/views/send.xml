@@ -1,0 +1,85 @@
+<Alloy>
+	<View class="transparent">
+		<View class="tifill background" id="background"></View>
+		<View class="tifill mainView" id="mainView">
+			<ScrollView class="tifill" scrollType="vertical" layout="vertical">
+				<View class="topSection" id="top">
+					<Label class="title size15 white pull-left" id="backButton">L("label_tab_tokens")</Label>
+					<Label class="title white">L("label_send")</Label>
+					<View class="tisize pull-bottom" layout="vertical">
+						<View class="tisize" id="modeToken">
+							<View class="tisize tokenAmountView" id="tokenAmountView" layout="horizontal">
+								<Label class="size40 white bold" id="amount"></Label>
+								<Label class="size20 white amountToken" id="amountToken"></Label>
+							</View>
+							<Label class="size20 white fiat" id="fiat"></Label>
+						</View>
+						<Label class="size15 white balance" id="balance"></Label>
+						<Label class="size15 white priority" id="priorityLabel"></Label>
+					</View>
+					<ImageView class="switchIcon" id="switchIcon" image="/images/icon_switch.png" />
+				</View>
+				
+				<TextField class="inputDestination" id="inputDestination" />
+				
+				<View class="keypad" id="keypad" layout="vertical">
+					<View class="padrow" layout="horizontal">
+						<View class="numberPad" id="numberPadQrcode">
+							<ImageView class="numberPadQrcode" id="qrCodeImage" image="/images/icon_qrcode.png" />
+						</View>
+						<View class="numberPad">
+							<Label class="number"></Label>
+						</View>
+						<View class="numberPad" id="numberPadSend">
+							<Label class="size20 text">L("label_send")</Label>
+						</View>
+					</View>
+					<View class="padrow" layout="horizontal">
+						<View class="numberPad" id="numberPad1">
+							<Label class="size40 number">1</Label>
+						</View>
+						<View class="numberPad" id="numberPad2">
+							<Label class="size40 number">2</Label>
+						</View>
+						<View class="numberPad" id="numberPad3">
+							<Label class="size40 number">3</Label>
+						</View>
+					</View>
+					<View class="padrow" layout="horizontal">
+						<View class="numberPad" id="numberPad4">
+							<Label class="size40 number">4</Label>
+						</View>
+						<View class="numberPad" id="numberPad5">
+							<Label class="size40 number">5</Label>
+						</View>
+						<View class="numberPad" id="numberPad6">
+							<Label class="size40 number">6</Label>
+						</View>
+					</View>
+					<View class="padrow" layout="horizontal">
+						<View class="numberPad" id="numberPad7">
+							<Label class="size40 number">7</Label>
+						</View>
+						<View class="numberPad" id="numberPad8">
+							<Label class="size40 number">8</Label>
+						</View>
+						<View class="numberPad" id="numberPad9">
+							<Label class="size40 number">9</Label>
+						</View>
+					</View>
+					<View class="padrow" layout="horizontal">
+						<View class="numberPad" id="numberPadDot">
+							<Label class="size40 number">.</Label>
+						</View>
+						<View class="numberPad" id="numberPad0">
+							<Label class="size40 number">0</Label>
+						</View>
+						<View class="numberPad" id="numberPadDel">
+							<Label class="size20 text">L("label_del")</Label>
+						</View>
+					</View>
+				</View>
+			</ScrollView>
+		</View>
+	</View>
+</Alloy>

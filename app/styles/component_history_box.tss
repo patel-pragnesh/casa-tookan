@@ -1,0 +1,77 @@
+".tokenBoxHistory": {
+	width: '94%',
+	height: 150,
+	top: 5,
+	borderRadius:20,
+	
+	padding: 10,
+	backgroundColor: "white"
+}
+".shadow":{
+	top: 8,
+	right:8,
+	width: '94%',
+	height: 150,
+	borderRadius:20,
+	backgroundColor: "rgba(0,0,0,0.05)",
+}
+".tokenBoxLoading": {
+	width: Ti.UI.FILL,
+	height: 40,
+	top: 10,
+	padding: 10
+}
+
+".section1": {
+	height:'100%',
+	left: 10
+}
+
+".section2": {
+	width: "65%",
+	
+}
+
+".section3": {
+	right: 0,
+	height:'100%',
+}
+
+ 
+".tokenImage": {
+	width: 40,
+	height: 40,
+	left: 4,
+	top:10,
+}
+
+".historyTime": {
+	right: 10,
+	top: 5
+}
+
+".messages": { 
+	//top: 20
+	height:Ti.UI.SIZE,
+	
+}
+
+".historyMessage": {
+	width: Ti.UI.FILL,
+	textAlign: "center"
+}
+
+".historyAddress": {
+	color: "#0000ff"
+}
+
+".tokenInfoIcon": {
+	width: 25,
+	height: 25
+}
+
+".infoButton": {
+	width: 40,
+	height: 40,
+	right: 5
+}

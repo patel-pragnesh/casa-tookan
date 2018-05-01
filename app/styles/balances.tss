@@ -1,0 +1,61 @@
+".refresh": {
+	width: 25,
+	height: 25,
+	top: 28,
+	margin: 10
+}
+
+
+
+".refresh[if=Alloy.Globals.isiPhoneX]": {
+	 
+	top: 41, 
+}
+
+".refresh[platform=android]": {
+	 
+	top: 12, 
+}
+
+".addToken": {
+	top:21,
+	left:5,
+	width:50,
+	height: '100%', 
+}
+".addToken[if=Alloy.Globals.isiPhoneX]": {
+	 
+	top: 33, 
+}
+".addToken[platform=android]": {
+	 
+	top: 9, 
+} 
+".addTokenIcon": { 
+	width: 25,
+	height: 25, 
+}
+
+".addTokenLabel": {
+	top:2,
+	color:'white',
+ 	width:'100%', 
+}
+
+".tokenList": {
+	top: 60,
+	width: Ti.UI.FILL,
+	height: 0,
+	backgroundColor: "#ececec",
+	separatorStyle:Titanium.UI.TABLE_VIEW_SEPARATOR_STYLE_NONE
+}
+".tokenList[platform=ios]": {
+	selectionStyle: Titanium.UI.iOS.TableViewCellSelectionStyle.NONE
+}
+".tokenList[platform=android]": {
+	selectionStyle:'none'
+}
+"#loadingLabel":{
+	left:5,
+}
+

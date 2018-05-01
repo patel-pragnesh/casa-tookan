@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ti:app xmlns:ti="http://ti.appcelerator.org">
+    <id>com.mandelduck.jiko</id>
+    <name>jiko</name>
+    <version>0.0.4</version>
+    <publisher>Everdream soft</publisher>
+    <url>https://www.everdreamsoft.com/</url>
+    <description>undefined</description>
+    <copyright>2015 - 2018 Everdream Soft</copyright>
+    <icon>appicon.png</icon>
+    <fullscreen>false</fullscreen>
+    <navbar-hidden>true</navbar-hidden>
+    <analytics>false</analytics>
+    <property name="ti.ui.defaultunit" type="string">dp</property>
+    <property name="run-on-main-thread" type="bool">true</property>
+    <ios>
+        <log-server-port>2984</log-server-port>
+        <enable-launch-screen-storyboard>false</enable-launch-screen-storyboard>
+        <use-app-thinning>true</use-app-thinning>
+        <plist>
+            <dict>
+                <key>CFBundleDevelopmentRegion</key>
+                <string>en</string>
+                <key>UISupportedInterfaceOrientations~iphone</key>
+                <array>
+                    <string>UIInterfaceOrientationPortrait</string>
+                </array>
+                <key>UISupportedInterfaceOrientations~ipad</key>
+                <array>
+                    <string>UIInterfaceOrientationPortrait</string>
+                </array>
+                <key>CFBundleURLTypes</key>
+                <array>
+                    <dict>
+                        <key>CFBundleURLName</key>
+                        <string>com.mandelduck.jiko</string>
+                        <key>CFBundleURLSchemes</key>
+                        <array>
+                            <string>jiko</string>
+                        </array>
+                    </dict>
+                </array>
+                <key>LSApplicationQueriesSchemes</key>
+                <array>
+                    <string>jiko</string>
+                </array>
+                <key>UIRequiresPersistentWiFi</key>
+                <false/>
+                <key>UIPrerenderedIcon</key>
+                <false/>
+                <key>UIStatusBarHidden</key>
+                <false/>
+                <key>UIStatusBarStyle</key>
+                <string>UIStatusBarStyleDefault</string>
+                <key>CFBundleIconFiles</key>
+                <array>
+                    <string>appicon.png</string>
+                    <string>appicon@2x.png</string>
+                    <string>appicon-120.png</string>
+                    <string>appicon-60.png</string>
+                    <string>appicon-60@2x.png</string>
+                    <string>appicon-60@3x.png</string>
+                    <string>appicon-72.png</string>
+                    <string>appicon-72@2x.png</string>
+                    <string>appicon-76.png</string>
+                    <string>appicon-76@2x.png</string>
+                    <string>appicon-Small-40.png</string>
+                    <string>appicon-Small-40@2x.png</string>
+                    <string>appicon-Small-40@3x.png</string>
+                    <string>appicon-Small-50.png</string>
+                    <string>appicon-Small-50@2x.png</string>
+                    <string>appicon-Small.png</string>
+                    <string>appicon-Small@2x.png</string>
+                    <string>appicon-Small@3x.png</string>
+                </array>
+                <key>UIBackgroundModes</key>
+                <array>
+                    <string>fetch</string>
+                </array>
+                <key>NSPhotoLibraryUsageDescription</key>
+                <string>This app requires access to the Photo library.</string>
+                <key>NSCameraUsageDescription</key>
+                <string>This app requires access to the Camera.</string>
+                <key>NSAppleMusicUsageDescription</key>
+                <string>This app requires access to the AppleMusic.</string>
+            </dict>
+        </plist>
+    </ios>
+    <android xmlns:android="http://schemas.android.com/apk/res/android">
+        <abi>armeabi-v7a</abi>
+        <manifest android:versionCode="130101134"
+            android:versionName="1.0.0" xmlns:tools="http://schemas.android.com/tools">
+            <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="26"/>
+            <application android:allowBackup="false"
+                android:hardwareAccelerated="true"
+                android:largeHeap="true"
+                android:theme="@style/Theme.IndiesquareTheme" tools:replace="android:icon">
+                <!-- <activity android:configChanges="keyboardHidden|orientation|screenSize" android:label="@string/app_name" android:name=".IndiesquarewalletActivity" android:screenOrientation="portrait" android:theme="@style/Theme.Titanium"><intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter></activity>-->
+                <activity android:launchMode="singleTask" android:name=".IntentActivity">
+                    <intent-filter>
+                        <action android:name="android.intent.action.VIEW"/>
+                        <category android:name="android.intent.category.DEFAULT"/>
+                        <category android:name="android.intent.category.BROWSABLE"/>
+                        <data android:host="" android:scheme="indiewallet"/>
+                    </intent-filter>
+                    <intent-filter android:autoVerify="true">
+                        <action android:name="android.intent.action.VIEW"/>
+                        <category android:name="android.intent.category.DEFAULT"/>
+                        <category android:name="android.intent.category.BROWSABLE"/>
+                        <data android:host="walletapp.indiesquare.me" android:scheme="https"/>
+                    </intent-filter>--&gt;
+          </activity>
+                <service android:enabled="true" android:exported="false" android:name="com.google.android.gms.measurement.AppMeasurementService"/>
+                <service android:enabled="true" android:exported="false"
+                    android:name="com.google.android.gms.measurement.AppMeasurementJobService" android:permission="android.permission.BIND_JOB_SERVICE"/>
+                <service android:exported="false" android:name="inc.lireneosoft.counterparty.gcm.RegistrationIntentService"/>
+                <receiver android:enabled="true" android:name="com.google.android.gms.measurement.AppMeasurementReceiver">
+                    <intent-filter>
+                        <action android:name="com.google.android.gms.measurement.UPLOAD"/>
+                    </intent-filter>
+                </receiver>
+                <service android:exported="false" android:name="inc.lireneosoft.counterparty.gcm.GcmIntentService">
+                    <intent-filter>
+                        <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+                    </intent-filter>
+                </service>
+                <service android:exported="false" android:name="inc.lireneosoft.counterparty.gcm.GcmIntentService">
+                    <intent-filter>
+                        <action android:name="com.google.android.c2dm.intent.SEND"/>
+                    </intent-filter>
+                </service>
+                <service android:exported="false" android:name="inc.lireneosoft.counterparty.gcm.GcmIDListenerService">
+                    <intent-filter>
+                        <action android:name="com.google.android.gms.iid.InstanceID"/>
+                    </intent-filter>
+                </service>
+            </application>
+            <uses-permission android:name="android.permission.INTERNET"/>
+            <uses-permission android:name="android.permission.WAKE_LOCK"/>
+            <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+            <uses-permission android:name="android.permission.VIBRATE"/>
+            <uses-permission android:name="android.permission.CAMERA"/>
+            <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+        </manifest>
+        <services>
+            <service type="interval" url="background/fetch.js"/>
+        </services>
+    </android>
+    <modules>
+        <module platform="iphone">inc.indiesquare.customuseragent</module>
+        <module platform="iphone">ti.touchid</module>
+        <module platform="android">ti.touchid</module>
+        <module platform="android">hyperloop</module>
+        <module platform="iphone">hyperloop</module>
+        <module platform="iphone">firebase.core</module>
+        <module platform="android">firebase.core</module>
+    </modules>
+    <deployment-targets>
+        <target device="android">true</target>
+        <target device="ipad">false</target>
+        <target device="iphone">true</target>
+    </deployment-targets>
+    <sdk-version>7.1.0.GA</sdk-version>
+    <plugins>
+        <plugin version="1.0">ti.alloy</plugin>
+    </plugins>
+    <property name="appc-app-id" type="string">5aa74ebde7475852d2d553fa</property>
+    <property name="appc-org-id" type="string">100033982</property>
+    <property name="appc-creator-user-id" type="string">c8c3177b-4309-4355-ae1b-88926f3beff5</property>
+    <property name="ti.ui.defaultunit" type="string">dip</property>
+    <!--  <property name="ti.android.threadstacksize" type="int">131072</property>
+    <property name="ti.android.httpclient.maxbuffersize" type="int">131072</property>-->
+    <guid>e9dcaaef-c216-4879-9ddd-2fe45ff7af60</guid>
+</ti:app>

@@ -1,0 +1,99 @@
+
+".tokenBox": { 
+	width: '94%',
+	borderRadius:20,
+	height: 90,
+	top: 5,
+	backgroundColor: "white"
+}
+
+".shadow":{
+	top: 8,
+	right:8,
+	width: '94%',
+	height: 90,
+	borderRadius:20,
+	backgroundColor: "rgba(0,0,0,0.05)",
+}
+ 
+
+
+".tokenImage": {
+	width: 48,
+	height: 48,
+	top: 7,
+	left: 7
+}
+
+".tokenName": {
+	width: 150,
+	top: 10,
+	left: 65,
+	textAlign: "left",
+}
+
+".balances": {
+	width: 150,
+	top: 10,
+	right: 10
+}
+"#activityIndicator": {
+	right: 10,
+	top:15,
+	style: Ti.UI.ActivityIndicatorStyle.DARK,
+}
+
+".tokenBalances": {
+	width: Ti.UI.SIZE,
+	right: 0
+}
+
+".tokenBalance": {
+	right: 0,
+	top: 0
+}
+
+".tokenBalanceUnconfirmed": {
+	bottom: 0
+}
+
+".tokenBalanceFiat": {
+	right: 0,
+	top: 1
+}
+
+".tokenBorder": {
+	width: "95%",
+	height: 1,
+	bottom: 0,
+	backgroundColor: "#ececec"
+}
+
+".tokenSendIcon": {
+	width: 18,
+	height: 18
+}
+
+".tokenSendLabel": {
+	left: 5,
+	color: "#929292",
+	textAlign: "center"
+}
+
+".sendButton": {
+	height: 50,
+	right: 10,
+	bottom: -22
+}
+
+".tokenInfoIcon": {
+	width: 25,
+	height: 25
+}
+
+".infoButton": {
+	width: 60,
+	height: 60,
+	left: 45,
+	top: 20
+}

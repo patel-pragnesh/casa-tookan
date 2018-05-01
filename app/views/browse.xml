@@ -1,0 +1,11 @@
+<Alloy>
+    
+        <WebView id="webview" url="http://localhost:4200" />
+        
+        <View class="topbar" id="browseTopBar">
+		 
+		<Label class="title">L("label_tab_browse")</Label>
+		 
+	</View>
+    
+</Alloy>

@@ -1,0 +1,163 @@
+/**
+ * HYPERLOOP GENERATED - DO NOT MODIFY
+ *
+ * This source code is Copyright (c) 2018 by Appcelerator, Inc.
+ * All Rights Reserved.  This code contains patents and/or patents pending.
+ */
+var $dispatch = Hyperloop.dispatch,
+	$init,
+	$imports,
+	$class;
+
+
+var EKObject = require('/hyperloop/eventkit/ekobject');
+
+
+/**
+ * EventKit//Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator11.3.sdk/System/Library/Frameworks/EventKit.framework/Headers/EKAlarm.h
+ * @class
+ */
+function EKAlarm (pointer) {
+	if (!(this instanceof EKAlarm)) {
+		throw new TypeError('Cannot instantiate a class by calling it as a function');
+	}
+
+	if (!$init) {
+		$initialize();
+	}
+
+	if (pointer) {
+		var oldWrapper = Hyperloop.getWrapper(pointer.$native ? pointer.$native : pointer);
+		if (oldWrapper) {
+			if (oldWrapper.__proto__ !== this.__proto__) {
+				oldWrapper = Object.setPrototypeOf(oldWrapper, this.__proto__);
+			}
+			return oldWrapper;
+		}
+	}
+
+	if (!pointer) {
+		pointer = Hyperloop.createProxy({
+			class: 'EKAlarm',
+			alloc: true,
+			init: 'init'
+		});
+	}
+	EKObject.call(this, pointer);
+	Object.defineProperty(this, '$private', {
+		value: {},
+		writable: true,
+		enumerable: false,
+		configurable: false
+	});
+}
+// superclass
+EKAlarm.prototype = Object.create(EKObject.prototype, {
+	constructor: {
+		value: EKAlarm,
+		enumerable: false,
+		writable: true,
+		configurable: true
+	}
+});
+Object.setPrototypeOf(EKAlarm, EKObject);
+
+Object.defineProperty(EKAlarm, '$class', {
+	get: function () {
+		if (!$init) { $initialize(); }
+		return $class;
+	},
+	enumerable: false
+});
+
+Object.defineProperty(EKAlarm, 'className', {
+	value: 'EKAlarm',
+	enumerable: false,
+	writable: true
+});
+
+Object.defineProperty(EKAlarm.prototype, 'className', {
+	value: 'EKAlarm',
+	enumerable: false,
+	writable: true
+});
+
+Object.defineProperty(EKAlarm.prototype, 'toString', {
+	value: function () {
+		return Hyperloop.stringValue(this.$native);
+	},
+	enumerable: false,
+	writable: true
+});
+
+
+Object.defineProperty(EKAlarm, 'toString', {
+	value: function () {
+		return '[class EKAlarm]';
+	},
+	enumerable: false,
+	writable: true
+});
+
+
+
+function $initialize () {
+	$imports = {};
+	$imports.NSURL = require('/hyperloop/foundation/nsurl');
+
+	$class = Hyperloop.createProxy({
+		class: 'EKAlarm',
+		alloc: false,
+		init: 'class'
+	});
+	Object.defineProperty(EKAlarm, '$imports', {
+		value: $imports,
+		writable: true,
+		enumerable: false,
+		configurable: false
+	});
+	Object.defineProperty(EKAlarm, '$private', {
+		value: {},
+		writable: true,
+		enumerable: false,
+		configurable: false
+	});
+
+
+	// instance properties
+	Object.defineProperties(EKAlarm.prototype, {
+		type: {
+			get: function () {
+				if (!$init) { $initialize(); }
+				return $dispatch(this.$native, 'type');
+			},
+		
+			enumerable: false
+		},
+		url: {
+			get: function () {
+				if (!$init) { $initialize(); }
+				return new $imports.NSURL($dispatch(this.$native, 'url'));
+			},
+		
+			set: function (_url) {
+				if (!$init) { $initialize(); }
+				this.$private.url = _url;
+				$dispatch(this.$native, 'setUrl:', _url);
+			},
+			enumerable: false
+		}
+	});
+
+	$init = true;
+}
+
+/**
+ * ticore compatibility with ES6
+ */
+Object.setPrototypeOf = Object.setPrototypeOf || function(obj, proto) {
+	obj.__proto__ = proto;
+	return obj;
+}
+
+module.exports = EKAlarm;

@@ -1,0 +1,39 @@
+".webtopbar": {
+	width: Ti.UI.FILL,
+	height: 25,
+	backgroundColor: Alloy.Globals.mainColor,
+	top: 0
+}
+
+".webbottombar": {
+	width: Ti.UI.FILL,
+	height: 40,
+	backgroundColor: Alloy.Globals.mainColor,
+	bottom: 0
+}
+
+".webview": {
+	width:Ti.UI.FILL,
+	height:Ti.UI.FILL,
+	borderRadius: 1,
+	top: 25
+}
+
+".backButton": {
+	width: 25,
+	height: 25,
+	left: 10,
+	opacity: 0.3,
+	enabled: false
+}
+
+".reloadButton": {
+	width: 22,
+	height: 22,
+	left: 60
+}
+
+".closeButton": {
+	width: 25,
+	height: 25
+}

@@ -1,0 +1,18 @@
+%define lookup-function-name lookupGeneratedInit
+%define class-name WebviewBindings
+%{
+
+#include <string.h>
+#include <v8.h>
+#include <KrollBindings.h>
+
+#include "com.indiesquare.webview.WebviewModule.h"
+#include "com.indiesquare.webview.ExampleProxy.h"
+
+
+%}
+struct titanium::bindings::BindEntry;
+%%
+com.indiesquare.webview.WebviewModule, ::com::indiesquare::webview::WebviewModule::bindProxy, ::com::indiesquare::webview::WebviewModule::dispose
+com.indiesquare.webview.ExampleProxy, ::com::indiesquare::webview::webview::ExampleProxy::bindProxy, ::com::indiesquare::webview::webview::ExampleProxy::dispose
+%%

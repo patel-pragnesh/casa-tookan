@@ -1,0 +1,84 @@
+<Alloy>
+	<Window class="transparent">
+	    <ScrollableView class="tifill" id="scrollableView" showPagingControl="false" scrollingEnabled="false">
+	    	<View class="tifill success" id="success">
+    			<ImageView class="icon" image="/images/icon_intro_success.png" />
+    			<Label class="size20 white bold title">L("label_intro_success_title")</Label>
+    			<Label class="size15 white">L("label_intro_success_text")</Label>
+				<Button class="nextButton" id="nextButtonSuccess"></Button>
+			</View>
+	    	<View class="tifill passphrase" id="passphrase">
+	    		<ImageView class="icon" image="/images/icon_intro_passphrase.png" />
+    			<Label class="size20 white bold title">L("label_intro_passphrase_title")</Label>
+    			<View class="tisize" layout="vertical">
+    				<Label class="size15 white">L("label_intro_passphrase_text1")</Label>
+    				<View class="passphraseBack">
+    					<View class="passphraseBackIn">
+    						<Label class="size25 bold white" id="passphraseLabel"></Label>
+    					</View>
+    				</View>
+    				<Label class="size10 white textMargin">L("label_intro_passphrase_text2")</Label>
+	    			<Label class="size20 white bold center textMargin">L("label_intro_passphrase_text3")</Label>
+	    			<Label class="size10 white textMargin">L("label_intro_passphrase_text4")</Label>
+    			</View>
+				<Button class="nextButton" id="nextButtonPassphrase"></Button>
+			</View>
+	        <View class="tifill pincode" id="pincode">
+	        	<ImageView class="icon" image="/images/icon_intro_pincode.png" />
+    			<Label class="size20 white bold title">L("label_intro_pincode_title")</Label>
+    			<View class="tisize" layout="vertical">
+    				<Label class="size15 white textMargin">L("label_intro_pincode_text")</Label>
+    			</View>
+				<Button class="nextButton" id="nextButtonPincode"></Button>
+			</View>
+	        <View class="tifill touchid" id="touchid">
+				<ImageView class="icon" image="/images/icon_intro_touchid.png" />
+    			<Label class="size20 white bold title">L("label_intro_touchid_title")</Label>
+    			<View class="tisize" layout="vertical">
+    				<Label class="size15 white textMargin">L("label_intro_touchid_text")</Label>
+				</View>
+				<Button class="touchidButton" id="nextButtonTouchid"></Button>
+				<Button class="nextButton" id="nextButtonTouchidSkip"></Button>
+			</View>
+			<View class="tifill push" id="push">
+				<ImageView class="icon" image="/images/icon_intro_touchid.png" />
+    			<Label class="size20 white bold title">L("label_intro_push_title")</Label>
+    			<View class="tisize" layout="vertical">
+    				<Label class="size15 white textMargin">L("label_intro_push_text")</Label>
+				</View>
+				<Button class="nextButton" id="nextButtonPush"></Button>
+			</View>
+	        <View class="tifill complete" id="complete">
+				<ImageView class="icon" image="/images/icon_intro_complete.png" />
+    			<Label class="size20 white bold title">L("label_intro_complete_title")</Label>
+    			<View class="tisize" layout="vertical">
+    				<Label class="size15 white textMargin">L("label_intro_complete_text")</Label>
+    				<Label class="size15 white textMargin">L("label_select_starting")</Label>
+    				<View class="aChain" onClick="selectBitcoin">
+    					
+    					<ImageView class="chainIcon"  image="/images/asset_btc.png" ></ImageView>
+    					<Label class="selectLabel size15">L("label_bitcoin")</Label>
+    					<ImageView class="radioButton" id="bitcoinCheck"  image="/images/icon_unchecked.png" ></ImageView>
+    				
+					</View>
+					<View class="aChain" onClick="selectEthereum">
+    					
+    					<ImageView class="chainIcon"    image="/images/asset_eth.png" ></ImageView>
+    					<Label class="selectLabel size15">L("label_ethereum")</Label>
+    					<ImageView class="radioButton" id="ethereumCheck"  image="/images/icon_unchecked.png" ></ImageView>
+    				
+					</View>
+					<View class="aChain" onClick="selectEither">
+    					
+    					<ImageView class="chainIcon"    image="/images/image_question.png" opacity="0.5" ></ImageView>
+    					<Label class="selectLabel size15">L("label_select_either")</Label>
+    					<ImageView class="radioButton" id="notSureCheck"  image="/images/icon_unchecked.png" ></ImageView>
+    				
+					</View>
+				</View>
+				
+				<!--<Button class="nextButton" id="nextButtonComplete"></Button>-->
+			</View>
+	    </ScrollableView>
+	</Window>
+</Alloy>

@@ -1,0 +1,88 @@
+".background": {
+	backgroundColor: "#000000",
+	opacity: 0
+}
+
+".mainView": {
+	width: "100%",
+	left: Alloy.Globals.display.width
+}
+
+".topSection": {
+	width: Ti.UI.FILL,
+	height: 185,
+	top: 0,
+	backgroundColor:Alloy.Globals.currentColor
+}
+
+".inputDestination": {
+	width:  "100%",
+	height: 40,
+	padding: {
+		right: 7,    
+		left: 7
+	},
+	textAlign: "left",
+	backgroundColor: "#ffffff",
+}
+
+".tokenAmountView": {
+	top: 0
+}
+
+".amountToken": {
+	bottom: 5
+}
+
+".fiat": {
+	top: 45
+}
+
+".balance": {
+	top: 10
+}
+
+".priority": {
+	top: 5
+}
+
+".switchIcon": {
+	height: 30,
+	top: 100,
+	right: 10
+}
+
+".keypad": {
+	backgroundColor: "#ececec"
+}
+
+".padrow": {
+	width: Ti.UI.FILL,
+	height: "20%"
+}
+
+".numberPad": {
+    width: "33.3%",
+    height: Ti.UI.FILL
+}
+
+".number": {
+	color: Alloy.Globals.currentColor,
+    font: {
+    	fontFamily:'GillSans-Light',
+    	fontWeight:'light'
+    }
+}
+
+".text": {
+	color:Alloy.Globals.currentColor,
+    font: {
+    	fontFamily:'Gill Sans',
+    	fontWeight:'light'
+    }
+}
+
+".numberPadQrcode": {
+	width: 50,
+	height: 50,
+}

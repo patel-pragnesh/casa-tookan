@@ -1,0 +1,45 @@
+<Alloy>
+	<Window class="container" onPostlayout="showIntro">
+		    
+	    <View id="scroller">
+	    	<View id="viewOne">
+	    		<Require src="news"/>
+	    	</View>
+	    	<View id="viewTwo">
+	        	<Require src="browse"/>
+	        </View>
+	        <View id="viewThree">
+	        	<Require src="casa"/>
+	        </View>
+	        <View id="viewFour">
+	        	<Require src="balances"/>
+	        </View>
+	    </View>
+	    
+	    <View class="tabbar">
+	    	<View class="separator"></View>
+	    	<View class="tab tabnews" id="tabnews" layout="vertical">
+	    		<ImageView class="tabImage" id="tabNewsImage" image="/images/icon_news_active.png" />
+	    		 <Label class="tabLabel">News</Label>
+	    	 
+	    	</View>
+	    	<View class="tab tabbrowse" id="tabbrowse" layout="vertical">
+	    		<ImageView class="tabImage" id="tabBrowseImage" image="/images/icon_browse.png" />
+	    		  <Label class="tabLabel">Browse</Label>
+	    	</View>
+	    	<View class="tab tabcasa" id="tabcasa" layout="vertical">
+	    		<ImageView class="tabImage" id="tabCasaImage" image="/images/icon_casa.png" />
+	    		 <Label class="tabLabel">My Casa</Label>
+	    		 
+	    	</View>
+	    	<View class="tab tabbalances" id="tabbalances" layout="vertical">
+	    		<ImageView class="tabImage" id="tabBalancesImage" image="/images/icon_balances.png" />
+	    		  <Label class="tabLabel">Balances</Label>
+	    	</View>
+	     
+	    </View>
+	    
+	    
+	    
+	</Window>
+</Alloy>

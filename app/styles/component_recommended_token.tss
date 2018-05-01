@@ -1,0 +1,58 @@
+".tokenBox": {
+	width: Ti.UI.FILL,
+	height: 90, 
+	backgroundColor: "white"
+}
+ 
+ 
+ 
+ "#tokenImage":{ 
+	  left:8,
+	height:60,
+	width:60, 
+}
+  "#tokenInfo":{
+  	
+  		 
+  }
+".controls":{
+	top:20,
+}
+".tokenBorder": {
+	width: "95%",
+	height: 1,
+	bottom: 0,
+	backgroundColor: "#ececec"
+}
+
+".topInfo":{
+	 top:15,
+	width:Ti.UI.SIZE,
+	height:Ti.UI.SIZE,
+}
+ 
+"#tokenSymbol":{
+	left:80, 
+	textAlign:'left',
+	 
+}
+"#tokenName":{
+		left:80, 
+	textAlign:'left',
+	 
+}
+"#addButton":{
+		right:10,
+		 height:40,
+	width:40, 
+	backgroundImage:"/images/icon_plus_blue.png", 
+	 
+}
+"#tokenLabels":{
+	left:15,
+	 
+}
+
+
+
+ 

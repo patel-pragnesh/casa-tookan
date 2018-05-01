@@ -1,0 +1,101 @@
+ 
+"#main":{ 
+	top:0,
+	backgroundColor:"white", 
+}
+
+ 
+"#topBar":{  
+	width:Ti.UI.FILL,
+	height:Ti.UI.FILL,
+	backgroundColor:"#f8f8f8",
+	top:0,
+}
+ 
+"#search":{
+ 	backgroundColor:"#f8f8f8", 
+ 	barColor:"#f8f8f8",
+ 	borderColor:"transparent",
+ 	 bottom:0, 
+ 	 left:0,
+ }
+
+"#backButton":{ 
+		opacity:0.5,
+	left:5,  
+	 height:16,
+	 width:18,
+	 backgroundImage:"/images/browser_back.png",
+}
+ 
+"#rightOptions":{  
+ 	width:25,
+	right:5,  
+	 bottom:0,
+	
+}
+
+
+"#reloadButton":{   
+ height:25,
+ bottom:0,
+	 backgroundImage:"/images/browser_refresh.png",
+}
+
+"#activityIndicator":{   
+	 bottom:0,
+	 style: Ti.UI.ActivityIndicatorStyle.DARK
+}
+ 
+ 
+
+".tabbar": {
+	width: Ti.UI.FILL,
+	height: Alloy.Globals.tabBarHeight,
+	bottom: 0,
+	backgroundColor: "#f8f8f8",
+	layout:'horizontal'
+}
+
+
+".tab": {
+	width: Ti.UI.SIZE,
+	top: 10
+	
+}
+
+".tabback": {
+ 
+	 
+	width:'20%'
+}
+
+".tabforward": {
+	 
+	 
+	width:'20%'
+}
+
+".tabhome": {
+ 
+ 
+	width:'20%'
+}
+
+".tabfavourite": {
+	  
+	width:'20%'
+}
+ 
+".tabshare": {
+
+	width:'20%'
+}
+
+
+".tabImage": {  
+	height: 30,
+}
+
+
+ 

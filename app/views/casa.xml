@@ -1,0 +1,42 @@
+<Alloy>
+	<View class="topbar" id="receiveTopBar">
+		<ImageView class="settingsButton" id="settingsButton" image="/images/tookan.png" />
+		<Label class="title">L("label_tab_receive")</Label>
+	</View>
+	
+	<View class="mainView" id="mainView"  layout="vertical">
+		
+	<View class="topView" id="topView" layout="horizontal">
+		<View class="casaHomeView" id="casaHomeView" >
+			<ImageView class="caseHomeImage" id="caseHomeImage" image="/images/casa_home.png" />
+		</View>	
+		<View class="balancesView" id="balancesView" layout="vertical">
+			<Label class="infoLab" id="btc_address"> </Label>
+			<Label  class="infoLab" id="eth_address"  > </Label>
+			<Label  class="infoLab" id="usd_value" > </Label>
+    	</View>
+    
+    </View>
+    
+    	<View class="topView" id="secondView" layout="horizontal">
+    		<View class="casaHomeView" id="casaHomeView" >
+		<ImageView class="avatarImage" id="avatarImage" image="/images/casa_avatar.png" />
+		</View>	
+		<View class="balancesView" id="buttonView" layout="vertical">
+			 <Button id="addAvatarButton" class="casaButton">ADD AVATAR</Button>
+			  <Button id="changeNameButton" class="casaButton">CHANGE NAME</Button>
+    	</View>
+    
+    </View>
+    </View>
+     
+    <!--
+	<View class="receiveView" id="receiveView" layout="vertical">
+		<Label class="center">L("label_currentaddress")</Label>
+		<Label class="bold blue address" id="address"></Label>
+		<Label class="center size15" id="descriptionText">L("label_currentaddress_bitcoin")</Label>
+        <View class="qrcodeImage" id="qrcode" />
+        <Label>L("label_receive_copy")</Label>
+    </View>
+    -->
+</Alloy>

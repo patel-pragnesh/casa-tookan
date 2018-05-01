@@ -1,0 +1,399 @@
+/**
+ * HYPERLOOP GENERATED - DO NOT MODIFY
+ *
+ * This source code is Copyright (c) 2018 by Appcelerator, Inc.
+ * All Rights Reserved.  This code contains patents and/or patents pending.
+ */
+var $dispatch = Hyperloop.dispatch,
+	$init,
+	$imports;
+
+/**
+ * Accelerate//Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator11.3.sdk/System/Library/Frameworks/Accelerate.framework/Frameworks/vecLib.framework/Headers/BNNS/bnns.h
+ * @class
+ */
+function BNNSPoolingLayerParameters (pointer) {
+	if (pointer) {
+		var oldWrapper = Hyperloop.getWrapper(pointer);
+		if (oldWrapper) return oldWrapper;
+	}
+	if (!(this instanceof BNNSPoolingLayerParameters)) { throw new TypeError('Cannot instantiate a class by calling it as a function'); }
+	if (!$init) {
+		$initialize();
+	}
+	this.$bias = {};
+	if (pointer) {
+		this.$bias.f0 = $dispatch(pointer, 'valueAtIndex:', 0);
+	}
+	if (pointer) {
+		this.$bias.f1 = $dispatch(pointer, 'valueAtIndex:', 1);
+	}
+	if (pointer) {
+		this.$bias.f2 = $dispatch(pointer, 'valueAtIndex:', 2);
+	}
+	if (pointer) {
+		this.$bias.f3 = $dispatch(pointer, 'valueAtIndex:', 3);
+	}
+	if (pointer) {
+		this.$bias.f4 = $dispatch(pointer, 'valueAtIndex:', 4);
+	}
+	if (pointer) {
+		this.$bias.f5 = $dispatch(pointer, 'valueAtIndex:', 5);
+	}
+	if (pointer) {
+		this.$bias.f6 = $dispatch(pointer, 'valueAtIndex:', 6);
+	}
+	this.$activation = {};
+	if (pointer) {
+		this.$activation.f0 = $dispatch(pointer, 'valueAtIndex:', 7);
+	}
+	if (pointer) {
+		this.$activation.f1 = $dispatch(pointer, 'valueAtIndex:', 8);
+	}
+	if (pointer) {
+		this.$activation.f2 = $dispatch(pointer, 'valueAtIndex:', 9);
+	}
+	if (pointer) {
+		this.$activation.f3 = $dispatch(pointer, 'valueAtIndex:', 10);
+	}
+	if (pointer) {
+		this.$activation.f4 = $dispatch(pointer, 'valueAtIndex:', 11);
+	}
+	if (pointer) {
+		this.$activation.f5 = $dispatch(pointer, 'valueAtIndex:', 12);
+	}
+	if (pointer) {
+		this.$activation.f6 = $dispatch(pointer, 'valueAtIndex:', 13);
+	}
+	if (pointer) {
+		this.$activation.f7 = $dispatch(pointer, 'valueAtIndex:', 14);
+	}
+	if (pointer) {
+		this.$activation.f8 = $dispatch(pointer, 'valueAtIndex:', 15);
+	}
+	if (pointer) {
+		this.$activation.f9 = $dispatch(pointer, 'valueAtIndex:', 16);
+	}
+	if (pointer) {
+		this.$activation.f10 = $dispatch(pointer, 'valueAtIndex:', 17);
+	}
+	if (pointer) {
+		this.$activation.f11 = $dispatch(pointer, 'valueAtIndex:', 18);
+	}
+	if (!pointer) {
+		pointer = Hyperloop.createPointer('{BNNSPoolingLayerParameters=QQQQQQQQi{?=^viff^f}{?=iffiii^i^i^i}}', 'Accelerate', '/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator11.3.sdk/System/Library/Frameworks/Accelerate.framework/Frameworks/vecLib.framework/Headers/BNNS/bnns');
+	}
+	Object.defineProperty(this, '$native', {
+		value: pointer,
+		writable: false,
+		enumerable: true, 
+		configurable: false
+	});
+	Hyperloop.registerWrapper(this);
+	Object.defineProperty(this.$bias, 'f0', {
+		set: function (_value) {
+			$dispatch(pointer, 'setValue:atIndex:',[_value, 0]);
+		},
+		get: function () {
+			return $dispatch(pointer, 'valueAtIndex:', 0);
+		},
+	});
+	Object.defineProperty(this.$bias, 'f1', {
+		set: function (_value) {
+			$dispatch(pointer, 'setValue:atIndex:',[_value, 1]);
+		},
+		get: function () {
+			return $dispatch(pointer, 'valueAtIndex:', 1);
+		},
+	});
+	Object.defineProperty(this.$bias, 'f2', {
+		set: function (_value) {
+			$dispatch(pointer, 'setValue:atIndex:',[_value, 2]);
+		},
+		get: function () {
+			return $dispatch(pointer, 'valueAtIndex:', 2);
+		},
+	});
+	Object.defineProperty(this.$bias, 'f3', {
+		set: function (_value) {
+			$dispatch(pointer, 'setValue:atIndex:',[_value, 3]);
+		},
+		get: function () {
+			return $dispatch(pointer, 'valueAtIndex:', 3);
+		},
+	});
+	Object.defineProperty(this.$bias, 'f4', {
+		set: function (_value) {
+			$dispatch(pointer, 'setValue:atIndex:',[_value, 4]);
+		},
+		get: function () {
+			return $dispatch(pointer, 'valueAtIndex:', 4);
+		},
+	});
+	Object.defineProperty(this.$bias, 'f5', {
+		set: function (_value) {
+			$dispatch(pointer, 'setValue:atIndex:',[_value, 5]);
+		},
+		get: function () {
+			return $dispatch(pointer, 'valueAtIndex:', 5);
+		},
+	});
+	Object.defineProperty(this.$bias, 'f6', {
+		set: function (_value) {
+			$dispatch(pointer, 'setValue:atIndex:',[_value, 6]);
+		},
+		get: function () {
+			return $dispatch(pointer, 'valueAtIndex:', 6);
+		},
+	});
+	Object.defineProperty(this.$activation, 'f0', {
+		set: function (_value) {
+			$dispatch(pointer, 'setValue:atIndex:',[_value, 7]);
+		},
+		get: function () {
+			return $dispatch(pointer, 'valueAtIndex:', 7);
+		},
+	});
+	Object.defineProperty(this.$activation, 'f1', {
+		set: function (_value) {
+			$dispatch(pointer, 'setValue:atIndex:',[_value, 8]);
+		},
+		get: function () {
+			return $dispatch(pointer, 'valueAtIndex:', 8);
+		},
+	});
+	Object.defineProperty(this.$activation, 'f2', {
+		set: function (_value) {
+			$dispatch(pointer, 'setValue:atIndex:',[_value, 9]);
+		},
+		get: function () {
+			return $dispatch(pointer, 'valueAtIndex:', 9);
+		},
+	});
+	Object.defineProperty(this.$activation, 'f3', {
+		set: function (_value) {
+			$dispatch(pointer, 'setValue:atIndex:',[_value, 10]);
+		},
+		get: function () {
+			return $dispatch(pointer, 'valueAtIndex:', 10);
+		},
+	});
+	Object.defineProperty(this.$activation, 'f4', {
+		set: function (_value) {
+			$dispatch(pointer, 'setValue:atIndex:',[_value, 11]);
+		},
+		get: function () {
+			return $dispatch(pointer, 'valueAtIndex:', 11);
+		},
+	});
+	Object.defineProperty(this.$activation, 'f5', {
+		set: function (_value) {
+			$dispatch(pointer, 'setValue:atIndex:',[_value, 12]);
+		},
+		get: function () {
+			return $dispatch(pointer, 'valueAtIndex:', 12);
+		},
+	});
+	Object.defineProperty(this.$activation, 'f6', {
+		set: function (_value) {
+			$dispatch(pointer, 'setValue:atIndex:',[_value, 13]);
+		},
+		get: function () {
+			return $dispatch(pointer, 'valueAtIndex:', 13);
+		},
+	});
+	Object.defineProperty(this.$activation, 'f7', {
+		set: function (_value) {
+			$dispatch(pointer, 'setValue:atIndex:',[_value, 14]);
+		},
+		get: function () {
+			return $dispatch(pointer, 'valueAtIndex:', 14);
+		},
+	});
+	Object.defineProperty(this.$activation, 'f8', {
+		set: function (_value) {
+			$dispatch(pointer, 'setValue:atIndex:',[_value, 15]);
+		},
+		get: function () {
+			return $dispatch(pointer, 'valueAtIndex:', 15);
+		},
+	});
+	Object.defineProperty(this.$activation, 'f9', {
+		set: function (_value) {
+			$dispatch(pointer, 'setValue:atIndex:',[_value, 16]);
+		},
+		get: function () {
+			return $dispatch(pointer, 'valueAtIndex:', 16);
+		},
+	});
+	Object.defineProperty(this.$activation, 'f10', {
+		set: function (_value) {
+			$dispatch(pointer, 'setValue:atIndex:',[_value, 17]);
+		},
+		get: function () {
+			return $dispatch(pointer, 'valueAtIndex:', 17);
+		},
+	});
+	Object.defineProperty(this.$activation, 'f11', {
+		set: function (_value) {
+			$dispatch(pointer, 'setValue:atIndex:',[_value, 18]);
+		},
+		get: function () {
+			return $dispatch(pointer, 'valueAtIndex:', 18);
+		},
+	});
+}
+
+function $initialize () {
+	$imports = {};
+
+
+	BNNSPoolingLayerParameters._imports = $imports;
+
+	// properties
+	Object.defineProperties(BNNSPoolingLayerParameters.prototype, {
+	
+		x_stride: {
+			get: function () {
+				return $dispatch(this.$native, 'valueAtIndex:', 0);
+			},
+		
+			set: function (_x_stride) {
+				$dispatch(this.$native, 'setValue:atIndex:', [_x_stride, 0]);
+			},
+			enumerable: false
+		},
+	
+		y_stride: {
+			get: function () {
+				return $dispatch(this.$native, 'valueAtIndex:', 1);
+			},
+		
+			set: function (_y_stride) {
+				$dispatch(this.$native, 'setValue:atIndex:', [_y_stride, 1]);
+			},
+			enumerable: false
+		},
+	
+		x_padding: {
+			get: function () {
+				return $dispatch(this.$native, 'valueAtIndex:', 2);
+			},
+		
+			set: function (_x_padding) {
+				$dispatch(this.$native, 'setValue:atIndex:', [_x_padding, 2]);
+			},
+			enumerable: false
+		},
+	
+		y_padding: {
+			get: function () {
+				return $dispatch(this.$native, 'valueAtIndex:', 3);
+			},
+		
+			set: function (_y_padding) {
+				$dispatch(this.$native, 'setValue:atIndex:', [_y_padding, 3]);
+			},
+			enumerable: false
+		},
+	
+		k_width: {
+			get: function () {
+				return $dispatch(this.$native, 'valueAtIndex:', 4);
+			},
+		
+			set: function (_k_width) {
+				$dispatch(this.$native, 'setValue:atIndex:', [_k_width, 4]);
+			},
+			enumerable: false
+		},
+	
+		k_height: {
+			get: function () {
+				return $dispatch(this.$native, 'valueAtIndex:', 5);
+			},
+		
+			set: function (_k_height) {
+				$dispatch(this.$native, 'setValue:atIndex:', [_k_height, 5]);
+			},
+			enumerable: false
+		},
+	
+		in_channels: {
+			get: function () {
+				return $dispatch(this.$native, 'valueAtIndex:', 6);
+			},
+		
+			set: function (_in_channels) {
+				$dispatch(this.$native, 'setValue:atIndex:', [_in_channels, 6]);
+			},
+			enumerable: false
+		},
+	
+		out_channels: {
+			get: function () {
+				return $dispatch(this.$native, 'valueAtIndex:', 7);
+			},
+		
+			set: function (_out_channels) {
+				$dispatch(this.$native, 'setValue:atIndex:', [_out_channels, 7]);
+			},
+			enumerable: false
+		},
+	
+		pooling_function: {
+			get: function () {
+				return $dispatch(this.$native, 'valueAtIndex:', 8);
+			},
+		
+			set: function (_pooling_function) {
+				$dispatch(this.$native, 'setValue:atIndex:', [_pooling_function, 8]);
+			},
+			enumerable: false
+		},
+	
+		bias: {
+			get: function () {
+				return this.$bias;
+			},
+		
+			set: function (_bias) {
+				this.$bias.f0 = _bias.f0;
+				this.$bias.f1 = _bias.f1;
+				this.$bias.f2 = _bias.f2;
+				this.$bias.f3 = _bias.f3;
+				this.$bias.f4 = _bias.f4;
+				this.$bias.f5 = _bias.f5;
+				this.$bias.f6 = _bias.f6;
+			},
+			enumerable: false
+		},
+	
+		activation: {
+			get: function () {
+				return this.$activation;
+			},
+		
+			set: function (_activation) {
+				this.$activation.f0 = _activation.f0;
+				this.$activation.f1 = _activation.f1;
+				this.$activation.f2 = _activation.f2;
+				this.$activation.f3 = _activation.f3;
+				this.$activation.f4 = _activation.f4;
+				this.$activation.f5 = _activation.f5;
+				this.$activation.f6 = _activation.f6;
+				this.$activation.f7 = _activation.f7;
+				this.$activation.f8 = _activation.f8;
+				this.$activation.f9 = _activation.f9;
+				this.$activation.f10 = _activation.f10;
+				this.$activation.f11 = _activation.f11;
+			},
+			enumerable: false
+		}
+	
+	});
+
+	$init = true;
+}
+
+module.exports = BNNSPoolingLayerParameters;

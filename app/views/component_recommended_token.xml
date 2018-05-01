@@ -1,0 +1,17 @@
+<Alloy>
+	<View class="tokenBox" id="tokenBox">
+				   
+		  		 
+		   		
+		   	<ImageView class="tokenImage" id="tokenImage" defaultImage="/images/image_blank.png"  />
+		   		<View layout="vertical" width="Ti.UI.SIZE" height="Ti.UI.SIZE" id="tokenLabels"> 
+		   			<Label id="tokenSymbol"></Label>
+		   			<Label id="tokenName"></Label>
+		   		 </View>
+		   		 <Button id="addButton"   onClick="addToken"/>
+		   		 <View class="tokenBorder"></View>
+		   		 </View>
+		  		 	
+		  
+ 
+</Alloy>

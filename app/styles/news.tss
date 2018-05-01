@@ -1,0 +1,97 @@
+".newsbar": {
+	width: "100%",
+	height: 40,
+	layout:'horizontal',
+	top: Alloy.Globals.tabBarHeight,
+	backgroundColor: "#f3f3f3",
+}
+
+".settingsButton":{
+	left:10,
+	width:30,
+	bottom:10 	
+}
+
+".tab": {
+	width: Ti.UI.SIZE,
+	top: 5
+}
+".tabTop":{
+	width:'24.9%',
+}
+".tabTopLabel":{
+	height:'100%',
+}
+".tabnew": { 
+ 
+}
+
+".tabstar": {  
+}
+
+".tabread": {  
+}
+
+".tabfilt": {  
+}
+ 
+
+
+".refresh": {
+	width: 25,
+	height: 25,
+	top: 28,
+	margin: 10
+}
+
+".refresh[if=Alloy.Globals.isiPhoneX]": {
+	 
+	top: 38, 
+}
+
+
+".refresh[platform=android]": {
+	 
+	top: 8, 
+}
+
+
+
+".pull":{
+	backgroundColor:'#f4f4f4',
+}
+
+".newsList": {
+	width: Ti.UI.FILL,
+	height: 0,
+	backgroundColor: "#ececec",
+	separatorStyle:Titanium.UI.TABLE_VIEW_SEPARATOR_STYLE_NONE
+}
+".newsList[platform=ios]": {
+	selectionStyle: Titanium.UI.iOS.TableViewCellSelectionStyle.NONE
+}
+".newsList[platform=android]": {
+	selectionStyle:'none'
+}
+
+".buttons": {
+	width: "60%",
+	height: 35,
+	bottom: 5,
+	borderRadius: 4,
+	borderWidth: 1,
+	backgroundColor: "#ffffff",
+	borderColor: "#ffffff"
+}
+
+
+".empty": {
+	width: Ti.UI.FILL,
+	height: 60,
+	color: "#ececec",
+	backgroundColor: "transparent"
+}
+"#loadingLabel":{
+	left:5,
+}
+

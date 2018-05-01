@@ -1,0 +1,78 @@
+".splashScreen": {
+	backgroundColor: "#e54353"
+}
+
+".splashLogo": {
+	width: "60%"
+}
+
+".tabbar": {
+	width: Ti.UI.FILL,
+	height: Alloy.Globals.tabBarHeight,
+	bottom: 0,
+	backgroundColor: "#ececec",
+	layout:'horizontal'
+}
+
+
+".tab": {
+	width: Ti.UI.SIZE,
+	top: 5
+	
+}
+
+".tabnews": {
+ 
+	 
+	width:'24.9%'
+}
+
+".tabbrowse": {
+	 
+	 
+	width:'24.9%'
+}
+
+".tabcasa": {
+ 
+ 
+	width:'24.9%'
+}
+
+".tabbalances": {
+	  
+	width:'24.9%'
+}
+
+".tabLabel": {
+	font: {
+		fontSize: 12
+	} 
+}
+
+
+ 
+
+".tabImage": {
+	width: 30,
+	height: 30,
+}
+
+"#viewOne":{
+	visible:true
+}
+
+"#viewTwo":{
+	visible:false
+}
+
+
+"#viewThree":{
+	visible:false
+}
+
+
+"#viewFour":{
+	visible:false
+}
+

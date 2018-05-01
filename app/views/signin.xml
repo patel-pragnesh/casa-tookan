@@ -1,0 +1,46 @@
+<Alloy>
+	<Window class="container">
+		<View class="csrpng" id="csrpng"></View>
+		<ScrollView class="tifill wrapper" id="wrapper" scrollType="vertical">
+			<View class="tisize" id="signinView" layout="vertical">
+				<ImageView class="logo" image="/images/tookan.png" />
+				<View id="buttons" visible="false">
+					<View class="button newwallet" id="newwalletButton">
+						<Label class="size25">L("label_newwallet")</Label>
+					</View>
+					<View class="button-thin hasuser" id="hasuserButton">
+						<Label class="size15">L("label_loginasuser")</Label>
+					</View>
+					
+					<View class="tisize inputs" id="inputs" visible="false">
+						<TextField class="inputFullPassphrase" id="inputFullPassphrase" passwordMask="true" />
+						<TextField class="inputEachphrase" id="inputEachphrase" passwordMask="true" visible="false" />
+						<TextField class="inputEachphrase" id="inputEachphrase2" passwordMask="true" visible="false" />
+						<View class="tisize textmenues">
+							<View class="tisize" id="signinInputEach" layout="horizontal" visible="false">
+								<Label class="size15" id="signinPrev">L("label_inputbyeach_prev")</Label>
+								<Label class="p size15">|</Label>
+								<Label class="p size15" id="signinCancelEach">L("label_signin_cancel")</Label>
+								<Label class="p size15">|</Label>
+								<Label class="p size15" id="signinNext">L("label_inputbyeach_next")</Label>
+							</View>
+							<View class="tisize" id="signinInput" layout="horizontal">
+								<Label class="size15" id="signinInputbyeach">L("label_signin_inputbyeach")</Label>
+								<Label class="p size15">|</Label>
+								<Label class="p size15" id="signinCancel">L("label_signin_cancel")</Label>
+							</View>
+						</View>
+					</View>
+					
+					<View class="button signin" id="signinButton">
+						<Label class="size25">L("label_signin")</Label>
+					</View>
+				</View>
+			</View>
+			<View class="tisize" id="privecypolicy" layout="vertical" visible="false">
+				<Label class="size12">L("label_privecypolicy")</Label>
+				<Label class="size8">L("label_privecypolicy_description")</Label>
+			</View>
+		</ScrollView>
+	</Window>
+</Alloy>

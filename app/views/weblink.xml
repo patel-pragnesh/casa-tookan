@@ -1,0 +1,13 @@
+<Alloy>
+	<Window class="container">
+		<WebView class="webview" id="webview" />
+		<View class="webtopbar" id="webTopBar">
+			<Label class="title">Weblink</Label>
+		</View>
+		<View class="webbottombar" id="webBottomBar">
+			<ImageView class="backButton" id="backButton" image="/images/icon_weblink_back.png" />
+			<ImageView class="reloadButton" id="reloadButton" image="/images/icon_weblink_reload.png" />
+			<ImageView class="pull-right closeButton" id="closeButton" image="/images/icon_weblink_close.png" />
+		</View>
+	</Window>
+</Alloy>

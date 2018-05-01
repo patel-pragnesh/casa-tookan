@@ -1,0 +1,41 @@
+<Alloy>
+ 
+	<View class="tifill mainView" id="mainView">
+		<View class="tifill background" id="background"></View>
+	<View class="contractBox">
+		 <Button id="closeButton"  onClick="close"/>
+		
+		 <View layout="vertical" class="controls" id="searchControls"> 
+		 	
+		 		<Label id="title">enter contract address</Label>
+		  		<TextField id="contractAddressField" /> 
+		  		<View > 
+		   		<Button id="searchButton" onClick="searchToken"/>
+		   		<ActivityIndicator id="activityIndicator" message=""/>
+		   		 </View>
+		   		 
+		  </View>
+		  
+		   <View layout="vertical" class="controls" id="tokenInfo" visible="false"> 
+		 	 
+		  		<View layout="horizontal" class="topInfo"  > 
+		   		
+		   	<ImageView class="tokenImage" id="tokenImage" defaultImage="/images/image_blank.png" />
+		   		<View layout="vertical" width="Ti.UI.SIZE" height="Ti.UI.SIZE" id="tokenLabels"> 
+		   			<Label id="tokenSymbol"></Label>
+		   			<Label id="tokenName"></Label>
+		   		 </View>
+		   		 </View>
+		  		<View layout="horizontal"  class="bottomInfo" > 
+		   		
+		   		<Button id="backButton" onClick="searchToken" onClick="backToSearch"/>
+		   		<Button id="addButton"    onClick="addToken"/>
+		   		 
+		   		 </View>
+		   		 
+		  </View>
+		  
+	  </View>
+	
+	</View> 
+</Alloy>

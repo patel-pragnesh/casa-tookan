@@ -1,0 +1,22 @@
+<Alloy>
+	<Window class="container">
+		<ScrollView class="tifill wrapper" scrollType="vertical">
+			<View class="tisize" layout="vertical">
+				<ImageView class="icon" image="/images/icon_settings_encryption_white.png" />
+				
+				<Label class="size15 white labelDecyption">L("label_encryption_decyption")</Label>
+				<TextField class="inputPassword" id="inputPassword" passwordMask="true" />
+				
+				<View class="button decyptButton" id="decyptButton">
+					<Label class="size25 white">L("label_decrypt")</Label>
+				</View>
+				<View class="button-thin signoutButton" id="signoutButton">
+					<Label class="size20 white">L("label_settings_signout")</Label>
+				</View>
+			</View>
+		</ScrollView>
+		<View class="activityIndicatorFull" id="activityIndicator" visible="false">
+			<ActivityIndicator class="indiecaterDark" visible="true" />
+		</View>
+	</Window>
+</Alloy>

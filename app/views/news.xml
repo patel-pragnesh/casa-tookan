@@ -1,0 +1,61 @@
+<Alloy>
+	<View class="newsbar" id="newsBar">
+		
+	
+	    	<View class="tabTop tabnew" id="tabnew" layout="vertical">
+	    		 
+	    		 <Label class="tabTopLabel">NEW</Label>
+	    	 
+	    	</View>
+	    	<View class="tabTop tabstar" id="tabstar" layout="vertical">
+	    		 
+	    		  <Label class="tabTopLabel">STAR</Label>
+	    	</View>
+	    	<View class="tabTop tabread" id="tabread" layout="vertical">
+	    		 
+	    		 <Label class="tabTopLabel">READ</Label>
+	    		 
+	    	</View>
+	    	<View class="tabTop tabfilt" id="tabfilt" layout="vertical"> 
+	    		  <Label class="tabTopLabel">FILTER</Label>
+	    	</View>
+		
+	</View> 
+		 <TableView class="newsList" id="newsList">
+	 	    <FooterView>
+	 	   	
+	 	   	 <View class="tableViewFooter"   id="tableViewFooter" visible="false">
+		
+            <View class="tisize" layout="horizontal">
+		
+		<ActivityIndicator class="indiecaterDark" visible="true" />
+		<Label class="loadingLabelFooter">L("label_loading")</Label>
+			</View>
+			</View>
+        </FooterView>
+	 	</TableView>
+	 
+	
+	<View class="error" id="errorMessage" visible="false">
+		<Label class="size15 gray center">L("label_error_loading")</Label>
+	</View>
+	
+	<View class="empty" id="emptyMessage" visible="false">
+		<Label class="size15 gray center">L("label_history_empty")</Label>
+	</View>
+	
+	<View class="activityIndicatorFull" id="activityIndicator" visible="false">
+		<View class="tisize" layout="horizontal">
+		
+		<ActivityIndicator class="indiecaterDark" visible="true" />
+		<Label id="loadingLabel">L("label_loading")</Label>
+			</View>
+		
+	</View>
+	
+	<View class="topbar" id="newsTopBar">
+		<ImageView class="settingsButton" id="settingsButton" image="/images/tookan.png" />
+		<Label class="title">L("label_tab_news")</Label>
+		
+	</View>
+</Alloy>

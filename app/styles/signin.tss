@@ -1,0 +1,61 @@
+".wrapper": {
+	backgroundColor: Alloy.Globals.mainColor
+}
+
+".csrpng": {
+	width: 1,
+	height: 1,
+	opacity: 0
+}
+
+".logo": {
+	width: 150,
+	top: 0
+}
+
+".button": {
+	width: "90%",
+	height: 50,
+	backgroundColor: "#80FFFFFF"
+}
+
+".button-thin": {
+	width: "90%",
+	height: 35,
+	backgroundColor: "#80FFFFFF"
+}
+
+".newwallet": {
+	top: 50
+}
+
+".hasuser": {
+	top: 120
+}
+
+".signin": {
+	top: 210,
+	opacity: 0
+}
+
+".inputs": {
+	width: "100%",
+	top: 50,
+	opacity: 0
+}
+
+".inputFullPassphrase": {
+	top: 0,
+	width: 300
+}
+
+".inputEachphrase": {
+	top: 0,
+	left: 500,
+	width: 200,
+	opacity: 0
+}
+
+".textmenues": {
+	top: 60
+}

@@ -1,0 +1,59 @@
+<Alloy>
+	<View class="transparent">
+		<View class="tifill background" id="background"></View>
+		<View class="tifill mainView" id="mainView">
+			<View class="blockchainView" layout="vertical">
+				<View class="menuTopbar"  id="blockchainBar">
+					<Label class="size15 white blockchainTitle">blockchain</Label>
+				</View>
+				 
+				<View class="aChain" id="bitcoinChain" layout="horizontal" onClick="setBitcoinBlockchain">
+					<ImageView class="chainIcon" image="/images/asset_btc.png" onClick="setBitcoinBlockchain" />
+					<Label class="size18 chainName"  onClick="setBitcoinBlockchain" >Bitcoin - Counterparty</Label> 
+				</View>
+				 
+				<View class="aChain" id="ethereumChain" layout="horizontal" onClick="setEthereumBlockchain">
+					<ImageView class="chainIcon" image="/images/asset_eth.png" onClick="setEthereumBlockchain"/>
+					<Label class="size18 chainName" onClick="setEthereumBlockchain" >Ethereum - ERC-20</Label> 
+				</View>
+				 
+			</View>
+			<View class="walletView" layout="vertical">
+				<View class="menuTopbar" id="walletBar">
+					<Label class="size15 white walletTitle">L("label_tab_wallet")</Label>
+				</View>
+				<View class="separator"></View>
+				<View class="currentWallet" id="currentWallet">
+					<ImageView class="walletIcon" id="walletIcon" image="/images/icon_wallet_red.png" />
+					<Label class="size20 tagCurrentWallet" id="tagCurrentWallet"></Label>
+					<Label class="size15 gray addressCurrentWallet" id="addressCurrentWallet"></Label>
+					<ImageView class="arrowIcon pull-right" id="arrowIcon" image="/images/icon_arrow_right.png" />
+				</View>
+				<View class="separator"></View>
+			</View>
+			<View class="tisize menuListWrapper" layout="vertical" id="menuItems">
+				<View class="menuLabels" id="faqButton">
+					<ImageView class="menuIcon" id="faqIcon" image="/images/icon_settings_faq.png" />
+					<Label class="size20 menuLabel">L("label_faq")</Label>
+				</View>
+				<View class="menuLabels" id="priorityButton">
+					<ImageView class="menuIcon" id="priorityIcon" image="/images/icon_settings_priority.png" />
+					<Label class="size20 menuLabel" id="priorityLabel"></Label>
+				</View>
+				<View class="menuLabels" id="settingsButton">
+					<ImageView class="menuIcon" id="settingsIcon" image="/images/icon_settings.png" />
+					<Label class="size20 menuLabel">L("label_settings")</Label>
+				</View>
+			</View>
+			<View class="tisize addressListWrapper">
+				<View class="tisize listView" id="listView">
+					<ScrollView class="addressList" id="addressList" scrollType="vertical" layout="vertical" showVerticalScrollIndicator="true">
+					</ScrollView>
+					<View class="newaddress" id="newaddress">
+						<Label class="size15 white">L("label_newaddress")</Label>
+					</View>
+				</View>
+			</View>
+		</View>
+	</View>
+</Alloy>

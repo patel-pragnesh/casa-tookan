@@ -1,0 +1,51 @@
+<Alloy> 
+ <View class="transparent">
+		<View class="main" id="main" >
+			
+			<View id="topBar">
+			 <SearchBar id="search" />
+			 <View id="rightOptions">
+		  				<Button id="reloadButton" onClick="reload"/>
+		  				<ActivityIndicator id="activityIndicator" message=""/>
+		     	 </View>
+		 	 </View>
+		  
+	 
+		  
+		<View id="web">
+		</View>
+		
+		<View class="tabbar" id="tabbar">
+	    	<View class="separator"></View>
+	    	<View class="tab tabback" id="tabback" layout="vertical">
+	    		<ImageView class="tabImage" id="tabBackImage" image="/images/browser_left_inactive.png" />
+	    	 
+	    	</View>
+	    	<View class="tab tabforward" id="tabforward" layout="vertical">
+	    		<ImageView class="tabImage" id="tabForwardImage" image="/images/browser_right_inactive.png" />
+	    		   
+	    	</View>
+	    	<View class="tab tabhome" id="tabhome" layout="vertical">
+	    		<ImageView class="tabImage" id="tabHomeImage" image="/images/browser_home.png" />
+	    	 
+	    		 
+	    	</View>
+	    	<View class="tab tabfavourite" id="tabfavourite" layout="vertical">
+	    		<ImageView class="tabImage" id="tabFavouriteImage" image="/images/browser_favourite.png" />
+	    		 
+	    	</View>dfyfg
+	    	<View class="tab tabshare" id="tabshare" layout="vertical">
+	    		<ImageView class="tabImage" id="tabShareImage" image="/images/browser_share.png" />
+	    		 
+	    	 
+	    	</View>
+	    </View>
+		
+		
+		
+		
+		</View>
+		</View>
+ 
+ 
+</Alloy>
