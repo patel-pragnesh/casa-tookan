@@ -5,13 +5,15 @@
 			<View class="tisize" id="signinView" layout="vertical">
 				<ImageView class="logo" image="/images/tookan.png" />
 				<View id="buttons" visible="false">
+					<View layout="vertical">
+					<View class="button hasuser" id="hasuserButton">
+						<Label class="size25">Sign In</Label>
+					</View>
+						<Label class="size15 orLabel">or</Label>
 					<View class="button newwallet" id="newwalletButton">
-						<Label class="size25">L("label_newwallet")</Label>
+						<Label class="size25">Sign Up</Label>
 					</View>
-					<View class="button-thin hasuser" id="hasuserButton">
-						<Label class="size15">L("label_loginasuser")</Label>
 					</View>
-					
 					<View class="tisize inputs" id="inputs" visible="false">
 						<TextField class="inputFullPassphrase" id="inputFullPassphrase" passwordMask="true" />
 						<TextField class="inputEachphrase" id="inputEachphrase" passwordMask="true" visible="false" />
@@ -36,11 +38,7 @@
 						<Label class="size25">L("label_signin")</Label>
 					</View>
 				</View>
-			</View>
-			<View class="tisize" id="privecypolicy" layout="vertical" visible="false">
-				<Label class="size12">L("label_privecypolicy")</Label>
-				<Label class="size8">L("label_privecypolicy_description")</Label>
-			</View>
+			</View> 
 		</ScrollView>
 	</Window>
 </Alloy>

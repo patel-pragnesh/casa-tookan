@@ -6,9 +6,58 @@ var bitcoin = require("requires/bitcoin");
 var loadingRequest = null;
 var isLoading = false;
 
-var unkownDiff = 5;
-$.newsList.height  = globals.display.height -  (Alloy.Globals.tabBarHeight + Alloy.Globals.topBarHeight) - $.newsBar.height + unkownDiff; 
-$.newsList.top =  Alloy.Globals.topBarHeight + 40 - unkownDiff;
+ $.tabnew.backgroundColor = "rgba(0,0,0,0.2)";
+ 
+ var tabColor = "#f3f3f3";
+ 
+ 
+ $.tabnew.addEventListener("touchend", function(){
+ 	 
+	$.tabnew.backgroundColor = "rgba(0,0,0,0.2)";
+	$.tabstar.backgroundColor = tabColor;
+ $.tabread.backgroundColor = tabColor;
+  $.tabfilt.backgroundColor = tabColor;
+ 
+	
+	});
+	 
+	  $.tabstar.addEventListener("touchend", function(){
+ 	 
+	$.tabnew.backgroundColor = tabColor;
+	$.tabstar.backgroundColor = "rgba(0,0,0,0.2)";
+ $.tabread.backgroundColor = tabColor;
+  $.tabfilt.backgroundColor = tabColor;
+ 
+	
+	});
+	 
+	  $.tabread.addEventListener("touchend", function(){
+ 	 
+	$.tabnew.backgroundColor = tabColor;
+	$.tabstar.backgroundColor = tabColor;
+ $.tabread.backgroundColor = "rgba(0,0,0,0.2)";
+  $.tabfilt.backgroundColor = tabColor;
+ 
+	
+	});
+	 
+	  $.tabfilt.addEventListener("touchend", function(){
+ 	 
+	$.tabnew.backgroundColor = tabColor;
+	$.tabstar.backgroundColor = tabColor;
+ $.tabread.backgroundColor = tabColor;
+  $.tabfilt.backgroundColor = "rgba(0,0,0,0.2)";
+ 
+	
+	});
+	 
+ 
+
+
+$.newsBar.top = Alloy.Globals.topBarHeight;
+
+$.newsList.height  = globals.display.height -  (Alloy.Globals.tabBarHeight + Alloy.Globals.topBarHeight) - $.newsBar.height ; 
+$.newsList.top =  $.newsBar.top + $.newsBar.height;
 
  
 $.newsList.addEventListener("scroll", function(e){
@@ -193,12 +242,4 @@ loadHistory(false);
 
 
 globals.refreshHistory = refreshHistory;
-
-globals.updateHistoryUI = function(){
-	$.newsTopBar.backgroundColor = globals.currentColor;
-  
  
-$.newsList.refreshControl.tintColor = globals.currentColor;
-  
-};
-globals.updateHistoryUI();

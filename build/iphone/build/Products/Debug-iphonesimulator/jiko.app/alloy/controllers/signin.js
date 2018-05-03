@@ -9,7 +9,6 @@ function __processArg(obj, key) {
   var arg = null;
   if (obj) {
     arg = obj[key] || null;
-    delete obj[key];
   }
   return arg;
 }
@@ -51,30 +50,38 @@ function Controller() {
   { width: Ti.UI.SIZE, height: Ti.UI.SIZE, id: "signinView", layout: "vertical" });
 
   $.__views.wrapper.add($.__views.signinView);
-  $.__views.__alloyId171 = Ti.UI.createImageView(
-  { width: 150, top: 0, image: "/images/tookan.png", id: "__alloyId171" });
+  $.__views.__alloyId152 = Ti.UI.createImageView(
+  { width: 150, top: 0, image: "/images/tookan.png", id: "__alloyId152" });
 
-  $.__views.signinView.add($.__views.__alloyId171);
+  $.__views.signinView.add($.__views.__alloyId152);
   $.__views.buttons = Ti.UI.createView(
   { id: "buttons", visible: false });
 
   $.__views.signinView.add($.__views.buttons);
-  $.__views.newwalletButton = Ti.UI.createView(
-  { width: "90%", height: 50, backgroundColor: "#80FFFFFF", top: 50, id: "newwalletButton" });
+  $.__views.__alloyId153 = Ti.UI.createView(
+  { layout: "vertical", id: "__alloyId153" });
 
-  $.__views.buttons.add($.__views.newwalletButton);
-  $.__views.__alloyId172 = Ti.UI.createLabel(
-  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 25, fontWeight: "normal" }, text: L("label_newwallet"), id: "__alloyId172" });
-
-  $.__views.newwalletButton.add($.__views.__alloyId172);
+  $.__views.buttons.add($.__views.__alloyId153);
   $.__views.hasuserButton = Ti.UI.createView(
-  { width: "90%", height: 35, backgroundColor: "#80FFFFFF", top: 120, id: "hasuserButton" });
+  { width: "90%", height: 50, backgroundColor: "#80FFFFFF", top: 10, id: "hasuserButton" });
 
-  $.__views.buttons.add($.__views.hasuserButton);
-  $.__views.__alloyId173 = Ti.UI.createLabel(
-  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 15, fontWeight: "normal" }, text: L("label_loginasuser"), id: "__alloyId173" });
+  $.__views.__alloyId153.add($.__views.hasuserButton);
+  $.__views.__alloyId154 = Ti.UI.createLabel(
+  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 25, fontWeight: "normal" }, text: 'Sign In', id: "__alloyId154" });
 
-  $.__views.hasuserButton.add($.__views.__alloyId173);
+  $.__views.hasuserButton.add($.__views.__alloyId154);
+  $.__views.__alloyId155 = Ti.UI.createLabel(
+  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 15, fontWeight: "normal" }, top: 10, text: 'or', id: "__alloyId155" });
+
+  $.__views.__alloyId153.add($.__views.__alloyId155);
+  $.__views.newwalletButton = Ti.UI.createView(
+  { width: "90%", height: 50, backgroundColor: "#80FFFFFF", top: 10, id: "newwalletButton" });
+
+  $.__views.__alloyId153.add($.__views.newwalletButton);
+  $.__views.__alloyId156 = Ti.UI.createLabel(
+  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 25, fontWeight: "normal" }, text: 'Sign Up', id: "__alloyId156" });
+
+  $.__views.newwalletButton.add($.__views.__alloyId156);
   $.__views.inputs = Ti.UI.createView(
   { width: "100%", height: Ti.UI.SIZE, top: 50, opacity: 0, id: "inputs", visible: false });
 
@@ -91,30 +98,30 @@ function Controller() {
   { clearButtonMode: Ti.UI.INPUT_BUTTONMODE_ONFOCUS, keyboardType: Ti.UI.KEYBOARD_TYPE_DEFAULT, returnKeyType: Ti.UI.RETURNKEY_DONE, borderStyle: Ti.UI.INPUT_BORDERSTYLE_NONE, backgroundColor: "#ffffff", color: "#333300", height: 50, width: 200, padding: { left: 5 }, top: 0, left: 500, opacity: 0, id: "inputEachphrase2", passwordMask: true, visible: false });
 
   $.__views.inputs.add($.__views.inputEachphrase2);
-  $.__views.__alloyId174 = Ti.UI.createView(
-  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, top: 60, id: "__alloyId174" });
+  $.__views.__alloyId157 = Ti.UI.createView(
+  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, top: 60, id: "__alloyId157" });
 
-  $.__views.inputs.add($.__views.__alloyId174);
+  $.__views.inputs.add($.__views.__alloyId157);
   $.__views.signinInputEach = Ti.UI.createView(
   { width: Ti.UI.SIZE, height: Ti.UI.SIZE, id: "signinInputEach", layout: "horizontal", visible: false });
 
-  $.__views.__alloyId174.add($.__views.signinInputEach);
+  $.__views.__alloyId157.add($.__views.signinInputEach);
   $.__views.signinPrev = Ti.UI.createLabel(
   { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 15, fontWeight: "normal" }, text: L("label_inputbyeach_prev"), id: "signinPrev" });
 
   $.__views.signinInputEach.add($.__views.signinPrev);
-  $.__views.__alloyId175 = Ti.UI.createLabel(
-  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 15, fontWeight: "normal" }, left: 5, text: '|', id: "__alloyId175" });
+  $.__views.__alloyId158 = Ti.UI.createLabel(
+  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 15, fontWeight: "normal" }, left: 5, text: '|', id: "__alloyId158" });
 
-  $.__views.signinInputEach.add($.__views.__alloyId175);
+  $.__views.signinInputEach.add($.__views.__alloyId158);
   $.__views.signinCancelEach = Ti.UI.createLabel(
   { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 15, fontWeight: "normal" }, left: 5, text: L("label_signin_cancel"), id: "signinCancelEach" });
 
   $.__views.signinInputEach.add($.__views.signinCancelEach);
-  $.__views.__alloyId176 = Ti.UI.createLabel(
-  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 15, fontWeight: "normal" }, left: 5, text: '|', id: "__alloyId176" });
+  $.__views.__alloyId159 = Ti.UI.createLabel(
+  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 15, fontWeight: "normal" }, left: 5, text: '|', id: "__alloyId159" });
 
-  $.__views.signinInputEach.add($.__views.__alloyId176);
+  $.__views.signinInputEach.add($.__views.__alloyId159);
   $.__views.signinNext = Ti.UI.createLabel(
   { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 15, fontWeight: "normal" }, left: 5, text: L("label_inputbyeach_next"), id: "signinNext" });
 
@@ -122,15 +129,15 @@ function Controller() {
   $.__views.signinInput = Ti.UI.createView(
   { width: Ti.UI.SIZE, height: Ti.UI.SIZE, id: "signinInput", layout: "horizontal" });
 
-  $.__views.__alloyId174.add($.__views.signinInput);
+  $.__views.__alloyId157.add($.__views.signinInput);
   $.__views.signinInputbyeach = Ti.UI.createLabel(
   { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 15, fontWeight: "normal" }, text: L("label_signin_inputbyeach"), id: "signinInputbyeach" });
 
   $.__views.signinInput.add($.__views.signinInputbyeach);
-  $.__views.__alloyId177 = Ti.UI.createLabel(
-  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 15, fontWeight: "normal" }, left: 5, text: '|', id: "__alloyId177" });
+  $.__views.__alloyId160 = Ti.UI.createLabel(
+  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 15, fontWeight: "normal" }, left: 5, text: '|', id: "__alloyId160" });
 
-  $.__views.signinInput.add($.__views.__alloyId177);
+  $.__views.signinInput.add($.__views.__alloyId160);
   $.__views.signinCancel = Ti.UI.createLabel(
   { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 15, fontWeight: "normal" }, left: 5, text: L("label_signin_cancel"), id: "signinCancel" });
 
@@ -139,22 +146,10 @@ function Controller() {
   { width: "90%", height: 50, backgroundColor: "#80FFFFFF", top: 210, opacity: 0, id: "signinButton" });
 
   $.__views.buttons.add($.__views.signinButton);
-  $.__views.__alloyId178 = Ti.UI.createLabel(
-  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 25, fontWeight: "normal" }, text: L("label_signin"), id: "__alloyId178" });
+  $.__views.__alloyId161 = Ti.UI.createLabel(
+  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 25, fontWeight: "normal" }, text: L("label_signin"), id: "__alloyId161" });
 
-  $.__views.signinButton.add($.__views.__alloyId178);
-  $.__views.privecypolicy = Ti.UI.createView(
-  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, id: "privecypolicy", layout: "vertical", visible: false });
-
-  $.__views.wrapper.add($.__views.privecypolicy);
-  $.__views.__alloyId179 = Ti.UI.createLabel(
-  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 12, fontWeight: "normal" }, text: L("label_privecypolicy"), id: "__alloyId179" });
-
-  $.__views.privecypolicy.add($.__views.__alloyId179);
-  $.__views.__alloyId180 = Ti.UI.createLabel(
-  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 8, fontWeight: "normal" }, text: L("label_privecypolicy_description"), id: "__alloyId180" });
-
-  $.__views.privecypolicy.add($.__views.__alloyId180);
+  $.__views.signinButton.add($.__views.__alloyId161);
   exports.destroy = function () {};
 
 
@@ -181,7 +176,6 @@ function Controller() {
   var generatedPassphrase = null;
   $.inputFullPassphrase.hintText = L("label_recoveryphrase");
   $.inputFullPassphrase.hintTextColor = "gray";
-  $.privecypolicy.top = globals.display.height - 60;
   $.signinView.top = (globals.display.height - 400) / 2;
   $.signinButton.visible = false;
 
@@ -254,6 +248,7 @@ function Controller() {
       console.log("initial address is  " + address);
       pubkey = bitcoin.getPublicKey();
 
+      cache.data.addresses = [];
       cache.data.address = address;
       cache.data.passphrase = passphrase;
       cache.data.currentFee = "halfHourFee";
@@ -417,7 +412,7 @@ function Controller() {
     $.csrpng.add(webview);
 
     var loadingTmp = util.showLoading($.signin, {
-      "color": "#ffffff",
+      "color": "gray",
       "message": L("label_initializing") });
 
     loadingTmp.bottom = 30;
@@ -434,44 +429,36 @@ function Controller() {
     setTimeout(function () {
       loadingTmp.removeSelf();
       $.buttons.show();
-      $.privecypolicy.show();
     }, 3e3);
 
-    $.newwalletButton.addEventListener("touchend", function () {
-      var dialog = util.createDialog({
-        "title": L("label_confirm"),
-        "message": L("label_createaccount_message"),
-        "buttonNames": [L("label_cancel"), L("label_create")] });
+    $.newwalletButton.addEventListener("click", function () {
 
-      dialog.addEventListener("click", function (e) {
-        if (e.index != e.source.cancel) {
-          $.wrapper.visible = false;
-          if (generatedPassphrase != null) {
+      $.wrapper.visible = false;
+      if (generatedPassphrase != null) {
 
-            loading = util.showLoading($.signin, {
-              "width": Ti.UI.FILL,
-              "height": Ti.UI.FILL,
-              "style": "dark",
-              "message": L("label_loading") });
+        loading = util.showLoading($.signin, {
+          "width": Ti.UI.FILL,
+          "height": Ti.UI.FILL,
+          "style": "dark",
+          "message": L("label_loading") });
 
-            createAccount({ "passphrase": generatedPassphrase });
-          } else {
-            util.createDialog({
-              "message": L("text_error_notsecure"),
-              "buttonNames": [L("label_close")] }).
-            show();
-          }
-        }
-      });
-      dialog.show();
+        setTimeout(function () {
+          createAccount({ "passphrase": generatedPassphrase });
+        }, 100);
+      } else {
+        util.createDialog({
+          "message": L("text_error_notsecure"),
+          "buttonNames": [L("label_close")] }).
+        show();
+      }
     });
 
-    $.hasuserButton.addEventListener("touchend", function () {
+    $.hasuserButton.addEventListener("click", function () {
       if (!isMoving) {
         isMoving = true;
 
         $.newwalletButton.animate({
-          "top": 0,
+
           "opacity": 0,
           "duration": 300 });
 
@@ -489,7 +476,7 @@ function Controller() {
 
         $.signinButton.visible = true;
         $.signinButton.animate({
-          "top": 150,
+
           "opacity": 1,
           "duration": 300 });
 
@@ -510,7 +497,6 @@ function Controller() {
 
         $.newwalletButton.visible = true;
         $.newwalletButton.animate({
-          "top": 50,
           "opacity": 1,
           "duration": 300 });
 
@@ -522,7 +508,6 @@ function Controller() {
 
 
         $.signinButton.animate({
-          "top": 210,
           "opacity": 0,
           "duration": 300 });
 
@@ -562,10 +547,10 @@ function Controller() {
         if (globals.display.height <= 480) policy.visible = true;
       }
     }
-    $.signinCancel.addEventListener("touchend", cancel);
-    $.signinCancelEach.addEventListener("touchend", cancel);
+    $.signinCancel.addEventListener("click", cancel);
+    $.signinCancelEach.addEventListener("click", cancel);
 
-    $.signinInputbyeach.addEventListener("touchend", function () {
+    $.signinInputbyeach.addEventListener("click", function () {
       $.signinButton.animate({
         "top": 210,
         "opacity": 0,
@@ -597,15 +582,15 @@ function Controller() {
       moveNext();
     });
 
-    $.signinNext.addEventListener("touchend", function () {
+    $.signinNext.addEventListener("click", function () {
       moveNext();
     });
 
-    $.signinPrev.addEventListener("touchend", function () {
+    $.signinPrev.addEventListener("click", function () {
       movePrev();
     });
 
-    $.signinButton.addEventListener("touchend", function () {
+    $.signinButton.addEventListener("click", function () {
       var passphrase = $.inputFullPassphrase.value;
       inputverify.set(new Array({
         "name": L("label_recoveryphrase"),
@@ -623,7 +608,10 @@ function Controller() {
             "style": "dark",
             "message": L("label_loading") });
 
-          createAccount({ "passphrase": passphrase });
+          setTimeout(function () {
+
+            createAccount({ "passphrase": passphrase });
+          }, 100);
         }
       } else {
         var dialog = util.createDialog({
@@ -635,13 +623,6 @@ function Controller() {
         });
         dialog.show();
       }
-    });
-
-    $.privecypolicy.addEventListener("touchend", function () {
-      Alloy.createController("weblink", {
-        "path": Alloy.CFG.dashboard_uri + "terms",
-        "barColor": Alloy.Globals.mainColor }).
-      getView().open();
     });
   } else {
     alert(L("text_access_deny") + "\nError:1001");

@@ -26,7 +26,7 @@ $.tokenBox.addEventListener('postlayout', function(e){
 			}
 			}
 
-if(args.type == blockchain.ETHEREUM){
+if(args.type == "ethereum"){
 	if( args.token !== "ETH" ){
 $.tokenBox.addEventListener('swipe', function(e) {
 	 
@@ -48,11 +48,11 @@ $.tokenBox.addEventListener('swipe', function(e) {
   }
 });
 }
-
+/*
 $.removeButton.addEventListener('click', function(e){
 	ethereum.removeToken(args.contractAddress);
 	globals.refreshTokens();
-});
+});*/
 }
 
 
@@ -80,7 +80,7 @@ else {
 	$.tokenName.text = args.token;
 }
 
-if(args.type == blockchain.ETHEREUM){
+if(args.type == "ethereum"){
 	if( args.token === "ETH" ){
 		$.tokenImage.image = "/images/asset_eth.png";
 	}
@@ -89,7 +89,7 @@ if(args.type == blockchain.ETHEREUM){
 		$.tokenImage.image = Alloy.CFG.api_uri + "eth/v1/tokens/" + args.contractAddress + "/image?width=100&X-Api-Key=" + Alloy.Globals.api_key;
 	}
 }
-else if(args.type == blockchain.BITCOIN){
+else if(args.type == "bitcoin"){
 	if( args.token === "BTC" ){
 		$.tokenImage.image = "/images/asset_btc.png";
 	}
@@ -102,33 +102,25 @@ else if(args.type == blockchain.BITCOIN){
 	}
 }
 
-if(args.type == blockchain.ETHEREUM){
+if(args.type == "ethereum"){
 	if( args.token === "ETH"){
 	$.infoButton.visible = false;
 	}
 	else{
 	globals.addButtonEvent($.infoButton, function(e){
-	Alloy.createController("weblink", {
-			"path": "https://etherscan.io/token/" + args.contractAddress,
-			"barColor": "#009688"
-		})
-		.getView()
-		.open();
+		Titanium.Platform.openURL("https://etherscan.io/token/" + args.contractAddress);
+	
 		});
 	}
 }
-else if(args.type == blockchain.BITCOIN){
+else if(args.type == "bitcoin"){
 if( args.token === "BTC" || args.token === "XCP" ){
 	$.infoButton.visible = false;
 }
 else{
 	globals.addButtonEvent($.infoButton, function(e){
-		Alloy.createController("weblink", {
-			"path": Alloy.CFG.walletapp_uri + "explorer/#/tokens/" + args.token,
-			"barColor": "#009688"
-		})
-		.getView()
-		.open();
+			Titanium.Platform.openURL("walletapp.indiesquare.me/explorer/#/tokens/" + args.token);
+			
 	});
 }
 }
@@ -137,7 +129,7 @@ var isFiatLoaded = false;
 function loadFiat(){
 	if( !isFiatLoaded ){
 			
-			if(args.type == blockchain.ETHEREUM){
+			if(args.type == "ethereum"){
 				
 				if(args.token == "ETH"){
 					
@@ -193,13 +185,14 @@ globals.addButtonEvent($.sendButton, function(e){
 });
 
 function getBalance(){
-	if(args.type == blockchain.ETHEREUM){
+	if(args.type == "ethereum"){
 		if(balanceLoaded == false){
 	 $.activityIndicator.show();
 	 $.balances.visible = false;
 	 var token = args.contractAddress;
 	 
 	blockchain.API.getBalances({
+		"chain":"ethereum",
 		"contractAddress":token,
 		"callback": function( balances ){ 
 		  balanceLoaded = true;
@@ -221,7 +214,7 @@ function getBalance(){
 		}
 	});
 	}
-}else if(args.type == blockchain.BITCOIN){
+}else if(args.type == "bitcoin"){
 	
 	 loadFiat();
 	showBalances();

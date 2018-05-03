@@ -9,7 +9,6 @@ function __processArg(obj, key) {
 	var arg = null;
 	if (obj) {
 		arg = obj[key] || null;
-		delete obj[key];
 	}
 	return arg;
 }
@@ -36,23 +35,27 @@ function Controller() {
 
 
 	$.__views.webview = Ti.UI.createWebView(
-	{ id: "webview", url: "http://localhost:4200" });
+	{ id: "webview", url: "https://casa-tookan-store.herokuapp.com/" });
 
 	$.__views.webview && $.addTopLevelView($.__views.webview);
 	$.__views.browseTopBar = Ti.UI.createView(
 	{ width: Ti.UI.FILL, height: Alloy.Globals.topBarHeight, top: 0, backgroundColor: Alloy.Globals.mainColor, id: "browseTopBar" });
 
 	$.__views.browseTopBar && $.addTopLevelView($.__views.browseTopBar);
-	$.__views.__alloyId22 = Ti.UI.createLabel(
+	$.__views.settingsButton = Ti.UI.createImageView(
+	{ left: 10, width: 30, bottom: 10, id: "settingsButton", image: "/images/tookan.png" });
+
+	$.__views.browseTopBar.add($.__views.settingsButton);
+	$.__views.__alloyId29 = Ti.UI.createLabel(
 	function () {
 		var o = {};
 		Alloy.deepExtend(true, o, { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#gray", font: { fontFamily: "HelveticaNeue-Light", fontSize: 20, fontWeight: "normal" }, top: 28 });
 		if (Alloy.Globals.isiPhoneX) Alloy.deepExtend(true, o, { top: 38 });
-		Alloy.deepExtend(true, o, { text: L("label_tab_browse"), id: "__alloyId22" });
+		Alloy.deepExtend(true, o, { text: L("label_tab_browse"), id: "__alloyId29" });
 		return o;
 	}());
 
-	$.__views.browseTopBar.add($.__views.__alloyId22);
+	$.__views.browseTopBar.add($.__views.__alloyId29);
 	exports.destroy = function () {};
 
 
@@ -65,6 +68,10 @@ function Controller() {
 
 	$.webview.height = globals.display.height - (Alloy.Globals.tabBarHeight + Alloy.Globals.topBarHeight);
 	$.webview.top = $.browseTopBar.height;
+
+	$.settingsButton.addEventListener("touchend", function () {
+		Alloy.createController("settings").getView();
+	});
 
 	Alloy.Globals.lastAction = null;
 	setInterval(function () {

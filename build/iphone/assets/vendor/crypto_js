@@ -1,0 +1,107 @@
+
+
+var SecureRandom=function(){
+var Arcfour=function(){
+this.i=0,
+this.j=0,
+this.S=[];
+};
+
+Arcfour.prototype.init=function(key){
+var i,j,t;
+for(i=0;256>i;++i)this.S[i]=i;
+
+for(j=0,i=0;256>i;++i)
+j=255&j+this.S[i]+key[i%key.length],
+t=this.S[i],
+this.S[i]=this.S[j],
+this.S[j]=t;
+
+this.i=0,
+this.j=0;
+},
+
+Arcfour.prototype.next=function(){
+var t;
+
+
+
+
+
+return this.i=255&this.i+1,this.j=255&this.j+this.S[this.i],t=this.S[this.i],this.S[this.i]=this.S[this.j],this.S[this.j]=t,this.S[255&t+this.S[this.i]];
+},
+
+Arcfour.create=function(){
+return new Arcfour;
+},
+
+Arcfour.rng_psize=256;
+
+var rng_state=null,
+rng_pool=[],
+rng_pptr=0,
+
+rng_seed_int=function(x){
+rng_pool[rng_pptr]^=255&x,
+rng_pptr++,
+rng_pool[rng_pptr]^=255&x>>8,
+rng_pptr++,
+rng_pool[rng_pptr]^=255&x>>16,
+rng_pptr++,
+rng_pool[rng_pptr]^=255&x>>24,
+rng_pptr++,
+
+rng_pptr>=Arcfour.rng_psize&&(rng_pptr-=Arcfour.rng_psize);
+},
+
+rng_seed_time=function(){
+rng_seed_int(new Date().getTime());
+},
+
+pool_init=function(){for(
+var t;
+
+rng_pptr<Arcfour.rng_psize;)
+t=Math.floor(65536*Math.random()),
+rng_pool[rng_pptr++]=t>>>8,
+rng_pool[rng_pptr++]=255&t;
+
+rng_pptr=0,
+rng_seed_time();
+},
+
+rng_get_byte=function(seed){
+if(null==rng_state){
+
+
+
+for(rng_seed_int(seed+globals.Accelerometer),rng_state=Arcfour.create(),rng_state.init(rng_pool),rng_pptr=0;rng_pptr<rng_pool.length;++rng_pptr)rng_pool[rng_pptr]=0;
+rng_pptr=0;
+}
+return rng_state.next();
+},
+
+SecureRandom=function(){};
+
+
+
+
+
+
+
+
+return SecureRandom.prototype.nextBytes=function(ba,seed){for(var i=0;i<ba.length;++i)ba[i]=rng_get_byte(seed)},pool_init(),SecureRandom;
+}();
+
+function randomBytes(size,seed){
+var random=new SecureRandom,
+buf=Array(size);
+
+
+
+
+
+
+return random.nextBytes(buf,seed),buf.readUInt32BE=function(offset){return 16777216*this[offset]+(this[offset+1]<<16|this[offset+2]<<8|this[offset+3])},buf;
+}
+exports.randomBytes=randomBytes;

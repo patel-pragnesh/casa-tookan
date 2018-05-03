@@ -1,10 +1,39 @@
 <Alloy>
+	<View class="chainbar" id="chainBar">
+	 
 	
-	<View class="tifill" id="listWrapper">
-		 <TableView class="tifill tokenList" id="tokenList">
+	    	<View class="tabTop tabcounterparty" id="tabCounterparty" layout="vertical">
+	    		 
+	    		 <Label class="tabTopLabel" id="tabCounterpartyButton">Counterparty</Label>
+	    	 
+	    	</View>
+	    	<View class="tabTop tabethereum" id="tabEthereum" layout="vertical">
+	    		 
+	    		  <Label class="tabTopLabel" id="tabEthereumButton">Ethereum</Label>
+	    	</View>
+	  
+	    	 
+		
+	</View> 
+	 
+		 <TableView class="tifill tokenList" id="bitcoinList">
 	 	   <FooterView>
 	 	   	
-	 	   	 <View class="tableViewFooter"   id="tableViewFooter" visible="false">
+	 	   	 <View class="tableViewFooter"   id="tableViewFooterBitcoin" visible="false">
+		
+            <View class="tisize" layout="horizontal">
+		
+		<ActivityIndicator class="indiecaterDark" visible="true" />
+		<Label class="loadingLabelFooter">L("label_loading")</Label>
+			</View>
+			</View>
+        </FooterView>
+	 	</TableView>
+	 	
+	 		 <TableView class="tifill tokenList" id="ethereumList" visible="false">
+	 	   <FooterView>
+	 	   	
+	 	   	 <View class="tableViewFooter"   id="tableViewFooterEthereum" visible="false">
 		
             <View class="tisize" layout="horizontal">
 		
@@ -15,13 +44,27 @@
         </FooterView>
 	 	</TableView>
 		 
-	</View>
+	 
 	
-	<View class="error" id="errorMessage" visible="false">
+	<View class="error" id="errorMessageBitcoin" visible="false">
 		<Label class="size15 gray center">L("label_error_loading")</Label>
 	</View>
 	
-	<View class="activityIndicatorFull" id="activityIndicator" visible="false">
+		<View class="error" id="errorMessageEthereum" visible="false">
+		<Label class="size15 gray center">L("label_error_loading")</Label>
+	</View>
+	
+	
+	<View class="activityIndicatorFull" id="activityIndicatorBitcoin" visible="false">
+		<View class="tisize" layout="horizontal">
+		
+		<ActivityIndicator class="indiecaterDark" visible="true" />
+		<Label id="loadingLabel">L("label_loading")</Label>
+			</View>
+		
+	</View>
+	
+	<View class="activityIndicatorFull" id="activityIndicatorEthereum" visible="false">
 		<View class="tisize" layout="horizontal">
 		
 		<ActivityIndicator class="indiecaterDark" visible="true" />
@@ -31,7 +74,8 @@
 	</View>
 	
 	<View class="topbar" id="tokenTopBar">
-		
+		<ImageView class="settingsButton" id="settingsButton" image="/images/tookan.png" />
+			<Label class="size15 gray register  pull-bottom" id="registerButton">register token</Label>
 		<Label class="title">L("label_tab_casa")</Label>
 	</View>
 </Alloy>

@@ -2,9 +2,15 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>application-identifier</key>
+	<string>73L2Z28CVF.com.mandelduck.jiko</string>
+	<key>aps-environment</key>
+	<string>development</string>
+	<key>get-task-allow</key>
+	<true/>
 	<key>keychain-access-groups</key>
 	<array>
-		<string>$(AppIdentifierPrefix)com.mandelduck.jiko</string>
+		<string>73L2Z28CVF.com.mandelduck.jiko</string>
 	</array>
 </dict>
 </plist>

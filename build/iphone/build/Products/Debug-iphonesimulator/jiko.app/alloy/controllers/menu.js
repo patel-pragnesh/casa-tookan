@@ -9,7 +9,6 @@ function __processArg(obj, key) {
   var arg = null;
   if (obj) {
     arg = obj[key] || null;
-    delete obj[key];
   }
   return arg;
 }
@@ -47,68 +46,68 @@ function Controller() {
   { width: "80%", height: Ti.UI.FILL, left: Alloy.Globals.display.width, backgroundColor: "#ebebeb", id: "mainView" });
 
   $.__views.menu.add($.__views.mainView);
-  $.__views.__alloyId98 = Ti.UI.createView(
-  { width: Ti.UI.SIZE, height: 410, top: 0, layout: "vertical", id: "__alloyId98" });
+  $.__views.__alloyId79 = Ti.UI.createView(
+  { width: Ti.UI.SIZE, height: 410, top: 0, layout: "vertical", id: "__alloyId79" });
 
-  $.__views.mainView.add($.__views.__alloyId98);
+  $.__views.mainView.add($.__views.__alloyId79);
   $.__views.blockchainBar = Ti.UI.createView(
   { width: Ti.UI.FILL, height: 40, top: 0, backgroundColor: Alloy.Globals.mainColor, id: "blockchainBar" });
 
-  $.__views.__alloyId98.add($.__views.blockchainBar);
-  $.__views.__alloyId99 = Ti.UI.createLabel(
+  $.__views.__alloyId79.add($.__views.blockchainBar);
+  $.__views.__alloyId80 = Ti.UI.createLabel(
   function () {
     var o = {};
     Alloy.deepExtend(true, o, { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "white", font: { fontFamily: "HelveticaNeue-Light", fontSize: 15, fontWeight: "bold" }, left: 5, top: 13 });
     if (Alloy.Globals.isiPhoneX) Alloy.deepExtend(true, o, { visible: false });
-    Alloy.deepExtend(true, o, { text: 'blockchain', id: "__alloyId99" });
+    Alloy.deepExtend(true, o, { text: 'blockchain', id: "__alloyId80" });
     return o;
   }());
 
-  $.__views.blockchainBar.add($.__views.__alloyId99);
+  $.__views.blockchainBar.add($.__views.__alloyId80);
   $.__views.bitcoinChain = Ti.UI.createView(
   { top: 0, height: 48, id: "bitcoinChain", layout: "horizontal" });
 
-  $.__views.__alloyId98.add($.__views.bitcoinChain);
-  setBitcoinBlockchain ? $.addListener($.__views.bitcoinChain, 'click', setBitcoinBlockchain) : __defers['$.__views.bitcoinChain!click!setBitcoinBlockchain'] = true;$.__views.__alloyId100 = Ti.UI.createImageView(
-  { left: 5, height: 30, width: 30, top: 11, image: "/images/asset_btc.png", id: "__alloyId100" });
+  $.__views.__alloyId79.add($.__views.bitcoinChain);
+  setBitcoinBlockchain ? $.addListener($.__views.bitcoinChain, 'click', setBitcoinBlockchain) : __defers['$.__views.bitcoinChain!click!setBitcoinBlockchain'] = true;$.__views.__alloyId81 = Ti.UI.createImageView(
+  { left: 5, height: 30, width: 30, top: 11, image: "/images/asset_btc.png", id: "__alloyId81" });
 
-  $.__views.bitcoinChain.add($.__views.__alloyId100);
-  setBitcoinBlockchain ? $.addListener($.__views.__alloyId100, 'click', setBitcoinBlockchain) : __defers['$.__views.__alloyId100!click!setBitcoinBlockchain'] = true;$.__views.__alloyId101 = Ti.UI.createLabel(
-  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 18, fontWeight: "normal" }, left: 10, top: 11, text: 'Bitcoin - Counterparty', id: "__alloyId101" });
+  $.__views.bitcoinChain.add($.__views.__alloyId81);
+  setBitcoinBlockchain ? $.addListener($.__views.__alloyId81, 'click', setBitcoinBlockchain) : __defers['$.__views.__alloyId81!click!setBitcoinBlockchain'] = true;$.__views.__alloyId82 = Ti.UI.createLabel(
+  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 18, fontWeight: "normal" }, left: 10, top: 11, text: 'Bitcoin - Counterparty', id: "__alloyId82" });
 
-  $.__views.bitcoinChain.add($.__views.__alloyId101);
-  setBitcoinBlockchain ? $.addListener($.__views.__alloyId101, 'click', setBitcoinBlockchain) : __defers['$.__views.__alloyId101!click!setBitcoinBlockchain'] = true;$.__views.ethereumChain = Ti.UI.createView(
+  $.__views.bitcoinChain.add($.__views.__alloyId82);
+  setBitcoinBlockchain ? $.addListener($.__views.__alloyId82, 'click', setBitcoinBlockchain) : __defers['$.__views.__alloyId82!click!setBitcoinBlockchain'] = true;$.__views.ethereumChain = Ti.UI.createView(
   { top: 0, height: 48, id: "ethereumChain", layout: "horizontal" });
 
-  $.__views.__alloyId98.add($.__views.ethereumChain);
-  setEthereumBlockchain ? $.addListener($.__views.ethereumChain, 'click', setEthereumBlockchain) : __defers['$.__views.ethereumChain!click!setEthereumBlockchain'] = true;$.__views.__alloyId102 = Ti.UI.createImageView(
-  { left: 5, height: 30, width: 30, top: 11, image: "/images/asset_eth.png", id: "__alloyId102" });
+  $.__views.__alloyId79.add($.__views.ethereumChain);
+  setEthereumBlockchain ? $.addListener($.__views.ethereumChain, 'click', setEthereumBlockchain) : __defers['$.__views.ethereumChain!click!setEthereumBlockchain'] = true;$.__views.__alloyId83 = Ti.UI.createImageView(
+  { left: 5, height: 30, width: 30, top: 11, image: "/images/asset_eth.png", id: "__alloyId83" });
 
-  $.__views.ethereumChain.add($.__views.__alloyId102);
-  setEthereumBlockchain ? $.addListener($.__views.__alloyId102, 'click', setEthereumBlockchain) : __defers['$.__views.__alloyId102!click!setEthereumBlockchain'] = true;$.__views.__alloyId103 = Ti.UI.createLabel(
-  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 18, fontWeight: "normal" }, left: 10, top: 11, text: 'Ethereum - ERC-20', id: "__alloyId103" });
+  $.__views.ethereumChain.add($.__views.__alloyId83);
+  setEthereumBlockchain ? $.addListener($.__views.__alloyId83, 'click', setEthereumBlockchain) : __defers['$.__views.__alloyId83!click!setEthereumBlockchain'] = true;$.__views.__alloyId84 = Ti.UI.createLabel(
+  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 18, fontWeight: "normal" }, left: 10, top: 11, text: 'Ethereum - ERC-20', id: "__alloyId84" });
 
-  $.__views.ethereumChain.add($.__views.__alloyId103);
-  setEthereumBlockchain ? $.addListener($.__views.__alloyId103, 'click', setEthereumBlockchain) : __defers['$.__views.__alloyId103!click!setEthereumBlockchain'] = true;$.__views.__alloyId104 = Ti.UI.createView(
-  { width: Ti.UI.SIZE, height: 112, top: 136, layout: "vertical", id: "__alloyId104" });
+  $.__views.ethereumChain.add($.__views.__alloyId84);
+  setEthereumBlockchain ? $.addListener($.__views.__alloyId84, 'click', setEthereumBlockchain) : __defers['$.__views.__alloyId84!click!setEthereumBlockchain'] = true;$.__views.__alloyId85 = Ti.UI.createView(
+  { width: Ti.UI.SIZE, height: 112, top: 136, layout: "vertical", id: "__alloyId85" });
 
-  $.__views.mainView.add($.__views.__alloyId104);
+  $.__views.mainView.add($.__views.__alloyId85);
   $.__views.walletBar = Ti.UI.createView(
   { width: Ti.UI.FILL, height: 40, top: 0, backgroundColor: Alloy.Globals.mainColor, id: "walletBar" });
 
-  $.__views.__alloyId104.add($.__views.walletBar);
-  $.__views.__alloyId105 = Ti.UI.createLabel(
-  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "white", font: { fontFamily: "HelveticaNeue-Light", fontSize: 15, fontWeight: "bold" }, left: 5, text: L("label_tab_wallet"), id: "__alloyId105" });
+  $.__views.__alloyId85.add($.__views.walletBar);
+  $.__views.__alloyId86 = Ti.UI.createLabel(
+  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "white", font: { fontFamily: "HelveticaNeue-Light", fontSize: 15, fontWeight: "bold" }, left: 5, text: L("label_tab_wallet"), id: "__alloyId86" });
 
-  $.__views.walletBar.add($.__views.__alloyId105);
-  $.__views.__alloyId106 = Ti.UI.createView(
-  { width: Ti.UI.FILL, height: 1, backgroundColor: "#000000", top: 0, opacity: 0.2, id: "__alloyId106" });
+  $.__views.walletBar.add($.__views.__alloyId86);
+  $.__views.__alloyId87 = Ti.UI.createView(
+  { width: Ti.UI.FILL, height: 1, backgroundColor: "#000000", top: 0, opacity: 0.2, id: "__alloyId87" });
 
-  $.__views.__alloyId104.add($.__views.__alloyId106);
+  $.__views.__alloyId85.add($.__views.__alloyId87);
   $.__views.currentWallet = Ti.UI.createView(
   { width: Ti.UI.FILL, height: 70, backgroundColor: "#ffffff", id: "currentWallet" });
 
-  $.__views.__alloyId104.add($.__views.currentWallet);
+  $.__views.__alloyId85.add($.__views.currentWallet);
   $.__views.walletIcon = Ti.UI.createImageView(
   { width: 25, height: 23, top: 10, left: 10, id: "walletIcon", image: "/images/icon_wallet_red.png" });
 
@@ -125,10 +124,10 @@ function Controller() {
   { right: 10, width: 12, height: 16, top: 15, id: "arrowIcon", image: "/images/icon_arrow_right.png" });
 
   $.__views.currentWallet.add($.__views.arrowIcon);
-  $.__views.__alloyId107 = Ti.UI.createView(
-  { width: Ti.UI.FILL, height: 1, backgroundColor: "#000000", top: 0, opacity: 0.2, id: "__alloyId107" });
+  $.__views.__alloyId88 = Ti.UI.createView(
+  { width: Ti.UI.FILL, height: 1, backgroundColor: "#000000", top: 0, opacity: 0.2, id: "__alloyId88" });
 
-  $.__views.__alloyId104.add($.__views.__alloyId107);
+  $.__views.__alloyId85.add($.__views.__alloyId88);
   $.__views.menuItems = Ti.UI.createView(
   { width: Ti.UI.SIZE, height: Ti.UI.SIZE, top: 250, layout: "vertical", id: "menuItems" });
 
@@ -141,10 +140,10 @@ function Controller() {
   { width: 25, height: 27, top: 10, left: 10, id: "faqIcon", image: "/images/icon_settings_faq.png" });
 
   $.__views.faqButton.add($.__views.faqIcon);
-  $.__views.__alloyId108 = Ti.UI.createLabel(
-  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 20, fontWeight: "normal" }, top: 10, left: 50, text: L("label_faq"), id: "__alloyId108" });
+  $.__views.__alloyId89 = Ti.UI.createLabel(
+  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 20, fontWeight: "normal" }, top: 10, left: 50, text: L("label_faq"), id: "__alloyId89" });
 
-  $.__views.faqButton.add($.__views.__alloyId108);
+  $.__views.faqButton.add($.__views.__alloyId89);
   $.__views.priorityButton = Ti.UI.createView(
   { width: Ti.UI.FILL, height: 50, top: 10, id: "priorityButton" });
 
@@ -165,18 +164,18 @@ function Controller() {
   { width: 25, height: 23, top: 10, left: 10, id: "settingsIcon", image: "/images/icon_settings.png" });
 
   $.__views.settingsButton.add($.__views.settingsIcon);
-  $.__views.__alloyId109 = Ti.UI.createLabel(
-  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 20, fontWeight: "normal" }, top: 10, left: 50, text: L("label_settings"), id: "__alloyId109" });
+  $.__views.__alloyId90 = Ti.UI.createLabel(
+  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 20, fontWeight: "normal" }, top: 10, left: 50, text: L("label_settings"), id: "__alloyId90" });
 
-  $.__views.settingsButton.add($.__views.__alloyId109);
-  $.__views.__alloyId110 = Ti.UI.createView(
-  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, top: 250, id: "__alloyId110" });
+  $.__views.settingsButton.add($.__views.__alloyId90);
+  $.__views.__alloyId91 = Ti.UI.createView(
+  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, top: 250, id: "__alloyId91" });
 
-  $.__views.mainView.add($.__views.__alloyId110);
+  $.__views.mainView.add($.__views.__alloyId91);
   $.__views.listView = Ti.UI.createView(
   { width: Ti.UI.SIZE, height: Ti.UI.SIZE, top: -400, backgroundColor: "#ffffff", id: "listView" });
 
-  $.__views.__alloyId110.add($.__views.listView);
+  $.__views.__alloyId91.add($.__views.listView);
   $.__views.addressList = Ti.UI.createScrollView(
   { width: Ti.UI.FILL, height: 200, top: 0, id: "addressList", scrollType: "vertical", layout: "vertical", showVerticalScrollIndicator: true });
 
@@ -185,10 +184,10 @@ function Controller() {
   { width: Ti.UI.FILL, height: 40, top: 300, backgroundColor: Alloy.Globals.mainColor, id: "newaddress" });
 
   $.__views.listView.add($.__views.newaddress);
-  $.__views.__alloyId111 = Ti.UI.createLabel(
-  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#ffffff", font: { fontFamily: "HelveticaNeue-Light", fontSize: 15, fontWeight: "normal" }, text: L("label_newaddress"), id: "__alloyId111" });
+  $.__views.__alloyId92 = Ti.UI.createLabel(
+  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#ffffff", font: { fontFamily: "HelveticaNeue-Light", fontSize: 15, fontWeight: "normal" }, text: L("label_newaddress"), id: "__alloyId92" });
 
-  $.__views.newaddress.add($.__views.__alloyId111);
+  $.__views.newaddress.add($.__views.__alloyId92);
   exports.destroy = function () {};
 
 
@@ -485,7 +484,7 @@ function Controller() {
 
 
 
-  __defers['$.__views.bitcoinChain!click!setBitcoinBlockchain'] && $.addListener($.__views.bitcoinChain, 'click', setBitcoinBlockchain);__defers['$.__views.__alloyId100!click!setBitcoinBlockchain'] && $.addListener($.__views.__alloyId100, 'click', setBitcoinBlockchain);__defers['$.__views.__alloyId101!click!setBitcoinBlockchain'] && $.addListener($.__views.__alloyId101, 'click', setBitcoinBlockchain);__defers['$.__views.ethereumChain!click!setEthereumBlockchain'] && $.addListener($.__views.ethereumChain, 'click', setEthereumBlockchain);__defers['$.__views.__alloyId102!click!setEthereumBlockchain'] && $.addListener($.__views.__alloyId102, 'click', setEthereumBlockchain);__defers['$.__views.__alloyId103!click!setEthereumBlockchain'] && $.addListener($.__views.__alloyId103, 'click', setEthereumBlockchain);
+  __defers['$.__views.bitcoinChain!click!setBitcoinBlockchain'] && $.addListener($.__views.bitcoinChain, 'click', setBitcoinBlockchain);__defers['$.__views.__alloyId81!click!setBitcoinBlockchain'] && $.addListener($.__views.__alloyId81, 'click', setBitcoinBlockchain);__defers['$.__views.__alloyId82!click!setBitcoinBlockchain'] && $.addListener($.__views.__alloyId82, 'click', setBitcoinBlockchain);__defers['$.__views.ethereumChain!click!setEthereumBlockchain'] && $.addListener($.__views.ethereumChain, 'click', setEthereumBlockchain);__defers['$.__views.__alloyId83!click!setEthereumBlockchain'] && $.addListener($.__views.__alloyId83, 'click', setEthereumBlockchain);__defers['$.__views.__alloyId84!click!setEthereumBlockchain'] && $.addListener($.__views.__alloyId84, 'click', setEthereumBlockchain);
 
 
 

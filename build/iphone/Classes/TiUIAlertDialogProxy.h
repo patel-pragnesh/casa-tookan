@@ -18,7 +18,7 @@
   int style;
 }
 
-- (void)show:(id)args;
+- (void)show:(id)unused;
 - (void)hide:(id)args;
 
 @end

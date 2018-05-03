@@ -118,6 +118,8 @@ $.addCasa.addEventListener("click", function(){
   
 
 function signin(){
+	cache.data.addresses = [];
+	cache.save();
 	cache.init();
 	cache.load();
 	
@@ -143,23 +145,7 @@ $.signoutButton.addEventListener("click", function(){
 		        "style": "dark",
 		        "message": L("label_loading")
 		    });
-			if( globals.deviceToken != null ){
-				network.connectDELETE({
-					"method": "devices/" + globals.deviceToken,
-					"post": {},
-					"callback": function(result) {
-						globals.console.info(result);
-					},
-					"onError": function(error) {
-						globals.console.info("error remove:" + error);
-					},
-					"always": function(){
-						globals.console.info("always");
-						signin();
-					}
-				});
-			}
-			else signin();
+			 signin();
 		}
 	});
 	dialog.show();

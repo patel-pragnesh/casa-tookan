@@ -9,7 +9,6 @@ function __processArg(obj, key) {
   var arg = null;
   if (obj) {
     arg = obj[key] || null;
-    delete obj[key];
   }
   return arg;
 }
@@ -71,10 +70,10 @@ function Controller() {
   { width: Ti.UI.FILL, height: Alloy.Globals.tabBarHeight, bottom: 0, backgroundColor: "#f8f8f8", layout: "horizontal", id: "tabbar" });
 
   $.__views.main.add($.__views.tabbar);
-  $.__views.__alloyId41 = Ti.UI.createView(
-  { width: Ti.UI.FILL, height: 1, backgroundColor: "#000000", top: 0, opacity: 0.2, id: "__alloyId41" });
+  $.__views.__alloyId49 = Ti.UI.createView(
+  { width: Ti.UI.FILL, height: 1, backgroundColor: "#000000", top: 0, opacity: 0.2, id: "__alloyId49" });
 
-  $.__views.tabbar.add($.__views.__alloyId41);
+  $.__views.tabbar.add($.__views.__alloyId49);
   $.__views.tabback = Ti.UI.createView(
   { width: "20%", top: 10, id: "tabback", layout: "vertical" });
 
@@ -174,7 +173,7 @@ function Controller() {
 
   function isTrustedDapp(dappUrl) {
     return true;
-    if (dappUrl == "http://localhost:4200") {
+    if (dappUrl == "https://casa-tookan-store.herokuapp.com/") {
       return true;
     } else {
       return false;

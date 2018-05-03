@@ -59,6 +59,7 @@
 "label_faq" = "FAQ";
 "label_fee" = "fee";
 "label_fee_priority" = "Fee Priority";
+"label_back" = "back";
 "label_goback" = "Back";
 "label_initializing" = "Now Initializing";
 "label_loading" = "loading...";
@@ -196,7 +197,7 @@
 "label_send_tokenfound" = "{token} not found...";
 "label_send_destination" = "Destination";
 "label_send_confirmation" = "Send\n{amount} {token}\n{amount2} to {address}";
-"label_history_empty" = "No history\nTouch here to reload.";
+"label_history_empty" = "No news\nTouch here to reload.";
 "text_history_order_sold_will" = "Place Sell Order: {price} {price_asset} for {quantity} {asset}";
 "text_history_order_bought_will" = "Place Buy Order: {price} {price_asset} for {quantity} {asset}";
 "text_history_order_other_will" = "Place Order: {give_quantity} {give_asset} is given for {get_quantity} {get_asset}";

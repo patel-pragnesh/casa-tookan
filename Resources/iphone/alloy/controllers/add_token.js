@@ -9,7 +9,6 @@ function __processArg(obj, key) {
   var arg = null;
   if (obj) {
     arg = obj[key] || null;
-    delete obj[key];
   }
   return arg;
 }
@@ -113,9 +112,9 @@ function Controller() {
   $.__views.backButton = Ti.UI.createLabel(
   function () {
     var o = {};
-    Alloy.deepExtend(true, o, { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#ffffff", font: { fontFamily: "HelveticaNeue-Light", fontSize: 15, fontWeight: "normal" }, top: 28, left: 10 });
+    Alloy.deepExtend(true, o, { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#929292", font: { fontFamily: "HelveticaNeue-Light", fontSize: 15, fontWeight: "normal" }, top: 28, left: 10 });
     if (Alloy.Globals.isiPhoneX) Alloy.deepExtend(true, o, { top: 38 });
-    Alloy.deepExtend(true, o, { text: L("label_tab_tokens"), id: "backButton" });
+    Alloy.deepExtend(true, o, { text: L("label_back"), id: "backButton" });
     return o;
   }());
 
@@ -125,7 +124,7 @@ function Controller() {
 
   $.__views.topbar.add($.__views.addTokenButton);
   showAddContract ? $.addListener($.__views.addTokenButton, 'click', showAddContract) : __defers['$.__views.addTokenButton!click!showAddContract'] = true;$.__views.__alloyId12 = Ti.UI.createLabel(
-  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "white", font: { fontFamily: "HelveticaNeue-Light", fontSize: 12, fontWeight: "normal" }, right: 30, textAlign: "right", text: L("label_enter_contract_address"), id: "__alloyId12" });
+  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "gray", font: { fontFamily: "HelveticaNeue-Light", fontSize: 12, fontWeight: "normal" }, right: 30, textAlign: "right", text: L("label_enter_contract_address"), id: "__alloyId12" });
 
   $.__views.addTokenButton.add($.__views.__alloyId12);
   $.__views.__alloyId13 = Ti.UI.createImageView(
@@ -142,6 +141,7 @@ function Controller() {
 
   var network = require("requires/network");
 
+  var util = require("requires/util");
   var cache = require("requires/cache");
   var win = Ti.UI.createWindow({
     "orientationModes": [Ti.UI.PORTRAIT],

@@ -1,0 +1,142 @@
+var Alloy=require('/alloy'),
+Backbone=Alloy.Backbone,
+_=Alloy._;
+
+
+
+
+function __processArg(obj,key){
+var arg=null;
+
+
+
+return obj&&(arg=obj[key]||null),arg;
+}
+
+function Controller(){
+
+
+
+
+
+if(require('/alloy/controllers/BaseController').apply(this,Array.prototype.slice.call(arguments)),this.__controllerPath='index',this.args=arguments[0]||{},arguments[0])
+var __parentSymbol=__processArg(arguments[0],'__parentSymbol'),
+$model=__processArg(arguments[0],'$model'),
+__itemTemplate=__processArg(arguments[0],'__itemTemplate');
+
+var $=this,
+exports={},
+__defers={};
+
+
+
+
+
+
+
+exports.destroy=function(){},
+
+
+
+
+_.extend($,$.__views),
+
+
+require('init');
+
+var util=require('requires/util'),
+cache=require('requires/cache'),
+network=require('requires/network'),
+bitcoin=require('requires/bitcoin'),
+ethereum=require('requires/ethereum'),
+blockchain=require('requires/blockchain');
+
+
+
+if(cache.load()){
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function startFrame(){
+
+blockchain.initChains(),
+blockchain.changeCurrentChain(cache.data.chainId||blockchain.BITCOIN),
+Alloy.createController('frame').getView().open();
+}globals.setCache=function(){void 0==cache.data.blockchainWallets&&(cache.data.blockchainWallets=[],cache.data.blockchainWallets.push(blockchain.basePath+'0'),cache.data.currentPath=cache.data.blockchainWallets[0],cache.save()),void 0==cache.data.addresses&&(cache.data.addresses={bitcoin:{},ethereum:{}},cache.save())},globals.setCache(),blockchain.updateUI(),
+
+Ti.App.addEventListener('resumed',function(e){
+Ti.UI.iOS.setAppBadge(0),
+globals.isReorg&&globals.backgroundfetch();
+
+var url=null;!1,
+
+
+
+
+
+
+globals._parseArguments(url,{qrcode:!1,completemessage:!0});
+}),!1,
+
+
+
+
+
+
+
+Ti.App.iOS.addEventListener('continueactivity',function(e){
+'NSUserActivityTypeBrowsingWeb'===e.activityType&&(
+globals.console.info('deepLinkURL:'+e.webpageURL),
+globals.lastUrl=null,
+globals._parseArguments(e.webpageURL,{qrcode:!1,completemessage:!0}));
+
+});
+
+
+var view=null;
+if(null!=cache.data.passphrase){
+cache.data.passphrase===Alloy.Globals.demopassphrase&&(
+globals.DEMO=!0),
+
+
+null==cache.data.currency&&(cache.data.currency=cache.data.currncy),
+
+globals.decryptedPassphrase=cache.data.passphrase;
+var encryptCheck=bitcoin.init(globals.decryptedPassphrase);
+'decrypted'===encryptCheck?
+Alloy.createController('encryption',{callback:startFrame}).getView().open():
+startFrame();
+}else
+Alloy.createController('signin',{callback:startFrame}).getView().open();
+
+}else
+alert(L('text_access_deny')+'\nError:1000');
+
+
+
+
+
+
+
+
+
+
+_.extend($,exports);
+}
+
+module.exports=Controller;

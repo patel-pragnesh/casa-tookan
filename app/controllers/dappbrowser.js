@@ -52,7 +52,7 @@ win.open();
 
  function isTrustedDapp(dappUrl) {
      return true;
-     if (dappUrl == "http://localhost:4200") {
+     if (dappUrl == "https://casa-tookan-store.herokuapp.com/") {
          return true;
      } else {
          return false;

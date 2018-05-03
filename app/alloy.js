@@ -43,7 +43,7 @@ Alloy.Globals.isAndroid = (OS_ANDROID);
 Alloy.Globals.mainColor = "#e7e7e7";
 Alloy.Globals.bitcoinColor = Alloy.Globals.mainColor;
 Alloy.Globals.ethereumColor = "#5572c9";
-Alloy.Globals.tabBarHeight = 50;
+Alloy.Globals.tabBarHeight = 57;
 Alloy.Globals.topBarHeight = 60;
 Alloy.Globals.userEthTokens = 'userEthTokensV3';
 if(Alloy.Globals.isiPhoneX){
@@ -51,6 +51,6 @@ if(Alloy.Globals.isiPhoneX){
 	Alloy.Globals.topBarHeight = 75;
 }
 if(OS_ANDROID){
-	Alloy.Globals.topBarHeight = 50;
+	Alloy.Globals.topBarHeight = 55;
 }
 

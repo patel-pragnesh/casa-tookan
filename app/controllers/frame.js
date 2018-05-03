@@ -1,19 +1,15 @@
 var util = require("requires/util");
 var network = require("requires/network");
 var cache = require("requires/cache");
+
+
 var bitcoin = require("requires/bitcoin");
 var ethereum = require("requires/ethereum");
 var blockchain = require("requires/blockchain");
 
 
-if(cache.data.blockchainWallets == undefined){
-  cache.data.blockchainWallets = [];
-    
-  	cache.data.blockchainWallets.push(blockchain.basePath+"0");
-  	
-  	cache.data.currentPath = cache.data.blockchainWallets[0];
-    cache.save();
- }
+
+
  
 function showIntro(){
  if( cache.data.easypass === undefined ){ 

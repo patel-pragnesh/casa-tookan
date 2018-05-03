@@ -2,6 +2,8 @@ module.exports = (function() {
 	var self = {};
 	var crypt = require("crypt/api");
 	
+	
+	
 	function getPath(isMakeFile){
 		if( OS_ANDROID ){
 			var newDir = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, "save");

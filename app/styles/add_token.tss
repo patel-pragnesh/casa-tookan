@@ -33,7 +33,7 @@
 ".addTokenLabel": {
 	right:30,
 	textAlign:'right',
-	color:'white',
+	color:'gray',
 }
  
 ".tokenList": {

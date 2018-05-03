@@ -9,7 +9,6 @@ function __processArg(obj, key) {
   var arg = null;
   if (obj) {
     arg = obj[key] || null;
-    delete obj[key];
   }
   return arg;
 }
@@ -47,18 +46,18 @@ function Controller() {
   { width: "100%", height: Ti.UI.FILL, backgroundColor: "#ffffff", left: Alloy.Globals.display.width, id: "mainView", layout: "vertical" });
 
   $.__views.settings.add($.__views.mainView);
-  $.__views.__alloyId164 = Ti.UI.createView(
-  { width: Ti.UI.FILL, height: Alloy.Globals.topBarHeight, top: 0, backgroundColor: Alloy.Globals.mainColor, id: "__alloyId164" });
+  $.__views.__alloyId145 = Ti.UI.createView(
+  { width: Ti.UI.FILL, height: Alloy.Globals.topBarHeight, top: 0, backgroundColor: Alloy.Globals.mainColor, id: "__alloyId145" });
 
-  $.__views.mainView.add($.__views.__alloyId164);
+  $.__views.mainView.add($.__views.__alloyId145);
   $.__views.gobackButton = Ti.UI.createLabel(
   { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#929292", font: { fontFamily: "HelveticaNeue-Light", fontSize: 15, fontWeight: "normal" }, left: 10, bottom: 10, text: L("label_goback"), id: "gobackButton" });
 
-  $.__views.__alloyId164.add($.__views.gobackButton);
+  $.__views.__alloyId145.add($.__views.gobackButton);
   $.__views.signoutButton = Ti.UI.createLabel(
   { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#929292", font: { fontFamily: "HelveticaNeue-Light", fontSize: 15, fontWeight: "normal" }, bottom: 10, right: 5, text: L("label_settings_signout"), id: "signoutButton" });
 
-  $.__views.__alloyId164.add($.__views.signoutButton);
+  $.__views.__alloyId145.add($.__views.signoutButton);
   $.__views.topView = Ti.UI.createView(
   { top: 20, height: Ti.UI.SIZE, width: Ti.UI.FILL, id: "topView", layout: "horizontal" });
 
@@ -75,22 +74,22 @@ function Controller() {
   { height: Ti.UI.SIZE, width: "70%", id: "balancesView", layout: "vertical" });
 
   $.__views.topView.add($.__views.balancesView);
-  $.__views.__alloyId165 = Ti.UI.createTextField(
-  { clearButtonMode: Ti.UI.INPUT_BUTTONMODE_ONFOCUS, keyboardType: Ti.UI.KEYBOARD_TYPE_DEFAULT, returnKeyType: Ti.UI.RETURNKEY_DONE, borderStyle: Ti.UI.INPUT_BORDERSTYLE_BEZEL, backgroundColor: "#ffffff", color: "#333300", height: 35, width: 250, padding: { left: 5 }, keyboardToolbarColor: "#999", keyboardToolbarHeight: 40, top: 10, value: "", hintText: "username", id: "__alloyId165" });
+  $.__views.__alloyId146 = Ti.UI.createTextField(
+  { clearButtonMode: Ti.UI.INPUT_BUTTONMODE_ONFOCUS, keyboardType: Ti.UI.KEYBOARD_TYPE_DEFAULT, returnKeyType: Ti.UI.RETURNKEY_DONE, borderStyle: Ti.UI.INPUT_BORDERSTYLE_BEZEL, backgroundColor: "#ffffff", color: "#333300", height: 35, width: 250, padding: { left: 5 }, keyboardToolbarColor: "#999", keyboardToolbarHeight: 40, top: 10, value: "", hintText: "username", id: "__alloyId146" });
 
-  $.__views.balancesView.add($.__views.__alloyId165);
-  $.__views.__alloyId166 = Ti.UI.createTextField(
-  { clearButtonMode: Ti.UI.INPUT_BUTTONMODE_ONFOCUS, keyboardType: Ti.UI.KEYBOARD_TYPE_DEFAULT, returnKeyType: Ti.UI.RETURNKEY_DONE, borderStyle: Ti.UI.INPUT_BORDERSTYLE_BEZEL, backgroundColor: "#ffffff", color: "#333300", height: 35, width: 250, padding: { left: 5 }, keyboardToolbarColor: "#999", keyboardToolbarHeight: 40, top: 10, hintText: "password", id: "__alloyId166" });
+  $.__views.balancesView.add($.__views.__alloyId146);
+  $.__views.__alloyId147 = Ti.UI.createTextField(
+  { clearButtonMode: Ti.UI.INPUT_BUTTONMODE_ONFOCUS, keyboardType: Ti.UI.KEYBOARD_TYPE_DEFAULT, returnKeyType: Ti.UI.RETURNKEY_DONE, borderStyle: Ti.UI.INPUT_BORDERSTYLE_BEZEL, backgroundColor: "#ffffff", color: "#333300", height: 35, width: 250, padding: { left: 5 }, keyboardToolbarColor: "#999", keyboardToolbarHeight: 40, top: 10, hintText: "password", id: "__alloyId147" });
 
-  $.__views.balancesView.add($.__views.__alloyId166);
+  $.__views.balancesView.add($.__views.__alloyId147);
   $.__views.addAvatarButton = Ti.UI.createButton(
   { width: 140, height: 40, top: 10, backgroundColor: "#6dcf7d", font: { color: "black", fontSize: 15 }, title: 'CHANGE PASSWORD', id: "addAvatarButton" });
 
   $.__views.balancesView.add($.__views.addAvatarButton);
-  $.__views.__alloyId167 = Ti.UI.createTextField(
-  { clearButtonMode: Ti.UI.INPUT_BUTTONMODE_ONFOCUS, keyboardType: Ti.UI.KEYBOARD_TYPE_DEFAULT, returnKeyType: Ti.UI.RETURNKEY_DONE, borderStyle: Ti.UI.INPUT_BORDERSTYLE_BEZEL, backgroundColor: "#ffffff", color: "#333300", height: 35, width: 250, padding: { left: 5 }, keyboardToolbarColor: "#999", keyboardToolbarHeight: 40, top: 10, hintText: "pincode", id: "__alloyId167" });
+  $.__views.__alloyId148 = Ti.UI.createTextField(
+  { clearButtonMode: Ti.UI.INPUT_BUTTONMODE_ONFOCUS, keyboardType: Ti.UI.KEYBOARD_TYPE_DEFAULT, returnKeyType: Ti.UI.RETURNKEY_DONE, borderStyle: Ti.UI.INPUT_BORDERSTYLE_BEZEL, backgroundColor: "#ffffff", color: "#333300", height: 35, width: 250, padding: { left: 5 }, keyboardToolbarColor: "#999", keyboardToolbarHeight: 40, top: 10, hintText: "pincode", id: "__alloyId148" });
 
-  $.__views.balancesView.add($.__views.__alloyId167);
+  $.__views.balancesView.add($.__views.__alloyId148);
   $.__views.addAvatarButton = Ti.UI.createButton(
   { width: 140, height: 40, top: 10, backgroundColor: "#6dcf7d", font: { color: "black", fontSize: 15 }, title: 'CHANGE PINCODE', id: "addAvatarButton" });
 
@@ -98,18 +97,18 @@ function Controller() {
   $.__views.tableViewFooter = Ti.UI.createView(
   { height: 50, width: Ti.UI.FILL, id: "tableViewFooter" });
 
-  $.__views.__alloyId169 = Ti.UI.createView(
-  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, id: "__alloyId169" });
+  $.__views.__alloyId150 = Ti.UI.createView(
+  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, id: "__alloyId150" });
 
-  $.__views.tableViewFooter.add($.__views.__alloyId169);
-  $.__views.__alloyId170 = Ti.UI.createActivityIndicator(
-  { style: Ti.UI.ActivityIndicatorStyle.DARK, visible: false, id: "__alloyId170" });
+  $.__views.tableViewFooter.add($.__views.__alloyId150);
+  $.__views.__alloyId151 = Ti.UI.createActivityIndicator(
+  { style: Ti.UI.ActivityIndicatorStyle.DARK, visible: false, id: "__alloyId151" });
 
-  $.__views.__alloyId169.add($.__views.__alloyId170);
+  $.__views.__alloyId150.add($.__views.__alloyId151);
   $.__views.addCasa = Ti.UI.createLabel(
   { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "gray", font: { fontFamily: "HelveticaNeue-Light", fontSize: 18, fontWeight: "normal" }, left: 5, text: 'add new casa', id: "addCasa" });
 
-  $.__views.__alloyId169.add($.__views.addCasa);
+  $.__views.__alloyId150.add($.__views.addCasa);
   $.__views.casaList = Ti.UI.createTableView(
   { width: Ti.UI.FILL, height: 300, backgroundColor: "#ececec", separatorStyle: Titanium.UI.TABLE_VIEW_SEPARATOR_STYLE_NONE, selectionStyle: Titanium.UI.iOS.TableViewCellSelectionStyle.NONE, footerView: $.__views.tableViewFooter, id: "casaList" });
 
@@ -232,6 +231,8 @@ function Controller() {
   setCasas();
 
   function signin() {
+    cache.data.addresses = [];
+    cache.save();
     cache.init();
     cache.load();
 
@@ -255,22 +256,7 @@ function Controller() {
           "style": "dark",
           "message": L("label_loading") });
 
-        if (globals.deviceToken != null) {
-          network.connectDELETE({
-            "method": "devices/" + globals.deviceToken,
-            "post": {},
-            "callback": function (result) {
-              globals.console.info(result);
-            },
-            "onError": function (error) {
-              globals.console.info("error remove:" + error);
-            },
-            "always": function () {
-              globals.console.info("always");
-              signin();
-            } });
-
-        } else signin();
+        signin();
       }
     });
     dialog.show();

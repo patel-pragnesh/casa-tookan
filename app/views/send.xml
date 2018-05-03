@@ -4,7 +4,7 @@
 		<View class="tifill mainView" id="mainView">
 			<ScrollView class="tifill" scrollType="vertical" layout="vertical">
 				<View class="topSection" id="top">
-					<Label class="title size15 white pull-left" id="backButton">L("label_tab_tokens")</Label>
+					<Label class="title size15 white pull-left" id="backButton">L("label_back")</Label>
 					<Label class="title white">L("label_send")</Label>
 					<View class="tisize pull-bottom" layout="vertical">
 						<View class="tisize" id="modeToken">

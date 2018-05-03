@@ -9,7 +9,6 @@ function __processArg(obj, key) {
 	var arg = null;
 	if (obj) {
 		arg = obj[key] || null;
-		delete obj[key];
 	}
 	return arg;
 }
@@ -85,17 +84,6 @@ function Controller() {
 	$.usd_value.text = "USD Value: $0";
 
 	$.mainView.addEventListener("click", function () {
-
-
-
-
-
-
-
-
-
-
-
 
 		args.setCurrent(args.path);
 	});

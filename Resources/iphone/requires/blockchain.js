@@ -125,7 +125,7 @@ module.exports = function () {
 
 	self.API = {};
 	self.API.getBalances = function (params) {
-		if (cache.data.chainId == self.BITCOIN) {
+		if (params.chain == "bitcoin") {
 			return network.connectGET({
 				"chain": "btc",
 				"version": "v1",
@@ -134,12 +134,12 @@ module.exports = function () {
 				"onError": params.onError,
 				"always": params.always
 			});
-		} else if (cache.data.chainId == self.ETHEREUM) {
+		} else if (params.chain == "ethereum") {
 			if (params.contractAddress != undefined && params.contractAddress != "ETH") {
 				return network.connectGET({
 					"chain": "eth",
 					"version": "v1",
-					"method": "addresses/" + cache.data.address + "/tokens/" + params.contractAddress + "/balance",
+					"method": "addresses/" + ethereum.getAddressForPath(cache.data.currentPath) + "/tokens/" + params.contractAddress + "/balance",
 					"callback": function (balance) {
 						params.callback(balance);
 					},

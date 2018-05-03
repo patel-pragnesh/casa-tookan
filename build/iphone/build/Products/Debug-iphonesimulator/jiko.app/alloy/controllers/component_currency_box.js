@@ -9,7 +9,6 @@ function __processArg(obj, key) {
 	var arg = null;
 	if (obj) {
 		arg = obj[key] || null;
-		delete obj[key];
 	}
 	return arg;
 }
@@ -47,10 +46,10 @@ function Controller() {
 	{ right: 10, width: 25, height: 25, id: "checked", image: "/images/icon_checked.png", visible: false });
 
 	$.__views.currencyBox.add($.__views.checked);
-	$.__views.__alloyId24 = Ti.UI.createView(
-	{ width: Ti.UI.FILL, height: 1, bottom: 0, backgroundColor: "#ececec", id: "__alloyId24" });
+	$.__views.__alloyId31 = Ti.UI.createView(
+	{ width: Ti.UI.FILL, height: 1, bottom: 0, backgroundColor: "#ececec", id: "__alloyId31" });
 
-	$.__views.currencyBox.add($.__views.__alloyId24);
+	$.__views.currencyBox.add($.__views.__alloyId31);
 	exports.destroy = function () {};
 
 

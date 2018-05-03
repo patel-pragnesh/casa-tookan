@@ -9,7 +9,6 @@ function __processArg(obj, key) {
   var arg = null;
   if (obj) {
     arg = obj[key] || null;
-    delete obj[key];
   }
   return arg;
 }
@@ -47,18 +46,18 @@ function Controller() {
   { width: Ti.UI.FILL, height: 292, backgroundColor: "#ffffff", bottom: -292, id: "mainView", layout: "vertical" });
 
   $.__views.currency.add($.__views.mainView);
-  $.__views.__alloyId39 = Ti.UI.createView(
-  { width: Ti.UI.FILL, height: 50, top: 0, backgroundColor: Alloy.Globals.mainColor, id: "__alloyId39" });
+  $.__views.__alloyId47 = Ti.UI.createView(
+  { width: Ti.UI.FILL, height: 50, top: 0, backgroundColor: Alloy.Globals.mainColor, id: "__alloyId47" });
 
-  $.__views.mainView.add($.__views.__alloyId39);
+  $.__views.mainView.add($.__views.__alloyId47);
   $.__views.closeIcon = Ti.UI.createImageView(
   { right: 10, width: 40, height: 40, padding: 50, id: "closeIcon", image: "/images/icon_close_white.png" });
 
-  $.__views.__alloyId39.add($.__views.closeIcon);
-  $.__views.__alloyId40 = Ti.UI.createView(
-  { width: Ti.UI.FILL, height: 1, backgroundColor: "#000000", top: 0, opacity: 0.2, id: "__alloyId40" });
+  $.__views.__alloyId47.add($.__views.closeIcon);
+  $.__views.__alloyId48 = Ti.UI.createView(
+  { width: Ti.UI.FILL, height: 1, backgroundColor: "#000000", top: 0, opacity: 0.2, id: "__alloyId48" });
 
-  $.__views.mainView.add($.__views.__alloyId40);
+  $.__views.mainView.add($.__views.__alloyId48);
   $.__views.currencyList = Ti.UI.createScrollView(
   { width: Ti.UI.FILL, height: Ti.UI.FILL, id: "currencyList", scrollType: "vertical", layout: "vertical", showVerticalScrollIndicator: true });
 

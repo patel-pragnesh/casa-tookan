@@ -9,7 +9,6 @@ function __processArg(obj, key) {
   var arg = null;
   if (obj) {
     arg = obj[key] || null;
-    delete obj[key];
   }
   return arg;
 }
@@ -47,82 +46,82 @@ function Controller() {
   { visible: true, id: "viewOne" });
 
   $.__views.scroller.add($.__views.viewOne);
-  $.__views.__alloyId49 = Alloy.createController('news', { id: "__alloyId49", __parentSymbol: $.__views.viewOne });
-  $.__views.__alloyId49.setParent($.__views.viewOne);
+  $.__views.__alloyId57 = Alloy.createController('news', { id: "__alloyId57", __parentSymbol: $.__views.viewOne });
+  $.__views.__alloyId57.setParent($.__views.viewOne);
   $.__views.viewTwo = Ti.UI.createView(
   { visible: false, id: "viewTwo" });
 
   $.__views.scroller.add($.__views.viewTwo);
-  $.__views.__alloyId50 = Alloy.createController('browse', { id: "__alloyId50", __parentSymbol: $.__views.viewTwo });
-  $.__views.__alloyId50.setParent($.__views.viewTwo);
+  $.__views.__alloyId58 = Alloy.createController('browse', { id: "__alloyId58", __parentSymbol: $.__views.viewTwo });
+  $.__views.__alloyId58.setParent($.__views.viewTwo);
   $.__views.viewThree = Ti.UI.createView(
   { visible: false, id: "viewThree" });
 
   $.__views.scroller.add($.__views.viewThree);
-  $.__views.__alloyId51 = Alloy.createController('casa', { id: "__alloyId51", __parentSymbol: $.__views.viewThree });
-  $.__views.__alloyId51.setParent($.__views.viewThree);
+  $.__views.__alloyId59 = Alloy.createController('casa', { id: "__alloyId59", __parentSymbol: $.__views.viewThree });
+  $.__views.__alloyId59.setParent($.__views.viewThree);
   $.__views.viewFour = Ti.UI.createView(
   { visible: false, id: "viewFour" });
 
   $.__views.scroller.add($.__views.viewFour);
-  $.__views.__alloyId52 = Alloy.createController('balances', { id: "__alloyId52", __parentSymbol: $.__views.viewFour });
-  $.__views.__alloyId52.setParent($.__views.viewFour);
-  $.__views.__alloyId53 = Ti.UI.createView(
-  { width: Ti.UI.FILL, height: Alloy.Globals.tabBarHeight, bottom: 0, backgroundColor: "#ececec", layout: "horizontal", id: "__alloyId53" });
+  $.__views.__alloyId60 = Alloy.createController('balances', { id: "__alloyId60", __parentSymbol: $.__views.viewFour });
+  $.__views.__alloyId60.setParent($.__views.viewFour);
+  $.__views.__alloyId61 = Ti.UI.createView(
+  { width: Ti.UI.FILL, height: Alloy.Globals.tabBarHeight, bottom: 0, backgroundColor: "#ececec", layout: "horizontal", id: "__alloyId61" });
 
-  $.__views.frame.add($.__views.__alloyId53);
-  $.__views.__alloyId54 = Ti.UI.createView(
-  { width: Ti.UI.FILL, height: 1, backgroundColor: "#000000", top: 0, opacity: 0.2, id: "__alloyId54" });
+  $.__views.frame.add($.__views.__alloyId61);
+  $.__views.__alloyId62 = Ti.UI.createView(
+  { width: Ti.UI.FILL, height: 1, backgroundColor: "#000000", top: 0, opacity: 0.2, id: "__alloyId62" });
 
-  $.__views.__alloyId53.add($.__views.__alloyId54);
+  $.__views.__alloyId61.add($.__views.__alloyId62);
   $.__views.tabnews = Ti.UI.createView(
   { width: "24.9%", top: 5, id: "tabnews", layout: "vertical" });
 
-  $.__views.__alloyId53.add($.__views.tabnews);
+  $.__views.__alloyId61.add($.__views.tabnews);
   $.__views.tabNewsImage = Ti.UI.createImageView(
   { width: 30, height: 30, id: "tabNewsImage", image: "/images/icon_news_active.png" });
 
   $.__views.tabnews.add($.__views.tabNewsImage);
-  $.__views.__alloyId55 = Ti.UI.createLabel(
-  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 12, fontWeight: "normal" }, text: 'News', id: "__alloyId55" });
+  $.__views.__alloyId63 = Ti.UI.createLabel(
+  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 12, fontWeight: "normal" }, text: 'News', id: "__alloyId63" });
 
-  $.__views.tabnews.add($.__views.__alloyId55);
+  $.__views.tabnews.add($.__views.__alloyId63);
   $.__views.tabbrowse = Ti.UI.createView(
   { width: "24.9%", top: 5, id: "tabbrowse", layout: "vertical" });
 
-  $.__views.__alloyId53.add($.__views.tabbrowse);
+  $.__views.__alloyId61.add($.__views.tabbrowse);
   $.__views.tabBrowseImage = Ti.UI.createImageView(
   { width: 30, height: 30, id: "tabBrowseImage", image: "/images/icon_browse.png" });
 
   $.__views.tabbrowse.add($.__views.tabBrowseImage);
-  $.__views.__alloyId56 = Ti.UI.createLabel(
-  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 12, fontWeight: "normal" }, text: 'Browse', id: "__alloyId56" });
+  $.__views.__alloyId64 = Ti.UI.createLabel(
+  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 12, fontWeight: "normal" }, text: 'Browse', id: "__alloyId64" });
 
-  $.__views.tabbrowse.add($.__views.__alloyId56);
+  $.__views.tabbrowse.add($.__views.__alloyId64);
   $.__views.tabcasa = Ti.UI.createView(
   { width: "24.9%", top: 5, id: "tabcasa", layout: "vertical" });
 
-  $.__views.__alloyId53.add($.__views.tabcasa);
+  $.__views.__alloyId61.add($.__views.tabcasa);
   $.__views.tabCasaImage = Ti.UI.createImageView(
   { width: 30, height: 30, id: "tabCasaImage", image: "/images/icon_casa.png" });
 
   $.__views.tabcasa.add($.__views.tabCasaImage);
-  $.__views.__alloyId57 = Ti.UI.createLabel(
-  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 12, fontWeight: "normal" }, text: 'My Casa', id: "__alloyId57" });
+  $.__views.__alloyId65 = Ti.UI.createLabel(
+  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 12, fontWeight: "normal" }, text: 'My Casa', id: "__alloyId65" });
 
-  $.__views.tabcasa.add($.__views.__alloyId57);
+  $.__views.tabcasa.add($.__views.__alloyId65);
   $.__views.tabbalances = Ti.UI.createView(
   { width: "24.9%", top: 5, id: "tabbalances", layout: "vertical" });
 
-  $.__views.__alloyId53.add($.__views.tabbalances);
+  $.__views.__alloyId61.add($.__views.tabbalances);
   $.__views.tabBalancesImage = Ti.UI.createImageView(
   { width: 30, height: 30, id: "tabBalancesImage", image: "/images/icon_balances.png" });
 
   $.__views.tabbalances.add($.__views.tabBalancesImage);
-  $.__views.__alloyId58 = Ti.UI.createLabel(
-  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 12, fontWeight: "normal" }, text: 'Balances', id: "__alloyId58" });
+  $.__views.__alloyId66 = Ti.UI.createLabel(
+  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 12, fontWeight: "normal" }, text: 'Balances', id: "__alloyId66" });
 
-  $.__views.tabbalances.add($.__views.__alloyId58);
+  $.__views.tabbalances.add($.__views.__alloyId66);
   exports.destroy = function () {};
 
 
@@ -134,18 +133,10 @@ function Controller() {
   var util = require("requires/util");
   var network = require("requires/network");
   var cache = require("requires/cache");
+
   var bitcoin = require("requires/bitcoin");
   var ethereum = require("requires/ethereum");
   var blockchain = require("requires/blockchain");
-
-  if (cache.data.blockchainWallets == undefined) {
-    cache.data.blockchainWallets = [];
-
-    cache.data.blockchainWallets.push(blockchain.basePath + "0");
-
-    cache.data.currentPath = cache.data.blockchainWallets[0];
-    cache.save();
-  }
 
   function showIntro() {
     if (cache.data.easypass === undefined) {

@@ -2,53 +2,25 @@
 	"global": {},
 	"env:development": {
 		"isLocal": true,
-		"isDevelopment": true,
-		"api_uri": "https://api3.indiesquare.net/",
-		"web_uri": "https://indietest:indie4936test@wallet.indiesquare.net/",
-		"res_uri": "https://indietest:indie4936test@res.indiesquare.net/",
-		"pubsub_uri": "https://indiesquare.me/pubsub/",
-		"dashboard_uri": "https://indietest:indie4936test@indiesquare.net/",
-		"walletapp_uri": "https://indietest:indie4936test@walletapp.indiesquare.net/",
-		"connects_uri": "https://indietest:indie4936test@indiesquare.net/services",
-		"dex_uri": "http://dex.indiesquare.local"
+		"isDevelopment": true
 	},
 	"env:test": {
 		"isLocal": false,
-		"isDevelopment": true,
-		"api_uri": "https://api3.indiesquare.net/",
-		"web_uri": "https://indietest:indie4936test@wallet.indiesquare.net/",
-		"res_uri": "https://indietest:indie4936test@res.indiesquare.net/",
-		"pubsub_uri": "https://indiesquare.me/pubsub/",
-		"dashboard_uri": "https://indietest:indie4936test@indiesquare.net/",
-		"walletapp_uri": "https://indietest:indie4936test@walletapp.indiesquare.net/",
-		"connects_uri": "https://indietest:indie4936test@indiesquare.net/services"
+		"isDevelopment": true
 	},
 	"env:production": {
 		"isLocal": false,
-		"isDevelopment": false,
-		"api_uri": "https://api3.indiesquare.me/",
-		"web_uri": "https://wallet.indiesquare.me/",
-		"res_uri": "https://res.indiesquare.me/",
-		"pubsub_uri": "https://indiesquare.me/pubsub/",
-		"dashboard_uri": "https://indiesquare.me/",
-		"walletapp_uri": "https://walletapp.indiesquare.me/",
-		"connects_uri": "https://indiesquare.me/services"
+		"isDevelopment": false
 	},
 	"env:testnet": {
 		"isLocal": false,
-		"isDevelopment": false,
-		"api_uri": "https://apitestnet.indiesquare.me/",
-		"web_uri": "https://wallet.indiesquare.me/",
-		"res_uri": "https://res.indiesquare.me/",
-		"pubsub_uri": "https://indiesquare.me/pubsub/",
-		"dashboard_uri": "https://indiesquare.me/",
-		"walletapp_uri": "https://walletapp.indiesquare.me/",
-		"connects_uri": "https://indiesquare.me/services"
+		"isDevelopment": false
 	},
 	"os:android": {},
 	"os:blackberry": {},
 	"os:ios": {},
 	"os:mobileweb": {},
 	"os:windows": {},
-	"dependencies": {}
+	"dependencies": {},
+	"api_uri": "https://api3.indiesquare.me/"
 }

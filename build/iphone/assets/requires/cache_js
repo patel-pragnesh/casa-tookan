@@ -1,0 +1,133 @@
+module.exports=function(){
+
+
+
+function getPath(isMakeFile){
+if(!1){
+var newDir=Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory,"save");
+null!=newDir&&newDir.exists()||newDir.createDirectory();
+var file=Ti.Filesystem.getFile(newDir.nativePath,"save_file.json");
+
+
+return isMakeFile&&(null==file||!file.exists())&&file.write(""),file.nativePath;
+}return globals.SAVE_FILE_PATH;
+}
+
+
+function getRSAPath(isMakeFile){
+if(!1){
+var newDir=Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory,"jithd");
+null!=newDir&&newDir.exists()||newDir.createDirectory();
+
+var file=Ti.Filesystem.getFile(newDir.nativePath,"jithd.json");
+
+
+return isMakeFile&&(null==file||!file.exists())&&file.write(""),file.nativePath;
+}return globals.CRYPT_FILE_PATH;
+}
+
+
+function getData(){
+var f=Ti.Filesystem.getFile(getPath(!1)),
+data=f.read();
+if(!data||0>=data.length)data="{}";else
+try{
+var rsa_info=loadRsa(),
+RSAkey=null==globals.Crypt_key?globals.Crypt_key=crypt.loadRSAkey(rsa_info.a):globals.Crypt_key,
+DecryptionResult=crypt.decrypt(data.toString(),RSAkey);
+
+if(data=DecryptionResult.plaintext,checkExists()&&(void 0==data||0>=data.length))throw new Error("");
+}catch(e){
+throw new Error("*** Access deny.");
+}
+
+return JSON.parse(data);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function loadRsa(){
+var f=Ti.Filesystem.getFile(getRSAPath(!1)),
+
+json=f.read();
+
+
+return(!json||0>=json.length)&&(json="{}"),JSON.parse(json);
+}
+
+
+function checkExists(){
+var exists=!1;
+if(!1){
+var newDir=Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory,"save"),
+f=null,
+f2=null;
+null!=newDir&&newDir.exists()&&(
+f=Ti.Filesystem.getFile(newDir.nativePath,"save_file.json"));
+
+var newDir=Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory,"jithd");
+null!=newDir&&newDir.exists()&&(
+f2=Ti.Filesystem.getFile(newDir.nativePath,"jithd.json"));
+
+var a=null!=f&&f.exists(),
+b=null!=f2&&f2.exists();
+exists=a&&b;
+}else{
+var f=Ti.Filesystem.getFile(getPath(!1)),
+f2=Ti.Filesystem.getFile(getRSAPath(!1));
+exists=null!=f&&f.exists()&&null!=f2&&f2.exists();
+}
+
+return exists;
+}
+
+
+
+
+
+
+
+function load(){
+try{
+
+
+return globals.datas=getData(),self.data=globals.datas,!0;
+}catch(e){
+return!1;
+}
+}var self={},crypt=require("crypt/api");self.getPath=getPath,self.getRSAPath=getRSAPath,self.data=null,self.init=function(){var f=Ti.Filesystem.getFile(getPath(!1));null!=f&&f.exists()&&f.deleteFile();var f2=Ti.Filesystem.getFile(getRSAPath(!1));null!=f2&&f2.exists()&&f2.deleteFile();var f3=Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory,"qr_address.png");null!=f3&&f3.exists()&&f3.deleteFile(),Ti.App.Properties.setString("current_address",null),load()};;self.loadRsa=loadRsa;;self.checkExists=checkExists,self.saveRsa=function(data){var f=Ti.Filesystem.getFile(getRSAPath(!0));f.write(JSON.stringify(data))};;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+return self.load=load,self.save=function(){var f=Ti.Filesystem.getFile(getPath(!0)),str_data=JSON.stringify(self.data),rsa_info=loadRsa(),RSAkey=null==globals.Crypt_key?globals.Crypt_key=crypt.loadRSAkey(rsa_info.a):globals.Crypt_key,PubKey=crypt.publicKeyString(RSAkey),EncryptionResult=crypt.encrypt(str_data,PubKey);str_data=EncryptionResult.cipher,f.write(str_data)},self;
+}();

@@ -21,7 +21,7 @@
 @end
 
 /**
- * user class defined at /Users/a/Documents/Appcelerator_Studio_Workspace/tookan/build/iphone/build/Products/Debug-iphonesimulator/jiko.app/alloy/controllers/dappbrowser.js:270
+ * user class defined at /Users/a/Documents/Appcelerator_Studio_Workspace/tookan/build/iphone/build/Products/Debug-iphonesimulator/jiko.app/alloy/controllers/dappbrowser.js:269
  */
 @interface WebViewDelegate : NSObject <WKNavigationDelegate>
 

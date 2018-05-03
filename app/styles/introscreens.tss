@@ -1,31 +1,28 @@
-".success": {
-	backgroundColor: "#79af7e"
-}
-
+ 
 ".passphrase": {
-	backgroundColor: "#d58645"
+	backgroundColor: "#f5f5f5"
 }
 
 ".pincode": {
-	backgroundColor: "#6a84bf"
+	backgroundColor: "#f5f5f5"
 }
 
 ".touchid": {
-	backgroundColor: "#9579af"
+	backgroundColor: "#f5f5f5"
 }
 
-".push": {
-	backgroundColor: "#9579af"
-}
+ 
+".tookan": {
+	width: 90,
+	height: 90,
+	bottom: 0,
 
-".complete": {
-	backgroundColor: "#79af7e"
+	right:40,
 }
-
 ".icon": {
 	width: 90,
 	height: 90,
-	top: 30
+	top: 40,
 }
 ".aChain":{
 	width:'100%',
@@ -46,10 +43,7 @@
 	height:50,
 	
 }
-".icon[if=Alloy.Globals.isiPhoneX]": { 
-	top: 90
-}
-
+ 
 
 ".title": {
 	top: 140
@@ -74,8 +68,20 @@
 ".nextButton": {
 	width: "90%",
 	height: 50,
+	top: 20,
+	color: "gray",
+	backgroundColor: "#48ffffff",
+	font: {
+		fontFamily: "Helvetica Neue",
+		fontSize: 20,
+		fontWeight: "normal"
+	}
+}
+".touchIdSkip": {
+	width: "90%",
+	height: 50,
 	bottom: 20,
-	color: "#ffffff",
+	color: "gray",
 	backgroundColor: "#48ffffff",
 	font: {
 		fontFamily: "Helvetica Neue",
@@ -95,7 +101,7 @@
 	width: "90%",
 	height: 50,
 	bottom: 80,
-	color: "#ffffff",
+	color: "gray",
 	backgroundColor: "#48ffffff",
 	font: {
 		fontFamily: "Helvetica Neue",

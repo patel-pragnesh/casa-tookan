@@ -1,5 +1,7 @@
 <Alloy>
-		 
+	<View class="tisize">
+		<View class="shadow">
+		 	</View>	 
 	<View class="tokenBox" id="tokenBox" postlayout="getBalance">
 		<ImageView class="tokenImage" id="tokenImage" defaultImage="/images/image_blank.png" />
 		<Label class="size18 tokenName" id="tokenName"></Label>
@@ -21,6 +23,8 @@
 			<Label class="size15 tokenSendLabel">L("label_send")</Label>
 		</View>
 		 
+	</View>
+	
 	</View>
 	
 	 

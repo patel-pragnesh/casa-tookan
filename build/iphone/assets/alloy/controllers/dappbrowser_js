@@ -1,0 +1,587 @@
+var Alloy = require('/alloy'), Backbone = Alloy.Backbone, _ = Alloy._;
+function __processArg(obj, key) {
+    var arg = null;
+    return obj && (arg = obj[key] || null), arg;
+}
+function Controller() {
+    function getCurrentUrl() {
+        return 0 ? webView.getUrl() : webView.URL;
+    }
+    function isTrustedDapp(dappUrl) {
+        return !0;
+        return 'https://casa-tookan-store.herokuapp.com/' == dappUrl;
+    }
+    function close() {
+        Alloy.Globals.lastAction = null, console.log('closed2'), $.main.animate({
+            top: Ti.Platform.displayCaps.platformHeight,
+            duration: 400
+        }), setTimeout(function () {
+            win.close();
+        }, 400);
+    }
+    function loadWebView() {
+        console.log('start load webview'), setTimeout(function () {
+            loadWebViewIOS();
+        }, 100);
+    }
+    function updateButtons() {
+        var canGoBack, canGoForward;
+        canGoBack = 1 ? webView.canGoBack : getCurrentUrl() != url, canGoForward = webView.canGoForward, $.tabBackImage.image = canGoBack ? '/images/browser_left.png' : '/images/browser_left_inactive.png', $.tabForwardImage.image = canGoForward ? '/images/browser_right.png' : '/images/browser_right_inactive.png';
+    }
+    function goBack() {
+        webView.canGoBack && (webView.goBack(), updateButtons());
+    }
+    function goFoward() {
+        webView.canGoForward ? (console.log('Can go foward'), webView.goForward(), updateButtons()) : console.log('cant go foward');
+    }
+    function loadUrl(newUrl) {
+        console.log(newUrl), 0 < newUrl.length && (url = newUrl, (-1 == url.indexOf('http:') || -1 == url.indexOf('https:')) && (url.split(' ').join('+'), url = 'https://www.google.com/search?q=' + url), console.log(url), 1 ? webView.loadRequest(NSURLRequest.alloc().initWithURL(NSURL.alloc().initWithString(url))) : webView.loadUrl(url));
+    }
+    function reload() {
+        !1, webView.reload();
+    }
+    function startCheckData() {
+        null != checkDataInterval && clearInterval(checkDataInterval), checkDataInterval = setInterval(function () {
+            checkData();
+        }, 500);
+    }
+    function evaluateJS(js, callback) {
+        webView.evaluateJavaScriptCompletionHandler(js, function (response, error) {
+            callback(response, error);
+        });
+    }
+    function checkData() {
+        return !0 == lock ? void console.debug('locked') : void (console.debug('unlocked'), null == webView ? lock = !1 : evaluateJS('if(typeof web3 !== \'undefined\' && typeof GET_CURRENT_TASK !== \'undefined\'){GET_CURRENT_TASK();}', function (evalResult, error) {
+            if (null != error)
+                return alert(error), void (lock = !1);
+            if (void 0 != evalResult && 'undefined' != evalResult) {
+                try {
+                    evalResult = JSON.parse(evalResult);
+                } catch (e) {
+                    return void console.log(e);
+                }
+                console.log(evalResult), console.log('gm' + evalResult.chain), 'eth' == evalResult.chain ? (console.log('raw ' + evalResult.type), 'getAccount' == evalResult.type ? (lock = !0, handleGetAccountEth(evalResult)) : 'signMessage' == evalResult.type ? (lock = !0, handleSignMessageEth(evalResult)) : 'signTransaction' == evalResult.type ? (lock = !0, handleSignTransactionEth(evalResult)) : 'sendTransaction' == evalResult.type ? (lock = !0, handleSendTransactionEth(evalResult)) : (clearTask(), clearCallback('type not supported'))) : 'XCP' == evalResult.chain && ('getAccount' == evalResult.type ? (lock = !0, handleGetAccountXCP(evalResult)) : 'signMessage' == evalResult.type ? (lock = !0, handleSignMessageXCP(evalResult)) : 'signTransaction' == evalResult.type ? (lock = !0, handleSignTransactionXCP(evalResult)) : (clearTask(), clearCallback('type not supported')));
+            } else
+                lock = !1;
+        }));
+    }
+    function clearTask() {
+        evaluateJS('CLEAR_TASK()', function (response, error) {
+            void 0 != error && console.error(error), lock = !1;
+        });
+    }
+    function clearCallback(err) {
+        evaluateJS('CLEAR_CALLBACK(\'' + err + '\')', function (response, error) {
+            void 0 != error && console.error(error), lock = !1;
+        });
+    }
+    function handleGetAccountEth(evalResult) {
+        function returnAccount() {
+            var account = ethereum.getAddress(), returnMessage = JSON.stringify({
+                    chain: evalResult.chain,
+                    type: evalResult.type,
+                    data: account
+                });
+            evaluateJS('START_CALLBACK(\'' + returnMessage + '\')', function (response, error) {
+                void 0 != error && console.error(error), lock = !1;
+            });
+        }
+        if (!0 == accountUnlocked)
+            return void returnAccount();
+        var dialog = util.createDialog({
+            title: L('label_confirm'),
+            message: L('text_request_address').format({ url: getCurrentUrl() }),
+            buttonNames: [
+                L('label_cancel'),
+                L('label_ok')
+            ]
+        });
+        dialog.addEventListener('click', function (e) {
+            e.index == e.source.cancel ? (clearTask(), clearCallback('user cancelled')) : auth.check({
+                title: L('text_confirmsend'),
+                callback: function (e) {
+                    e.success ? (accountUnlocked = !0, returnAccount()) : (clearTask(), clearCallback('user cancelled'));
+                }
+            });
+        }), dialog.show();
+    }
+    function handleSignMessageEth(evalResult) {
+        var message = evalResult.data.data, dialog = util.createDialog({
+                title: L('label_confirm'),
+                message: L('text_request_sign_message').format({
+                    url: getCurrentUrl(),
+                    message: message,
+                    address: ethereum.getAddress()
+                }),
+                buttonNames: [
+                    L('label_cancel'),
+                    L('label_ok')
+                ]
+            });
+        dialog.addEventListener('click', function (e) {
+            e.index == e.source.cancel ? (clearTask(), clearCallback('user cancelled')) : auth.check({
+                title: L('text_confirmsend'),
+                callback: function (e) {
+                    if (e.success) {
+                        var sig = ethereum.signMessage(message), returnMessage = JSON.stringify({
+                                chain: evalResult.chain,
+                                type: evalResult.type,
+                                data: sig
+                            });
+                        console.log(sig), evaluateJS('START_CALLBACK(\'' + returnMessage + '\')', function (response, error) {
+                            void 0 != error && console.error(error), lock = !1;
+                        });
+                    } else
+                        clearTask(), clearCallback('user cancelled');
+                }
+            });
+        }), dialog.show();
+    }
+    function handleSignTransactionEth(evalResult) {
+        function confirmTransaction(message) {
+            var dialog = util.createDialog({
+                title: L('label_confirm'),
+                message: message,
+                buttonNames: [
+                    L('label_cancel'),
+                    L('label_ok')
+                ]
+            });
+            dialog.addEventListener('click', function (e) {
+                e.index == e.source.cancel ? (clearTask(), clearCallback('user cancelled')) : auth.check({
+                    title: L('text_confirmsend'),
+                    callback: function (e) {
+                        if (e.success) {
+                            var sig = ethereum.sign(evalResult.data), returnMessage = JSON.stringify({
+                                    chain: evalResult.chain,
+                                    type: evalResult.type,
+                                    data: sig
+                                });
+                            console.log(returnMessage), evaluateJS('START_CALLBACK(\'' + returnMessage + '\')', function (response, error) {
+                                void 0 != error && console.error(error), lock = !1;
+                            });
+                        } else
+                            clearTask(), clearCallback('user cancelled');
+                    }
+                });
+            }), dialog.show();
+        }
+        lock = !0;
+        var contractData = evalResult.data.data;
+        if (contractData.substring(0, ethereum.tokenTransferMethod.length) == ethereum.tokenTransferMethod)
+            blockchain.API.getToken({
+                chain: blockchain.ETHEREUM,
+                contractAddress: evalResult.data.to,
+                callback: function (tokeninfo) {
+                    var unpackedData = ethereum.unpackData(contractData, parseInt(tokeninfo.decimals));
+                    console.log(unpackedData);
+                    var message = L('text_request_sign_transaction_eth').format({
+                        url: getCurrentUrl(),
+                        amount: unpackedData.amount,
+                        token: tokeninfo.name,
+                        destination: unpackedData.to
+                    });
+                    confirmTransaction(message);
+                },
+                onError: function (error) {
+                    clearTask(), clearCallback(error);
+                },
+                always: function () {
+                }
+            });
+        else {
+            var message = L('text_request_sign_transaction_eth').format({
+                url: getCurrentUrl(),
+                amount: ethereum.weiToEther(ethereum.hexToDecimal(evalResult.data.value)),
+                token: 'ether',
+                destination: unpackedData.to
+            });
+            confirmTransaction(message);
+        }
+    }
+    function handleSendTransactionEth(evalResult) {
+        function confirmTransaction(message) {
+            var dialog = util.createDialog({
+                title: L('label_confirm'),
+                message: message,
+                buttonNames: [
+                    L('label_cancel'),
+                    L('label_ok')
+                ]
+            });
+            dialog.addEventListener('click', function (e) {
+                e.index == e.source.cancel ? (clearTask(), clearCallback('user cancelled')) : auth.check({
+                    title: L('text_confirmsend'),
+                    callback: function (e) {
+                        if (e.success) {
+                            var sig = ethereum.sign(evalResult.data);
+                            blockchain.API.broadcast({
+                                signed_tx: sig,
+                                callback: function (result) {
+                                    console.log(result);
+                                    var returnMessage = JSON.stringify({
+                                        chain: evalResult.chain,
+                                        type: evalResult.type,
+                                        data: result.hash
+                                    });
+                                    console.log(returnMessage), evaluateJS('START_CALLBACK(\'' + returnMessage + '\')', function (response, error) {
+                                        void 0 != error && console.error(error), lock = !1;
+                                    });
+                                },
+                                onError: function (error) {
+                                    clearTask(), clearCallback(error);
+                                },
+                                always: function () {
+                                }
+                            });
+                        } else
+                            clearTask(), clearCallback('user cancelled');
+                    }
+                });
+            }), dialog.show();
+        }
+        lock = !0;
+        var contractData = evalResult.data.data;
+        if (contractData.substring(0, ethereum.tokenTransferMethod.length) == ethereum.tokenTransferMethod)
+            blockchain.API.getToken({
+                chain: blockchain.ETHEREUM,
+                contractAddress: evalResult.data.to,
+                callback: function (tokeninfo) {
+                    var unpackedData = ethereum.unpackData(contractData, parseInt(tokeninfo.decimals));
+                    console.log(unpackedData);
+                    var message = L('text_request_send_transaction').format({
+                        url: getCurrentUrl(),
+                        amount: unpackedData.amount,
+                        token: tokeninfo.name,
+                        destination: unpackedData.to
+                    });
+                    confirmTransaction(message);
+                },
+                onError: function (error) {
+                    clearTask(), clearCallback(error);
+                },
+                always: function () {
+                }
+            });
+        else {
+            var message = L('text_request_send_transaction').format({
+                url: getCurrentUrl(),
+                amount: ethereum.weiToEther(ethereum.hexToDecimal(evalResult.data.value)),
+                token: 'ether',
+                destination: unpackedData.to
+            });
+            confirmTransaction(message);
+        }
+    }
+    function handleGetAccountXCP(evalResult) {
+        function returnAccount() {
+            var account = bitcoin.getAddressForPath(evalResult.basePath), returnMessage = JSON.stringify({
+                    chain: evalResult.chain,
+                    type: evalResult.type,
+                    data: account
+                });
+            console.log('return ' + returnMessage), evaluateJS('START_CALLBACK(\'' + returnMessage + '\')', function (response, error) {
+                void 0 != error && console.error(error), lock = !1;
+            });
+        }
+        if (console.log('getting account'), !0 == accountUnlocked)
+            return void returnAccount();
+        var dialog = util.createDialog({
+            title: L('label_confirm'),
+            message: L('text_request_address').format({ url: getCurrentUrl() }),
+            buttonNames: [
+                L('label_cancel'),
+                L('label_ok')
+            ]
+        });
+        dialog.addEventListener('click', function (e) {
+            e.index == e.source.cancel ? (clearTask(), clearCallback('user cancelled')) : auth.check({
+                title: L('text_confirmsend'),
+                callback: function (e) {
+                    e.success ? (accountUnlocked = !0, returnAccount()) : (clearTask(), clearCallback('user cancelled'));
+                }
+            });
+        }), dialog.show();
+    }
+    function handleSignMessageXCP(evalResult) {
+        function continueSignMsg(e) {
+            e.index == e.source.cancel ? (clearTask(), clearCallback('user cancelled')) : auth.check({
+                title: L('text_confirmsend'),
+                callback: function (e) {
+                    if (e.success) {
+                        var sig = bitcoin.signMessage(message, evalResult.basePath), returnMessage = JSON.stringify({
+                                chain: evalResult.chain,
+                                type: evalResult.type,
+                                data: sig
+                            });
+                        console.log(sig), evaluateJS('START_CALLBACK(\'' + returnMessage + '\')', function (response, error) {
+                            void 0 != error && console.error(error), lock = !1;
+                        });
+                    } else
+                        clearTask(), clearCallback('user cancelled');
+                }
+            });
+        }
+        var message = evalResult.data, dialog = util.createDialog({
+                title: L('label_confirm'),
+                message: L('text_request_sign_message').format({
+                    url: getCurrentUrl(),
+                    message: message,
+                    address: bitcoin.getAddressForPath(evalResult.basePath)
+                }),
+                buttonNames: [
+                    L('label_cancel'),
+                    L('label_ok')
+                ]
+            });
+        console.log(message), setTimeout(function () {
+            dialog.addEventListener('click', function (e) {
+                continueSignMsg(e);
+            });
+        }, 100), dialog.show();
+    }
+    function handleSignTransactionXCP(evalResult) {
+        function confirmTransaction(message) {
+            var dialog = util.createDialog({
+                title: L('label_confirm'),
+                message: message,
+                buttonNames: [
+                    L('label_cancel'),
+                    L('label_ok')
+                ]
+            });
+            dialog.addEventListener('click', function (e) {
+                e.index == e.source.cancel ? (clearTask(), clearCallback('user cancelled')) : auth.check({
+                    title: L('text_confirmsend'),
+                    callback: function (e) {
+                        if (e.success) {
+                            var sig = bitcoin.sign(evalResult.data, evalResult.basePath), returnMessage = JSON.stringify({
+                                    chain: evalResult.chain,
+                                    type: evalResult.type,
+                                    data: sig
+                                });
+                            console.log(returnMessage), evaluateJS('START_CALLBACK(\'' + returnMessage + '\')', function (response, error) {
+                                void 0 != error && console.error(error), lock = !1;
+                            });
+                        } else
+                            clearTask(), clearCallback('user cancelled');
+                    }
+                });
+            }), dialog.show();
+        }
+        lock = !0, console.log(evalResult), transactionParser.decodeBitcoinTransaction(evalResult.data, function (decodedTransaction, error) {
+            if (null != error)
+                return clearTask(), void clearCallback('transaction parse error');
+            console.log(decodedTransaction);
+            for (var anOutput, message = L('text_sign_request').format({ url: getCurrentUrl() }), i = 0; i < decodedTransaction.outputs.length; i++)
+                anOutput = decodedTransaction.outputs[i], console.log(anOutput), message += '\n\n' + L('text_output') + ' ' + (i + 1) + ':\n', message += 'enhanced send' == anOutput.type || 'pubkeyhash' == anOutput.type ? anOutput.value + ' ' + anOutput.token + ' to ' + anOutput.address : 'order' == anOutput.type ? L('text_order') + ' give: ' + anOutput.give_value + ' ' + anOutput.give_token + ' get:' + anOutput.get_value + ' ' + anOutput.get_token : 'cancel' == anOutput.type ? L('text_cancel_order') + ' ' + anOutput.txid : L('text_unknown_data');
+            message += '\n\n' + L('label_fee') + ' ' + decodedTransaction.fees / 100000000 + ' BTC', confirmTransaction(message);
+        });
+    }
+    if (require('/alloy/controllers/BaseController').apply(this, Array.prototype.slice.call(arguments)), this.__controllerPath = 'dappbrowser', this.args = arguments[0] || {}, arguments[0])
+        var __parentSymbol = __processArg(arguments[0], '__parentSymbol'), $model = __processArg(arguments[0], '$model'), __itemTemplate = __processArg(arguments[0], '__itemTemplate');
+    var $ = this, exports = {}, __defers = {};
+    $.__views.dappbrowser = Ti.UI.createView({
+        backgroundColor: 'transparent',
+        id: 'dappbrowser'
+    }), $.__views.dappbrowser && $.addTopLevelView($.__views.dappbrowser), $.__views.main = Ti.UI.createView({
+        top: 0,
+        backgroundColor: 'white',
+        id: 'main'
+    }), $.__views.dappbrowser.add($.__views.main), $.__views.topBar = Ti.UI.createView({
+        width: Ti.UI.FILL,
+        height: Ti.UI.FILL,
+        backgroundColor: '#f8f8f8',
+        top: 0,
+        id: 'topBar'
+    }), $.__views.main.add($.__views.topBar), $.__views.search = Ti.UI.createSearchBar({
+        backgroundColor: '#f8f8f8',
+        barColor: '#f8f8f8',
+        borderColor: 'transparent',
+        bottom: 0,
+        left: 0,
+        id: 'search'
+    }), $.__views.topBar.add($.__views.search), $.__views.rightOptions = Ti.UI.createView({
+        width: 25,
+        right: 5,
+        bottom: 0,
+        id: 'rightOptions'
+    }), $.__views.topBar.add($.__views.rightOptions), $.__views.reloadButton = Ti.UI.createButton({
+        height: 25,
+        bottom: 0,
+        backgroundImage: '/images/browser_refresh.png',
+        id: 'reloadButton'
+    }), $.__views.rightOptions.add($.__views.reloadButton), reload ? $.addListener($.__views.reloadButton, 'click', reload) : __defers['$.__views.reloadButton!click!reload'] = !0, $.__views.activityIndicator = Ti.UI.createActivityIndicator({
+        bottom: 0,
+        style: Ti.UI.ActivityIndicatorStyle.DARK,
+        id: 'activityIndicator',
+        message: ''
+    }), $.__views.rightOptions.add($.__views.activityIndicator), $.__views.web = Ti.UI.createView({ id: 'web' }), $.__views.main.add($.__views.web), $.__views.tabbar = Ti.UI.createView({
+        width: Ti.UI.FILL,
+        height: Alloy.Globals.tabBarHeight,
+        bottom: 0,
+        backgroundColor: '#f8f8f8',
+        layout: 'horizontal',
+        id: 'tabbar'
+    }), $.__views.main.add($.__views.tabbar), $.__views.__alloyId49 = Ti.UI.createView({
+        width: Ti.UI.FILL,
+        height: 1,
+        backgroundColor: '#000000',
+        top: 0,
+        opacity: 0.2,
+        id: '__alloyId49'
+    }), $.__views.tabbar.add($.__views.__alloyId49), $.__views.tabback = Ti.UI.createView({
+        width: '20%',
+        top: 10,
+        id: 'tabback',
+        layout: 'vertical'
+    }), $.__views.tabbar.add($.__views.tabback), $.__views.tabBackImage = Ti.UI.createImageView({
+        height: 30,
+        id: 'tabBackImage',
+        image: '/images/browser_left_inactive.png'
+    }), $.__views.tabback.add($.__views.tabBackImage), $.__views.tabforward = Ti.UI.createView({
+        width: '20%',
+        top: 10,
+        id: 'tabforward',
+        layout: 'vertical'
+    }), $.__views.tabbar.add($.__views.tabforward), $.__views.tabForwardImage = Ti.UI.createImageView({
+        height: 30,
+        id: 'tabForwardImage',
+        image: '/images/browser_right_inactive.png'
+    }), $.__views.tabforward.add($.__views.tabForwardImage), $.__views.tabhome = Ti.UI.createView({
+        width: '20%',
+        top: 10,
+        id: 'tabhome',
+        layout: 'vertical'
+    }), $.__views.tabbar.add($.__views.tabhome), $.__views.tabHomeImage = Ti.UI.createImageView({
+        height: 30,
+        id: 'tabHomeImage',
+        image: '/images/browser_home.png'
+    }), $.__views.tabhome.add($.__views.tabHomeImage), $.__views.tabfavourite = Ti.UI.createView({
+        width: '20%',
+        top: 10,
+        id: 'tabfavourite',
+        layout: 'vertical'
+    }), $.__views.tabbar.add($.__views.tabfavourite), $.__views.tabFavouriteImage = Ti.UI.createImageView({
+        height: 30,
+        id: 'tabFavouriteImage',
+        image: '/images/browser_favourite.png'
+    }), $.__views.tabfavourite.add($.__views.tabFavouriteImage), $.__views.tabshare = Ti.UI.createView({
+        width: '20%',
+        top: 10,
+        id: 'tabshare',
+        layout: 'vertical'
+    }), $.__views.tabbar.add($.__views.tabshare), $.__views.tabShareImage = Ti.UI.createImageView({
+        height: 30,
+        id: 'tabShareImage',
+        image: '/images/browser_share.png'
+    }), $.__views.tabshare.add($.__views.tabShareImage), exports.destroy = function () {
+    }, _.extend($, $.__views);
+    var args = arguments[0] || {}, win = Ti.UI.createWindow({
+            orientationModes: [Ti.UI.PORTRAIT],
+            navBarHidden: !0,
+            backgroundColor: 'transparent',
+            windowSoftInputMode: 1 ? null : Ti.UI.Android.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+        });
+    $.main.height = Ti.Platform.displayCaps.platformHeight, $.main.top = Ti.Platform.displayCaps.platformHeight, win.add($.dappbrowser), win.open();
+    var blockchain = require('requires/blockchain'), transactionParser = require('vendor/util/transactionParser.js'), checkDataInterval = null, webView = null, didPostLayout = !1, ethereum = require('requires/ethereum'), bitcoin = require('requires/bitcoin'), checkIfLoadedTimeout = null, util = require('requires/util');
+    auth = require('requires/auth');
+    var accountUnlocked = !1, url = args.url;
+    -1 == url.indexOf('https:') && (url.split(' ').join('+'), url = 'https://www.google.com/search?q=' + url), console.log(url);
+    var f = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, 'web3indie.txt'), web3Script = f.read().text;
+    accountUnlocked = !0;
+    var tabBarSize = 40;
+    Alloy.Globals.isiPhoneX && (tabBarSize = 52);
+    var webViewHeight = 0;
+    if ($.topBar.top = 0, $.search.width = Ti.Platform.displayCaps.platformWidth - 30, 1 ? ($.topBar.height = 42, $.search.tintColor = 'white', $.search.showCancel = !1, $.search.style = Ti.UI.iOS.SEARCH_BAR_STYLE_MINIMAL, $.rightOptions.bottom = 17, Alloy.Globals.isiPhoneX && ($.topBar.height = 95, $.rightOptions.bottom = 17)) : $.topBar.height = 30, $.tabhome.addEventListener('click', function () {
+            console.log('closed'), close();
+        }), $.tabback.addEventListener('click', function () {
+            goBack();
+        }), $.tabforward.addEventListener('click', function () {
+            goFoward();
+        }), $.topBar.layout = 'absolute', webTop = $.topBar.height + $.topBar.top, !1, webViewHeight = Ti.Platform.displayCaps.platformHeight - $.tabbar.height - $.topBar.height - $.topBar.top, !0) {
+        function createWebViewDelegate() {
+            var WebViewDelegate = Hyperloop.defineClass('WebViewDelegate', 'NSObject', ['WKNavigationDelegate']);
+            return WebViewDelegate.addMethod({
+                selector: 'webView:didFinishNavigation:',
+                encoding: 'v@:[WKWebView][WKNavigation]',
+                instance: true,
+                callback: function (webView, navigation) {
+                    this.didFinishNavigation && this.didFinishNavigation(webView, navigation);
+                }
+            }), WebViewDelegate.addMethod({
+                selector: 'webView:didStartProvisionalNavigation:',
+                encoding: 'v@:[WKWebView][WKNavigation]',
+                instance: true,
+                callback: function (webView, navigation) {
+                    this.didStartProvisionalNavigation && this.didStartProvisionalNavigation(webView, navigation);
+                }
+            }), WebViewDelegate;
+        }
+        function loadWebViewIOS() {
+            webView = web3Obj.getBrowserAndHeightAndUrlAndController(Ti.Platform.displayCaps.platformWidth, webViewHeight, url, TiApp.app()), webView.allowsBackForwardNavigationGestures = !0, $.web.add(webView), $.web.top = webTop, WebViewDelegate = createWebViewDelegate(), delegate = new WebViewDelegate(), webView.addEventListener = function (event, handler) {
+                webView[event] = handler;
+            }, webView.removeEventListener = function (event, handler) {
+                webView[event] = null, delete webView[event];
+            }, webView.fireEvent = function (event, args) {
+                webView[event] && webView[event](args);
+            }, delegate.didFinishNavigation = function (webView, navigation) {
+                lock = !1, $.activityIndicator.hide(), $.reloadButton.show(), updateButtons(), webView.fireEvent('load', { url: getCurrentUrl() }), startCheckData();
+            }, delegate.didStartProvisionalNavigation = function (webView, navigation) {
+                $.activityIndicator.show(), $.reloadButton.hide();
+            }, webView.setNavigationDelegate(delegate);
+        }
+        var TiApp = require('/hyperloop/titanium/tiapp'), WebKit = require('/hyperloop/webkit/webkit'), web3 = require('/hyperloop/web3/browser'), web3Obj = new web3(), lock = !1, WKWebView = require('/hyperloop/webkit/wkwebview'), WKNavigation = require('/hyperloop/webkit/wknavigation'), NSURLRequest = require('/hyperloop/foundation/nsurlrequest'), NSURL = require('/hyperloop/foundation/nsurl'), UIScreen = require('/hyperloop/uikit/uiscreen'), CGRectMake = require('/hyperloop/coregraphics/coregraphics').CGRectMake;
+        ;
+    } else if (!1) {
+        function loadWebViewAndroid() {
+            function checkButtons() {
+                3 != Alloy.Globals.currentTab || webView.evaluateJavascript('document.readyState', new ValueCallback({
+                    onReceiveValue: function (res) {
+                        return updateButtons(), '"loading"' == res ? ($.activityIndicator.show(), $.reloadButton.hide()) : ($.activityIndicator.hide(), $.reloadButton.show()), !1;
+                    }
+                }));
+            }
+            function checkIfLoaded() {
+                3 != Alloy.Globals.currentTab || webView.evaluateJavascript('typeof web3', new ValueCallback({
+                    onReceiveValue: function (res) {
+                        if ('"undefined"' == res) {
+                            var injectjs = 'function injectCode() {if(typeof web3 === \'undefined\'){var parent = document.getElementsByTagName(\'head\').item(0);var script = document.createElement(\'script\');script.type = \'text/javascript\';script.innerHTML =  ' + web3Script + ';parent.appendChild(script); return \'injected\'}else {return \'already added\'}} injectCode();';
+                            webView.evaluateJavascript(injectjs, new ValueCallback({
+                                onReceiveValue: function (s) {
+                                    return '\'already added\'' != s && (console.log(s), startCheckData(), globals.callCheckIfLoaded()), !1;
+                                }
+                            }));
+                        } else
+                            globals.callCheckIfLoaded();
+                        return !1;
+                    }
+                }));
+            }
+            webViewHeight = Ti.Platform.displayCaps.platformHeight - 2 * (tabBarSize * Ti.Platform.displayCaps.logicalDensityFactor) - webTop;
+            var activity = new Activity(Ti.Android.currentActivity);
+            webView = new WebView(activity), webView.getSettings().setJavaScriptEnabled(!0), webView.setWebChromeClient(new WebChromeClient()), webView.setWebViewClient(new WebViewClient());
+            var layoutParams = new LayoutParams(Ti.Platform.displayCaps.platformWidth, webViewHeight, Gravity.TOP);
+            webView.setLayoutParams(layoutParams), $.web.add(webView), webView.getSettings().setDomStorageEnabled(!0), webView.getSettings().setDatabaseEnabled(!0), webView.loadUrl(url), globals.callCheckIfLoaded = function () {
+                null != checkIfLoadedTimeout && clearTimeout(checkIfLoadedTimeout), checkIfLoadedTimeout = setTimeout(function () {
+                    checkIfLoaded();
+                }, 1000);
+            }, setInterval(function () {
+                checkButtons();
+            }, 1000), console.log('called from there'), checkIfLoaded();
+        }
+        var WebView = require('android.webkit.WebView'), WebViewClient = require('android.webkit.WebViewClient'), ValueCallback = require('android.webkit.ValueCallback'), WebChromeClient = require('android.webkit.WebChromeClient'), ConsoleMessage = require('android.webkit.ConsoleMessage'), JsResult = require('android.webkit.JsResult'), Activity = require('android.app.Activity'), LayoutParams = require('android.widget.FrameLayout.LayoutParams'), Gravity = require('android.view.Gravity');
+    }
+    $.search.addEventListener('blur', function (e) {
+        loadUrl(e.source.value);
+    }), $.search.addEventListener('return', function (e) {
+        $.search.blur();
+    }), $.search.addEventListener('cancel', function (e) {
+        $.search.blur();
+    }), loadWebView(), globals.updateDappUI = function () {
+    }, $.main.animate({
+        top: 0,
+        duration: 400
+    }), __defers['$.__views.reloadButton!click!reload'] && $.addListener($.__views.reloadButton, 'click', reload), _.extend($, exports);
+}
+module.exports = Controller;

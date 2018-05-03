@@ -1,0 +1,2825 @@
+
+var dbits,
+
+canary=0xdeadbeefcafe,
+j_lm=15715070==(16777215&canary);
+
+function BigInteger(a,b,c){
+null!=a&&("number"==typeof a?this.fromNumber(a,b,c):null==b&&"string"!=typeof a?this.fromString(a,256):this.fromString(a,b));
+}
+
+function nbi(){
+return new BigInteger(null);
+}
+
+function am1(i,x,w,j,c,n){for(;
+0<=--n;){
+var v=x*this[i++]+w[j]+c;
+c=Math.floor(v/67108864),
+w[j++]=67108863&v;
+}
+return c;
+}
+
+
+function am2(i,x,w,j,c,n){for(
+var xl=32767&x,
+xh=x>>15;
+0<=--n;){
+var l=32767&this[i],
+h=this[i++]>>15,
+m=xh*l+h*xl;
+l=xl*l+((32767&m)<<15)+w[j]+(1073741823&c),
+c=(l>>>30)+(m>>>15)+xh*h+(c>>>30),
+w[j++]=1073741823&l;
+}
+return c;
+}
+
+
+function am3(i,x,w,j,c,n){for(
+var xl=16383&x,
+xh=x>>14;
+0<=--n;){
+var l=16383&this[i],
+h=this[i++]>>14,
+m=xh*l+h*xl;
+l=xl*l+((16383&m)<<14)+w[j]+c,
+c=(l>>28)+(m>>14)+xh*h,
+w[j++]=268435455&l;
+}
+return c;
+}
+BigInteger.prototype.am=am1,
+dbits=26,
+
+
+BigInteger.prototype.DB=dbits,
+BigInteger.prototype.DM=(1<<dbits)-1,
+BigInteger.prototype.DV=1<<dbits;
+
+var BI_FP=52;
+BigInteger.prototype.FV=4503599627370496,
+BigInteger.prototype.F1=BI_FP-dbits,
+BigInteger.prototype.F2=2*dbits-BI_FP;
+
+var
+
+rr,vv,BI_RM="0123456789abcdefghijklmnopqrstuvwxyz",BI_RC=[];
+
+for(rr=48,vv=0;9>=vv;++vv)BI_RC[rr++]=vv;
+
+for(rr=97,vv=10;36>vv;++vv)BI_RC[rr++]=vv;
+
+for(rr=65,vv=10;36>vv;++vv)BI_RC[rr++]=vv;
+
+function int2char(n){
+return BI_RM.charAt(n);
+}
+
+function intAt(s,i){
+var c=BI_RC[s.charCodeAt(i)];
+return null==c?-1:c;
+}
+
+function bnpCopyTo(r){
+for(var i=this.t-1;0<=i;--i)r[i]=this[i];
+r.t=this.t,
+r.s=this.s;
+}
+
+function bnpFromInt(x){
+this.t=1,
+this.s=0>x?-1:0,
+0<x?this[0]=x:-1>x?this[0]=x+DV:this.t=0;
+}
+
+function nbv(i){
+var r=nbi();
+
+return r.fromInt(i),r;
+}
+
+function bnpFromString(s,b){
+var k;
+if(16==b)k=4;else if(8==b)k=3;else if(256==b)k=8;else if(2==b)k=1;else if(32==b)k=5;else if(4==b)k=2;else
+
+return void this.fromRadix(s,b);
+
+this.t=0,
+this.s=0;for(
+var i=s.length,
+mi=!1,
+sh=0;
+0<=--i;){
+var x=8==k?255&s[i]:intAt(s,i);
+if(0>x){
+"-"==s.charAt(i)&&(mi=!0);
+continue;
+}
+mi=!1,
+0==sh?this[this.t++]=x:sh+k>this.DB?(
+this[this.t-1]|=(x&(1<<this.DB-sh)-1)<<sh,
+this[this.t++]=x>>this.DB-sh):
+this[this.t-1]|=x<<sh,
+sh+=k,
+sh>=this.DB&&(sh-=this.DB);
+}
+8==k&&0!=(128&s[0])&&(
+this.s=-1,
+0<sh&&(this[this.t-1]|=(1<<this.DB-sh)-1<<sh)),
+
+this.clamp(),
+mi&&BigInteger.ZERO.subTo(this,this);
+}
+
+function bnpClamp(){for(
+var c=this.s&this.DM;
+0<this.t&&this[this.t-1]==c;)--this.t;
+}
+
+function bnToString(b){
+if(0>this.s)return"-"+this.negate().toString(b);
+var k;
+if(16==b)k=4;else if(8==b)k=3;else if(2==b)k=1;else if(32==b)k=5;else if(64==b)k=6;else if(4==b)k=2;else return this.toRadix(b);
+var
+d,km=(1<<k)-1,
+m=!1,
+r="",
+i=this.t,
+p=this.DB-i*this.DB%k;
+if(0<i--)for(
+p<this.DB&&0<(d=this[i]>>p)&&(
+m=!0,
+r=int2char(d));
+
+0<=i;)
+p<k?(
+d=(this[i]&(1<<p)-1)<<k-p,
+d|=this[--i]>>(p+=this.DB-k)):(
+
+d=this[i]>>(p-=k)&km,
+0>=p&&(
+p+=this.DB,
+--i)),
+
+
+0<d&&(m=!0),
+m&&(r+=int2char(d));
+
+
+return m?r:"0";
+}
+
+function bnNegate(){
+var r=nbi();
+
+return BigInteger.ZERO.subTo(this,r),r;
+}
+
+function bnAbs(){
+return 0>this.s?this.negate():this;
+}
+
+function bnCompareTo(a){
+var r=this.s-a.s;
+if(0!=r)return r;
+var i=this.t;
+
+if(r=i-a.t,0!=r)return r;for(;
+0<=--i;)if(0!=(r=this[i]-a[i]))return r;
+return 0;
+}
+
+function nbits(x){
+var
+t,r=1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+return 0!=(t=x>>>16)&&(x=t,r+=16),0!=(t=x>>8)&&(x=t,r+=8),0!=(t=x>>4)&&(x=t,r+=4),0!=(t=x>>2)&&(x=t,r+=2),0!=(t=x>>1)&&(x=t,r+=1),r;
+}
+
+function bnBitLength(){return(
+0>=this.t?0:
+this.DB*(this.t-1)+nbits(this[this.t-1]^this.s&this.DM));
+}
+
+function bnpDLShiftTo(n,r){
+var i;
+for(i=this.t-1;0<=i;--i)r[i+n]=this[i];
+for(i=n-1;0<=i;--i)r[i]=0;
+r.t=this.t+n,
+r.s=this.s;
+}
+
+function bnpDRShiftTo(n,r){
+for(var i=n;i<this.t;++i)r[i-n]=this[i];
+r.t=Math.max(this.t-n,0),
+r.s=this.s;
+}
+
+function bnpLShiftTo(n,r){
+var
+
+
+
+
+i,bs=n%this.DB,cbs=this.DB-bs,bm=(1<<cbs)-1,ds=Math.floor(n/this.DB),c=this.s<<bs&this.DM;
+for(i=this.t-1;0<=i;--i)
+r[i+ds+1]=this[i]>>cbs|c,
+c=(this[i]&bm)<<bs;
+
+for(i=ds-1;0<=i;--i)r[i]=0;
+r[ds]=c,
+r.t=this.t+ds+1,
+r.s=this.s,
+r.clamp();
+}
+
+function bnpRShiftTo(n,r){
+r.s=this.s;
+var ds=Math.floor(n/this.DB);
+if(ds>=this.t)
+
+return void(r.t=0);
+
+var bs=n%this.DB,
+cbs=this.DB-bs,
+bm=(1<<bs)-1;
+r[0]=this[ds]>>bs;
+for(var i=ds+1;i<this.t;++i)
+r[i-ds-1]|=(this[i]&bm)<<cbs,
+r[i-ds]=this[i]>>bs;
+
+0<bs&&(r[this.t-ds-1]|=(this.s&bm)<<cbs),
+r.t=this.t-ds,
+r.clamp();
+}
+
+function bnpSubTo(a,r){for(
+var i=0,
+c=0,
+m=Math.min(a.t,this.t);
+i<m;)
+c+=this[i]-a[i],
+r[i++]=c&this.DM,
+c>>=this.DB;
+
+if(a.t<this.t){for(
+c-=a.s;
+i<this.t;)
+c+=this[i],
+r[i++]=c&this.DM,
+c>>=this.DB;
+
+c+=this.s;
+}else{for(
+c+=this.s;
+i<a.t;)
+c-=a[i],
+r[i++]=c&this.DM,
+c>>=this.DB;
+
+c-=a.s;
+}
+r.s=0>c?-1:0,
+-1>c?r[i++]=this.DV+c:0<c&&(r[i++]=c),
+r.t=i,
+r.clamp();
+}
+
+function bnpMultiplyTo(a,r){
+var x=this.abs(),
+y=a.abs(),
+i=x.t;for(
+r.t=i+y.t;
+0<=--i;)r[i]=0;
+for(i=0;i<y.t;++i)r[i+x.t]=x.am(0,y[i],r,i,0,x.t);
+r.s=0,
+r.clamp(),
+this.s!=a.s&&BigInteger.ZERO.subTo(r,r);
+}
+
+function bnpSquareTo(r){for(
+var x=this.abs(),
+i=r.t=2*x.t;
+0<=--i;)r[i]=0;
+for(i=0;i<x.t-1;++i){
+var c=x.am(i,x[i],r,2*i,0,1);
+(r[i+x.t]+=x.am(i+1,2*x[i],r,2*i+1,c,x.t-i-1))>=x.DV&&(
+r[i+x.t]-=x.DV,
+r[i+x.t+1]=1);
+
+}
+0<r.t&&(r[r.t-1]+=x.am(i,x[i],r,2*i,0,1)),
+r.s=0,
+r.clamp();
+}
+
+function bnpDivRemTo(m,q,r){
+var pm=m.abs();
+if(!(0>=pm.t)){
+var pt=this.abs();
+if(pt.t<pm.t)
+
+
+return null!=q&&q.fromInt(0),void(null!=r&&this.copyTo(r));
+
+null==r&&(r=nbi());
+var y=nbi(),
+ts=this.s,
+ms=m.s,
+nsh=this.DB-nbits(pm[pm.t-1]);
+0<nsh?(
+pm.lShiftTo(nsh,y),
+pt.lShiftTo(nsh,r)):(
+
+pm.copyTo(y),
+pt.copyTo(r));
+
+var ys=y.t,
+y0=y[ys-1];
+if(0!=y0){
+var yt=y0*(1<<this.F1)+(1<ys?y[ys-2]>>this.F2:0),
+d1=this.FV/yt,
+d2=(1<<this.F1)/yt,
+e=1<<this.F2,
+i=r.t,
+j=i-ys,
+t=null==q?nbi():q;for(
+y.dlShiftTo(j,t),
+0<=r.compareTo(t)&&(
+r[r.t++]=1,
+r.subTo(t,r)),
+
+BigInteger.ONE.dlShiftTo(ys,t),
+t.subTo(y,y);
+y.t<ys;)y[y.t++]=0;for(;
+0<=--j;){
+var qd=r[--i]==y0?this.DM:Math.floor(r[i]*d1+(r[i-1]+e)*d2);
+if((r[i]+=y.am(0,qd,r,j,0,ys))<qd)for(
+y.dlShiftTo(j,t),
+r.subTo(t,r);
+r[i]<--qd;)r.subTo(t,r);
+
+}
+null!=q&&(
+r.drShiftTo(ys,q),
+ts!=ms&&BigInteger.ZERO.subTo(q,q)),
+
+r.t=ys,
+r.clamp(),
+0<nsh&&r.rShiftTo(nsh,r),
+0>ts&&BigInteger.ZERO.subTo(r,r)}}
+}
+
+function bnMod(a){
+var r=nbi();
+
+
+return this.abs().divRemTo(a,null,r),0>this.s&&0<r.compareTo(BigInteger.ZERO)&&a.subTo(r,r),r;
+}
+
+function Classic(m){
+this.m=m;
+}
+
+function cConvert(x){return(
+0>x.s||0<=x.compareTo(this.m)?x.mod(this.m):x);
+}
+
+function cRevert(x){
+return x;
+}
+
+function cReduce(x){
+x.divRemTo(this.m,null,x);
+}
+
+function cMulTo(x,y,r){
+x.multiplyTo(y,r),
+this.reduce(r);
+}
+
+function cSqrTo(x,r){
+x.squareTo(r),
+this.reduce(r);
+}
+
+Classic.prototype.convert=cConvert,
+Classic.prototype.revert=cRevert,
+Classic.prototype.reduce=cReduce,
+Classic.prototype.mulTo=cMulTo,
+Classic.prototype.sqrTo=cSqrTo;
+
+function bnpInvDigit(){
+if(1>this.t)return 0;
+var x=this[0];
+if(0==(1&x))return 0;
+var y=3&x;
+
+
+
+
+return y=15&y*(2-(15&x)*y),y=255&y*(2-(255&x)*y),y=65535&y*(2-(65535&(65535&x)*y)),y=y*(2-x*y%this.DV)%this.DV,0<y?this.DV-y:-y;
+}
+
+function Montgomery(m){
+this.m=m,
+this.mp=m.invDigit(),
+this.mpl=32767&this.mp,
+this.mph=this.mp>>15,
+this.um=(1<<m.DB-15)-1,
+this.mt2=2*m.t;
+}
+
+function montConvert(x){
+var r=nbi();
+
+
+
+return x.abs().dlShiftTo(this.m.t,r),r.divRemTo(this.m,null,r),0>x.s&&0<r.compareTo(BigInteger.ZERO)&&this.m.subTo(r,r),r;
+}
+
+function montRevert(x){
+var r=nbi();
+
+
+return x.copyTo(r),this.reduce(r),r;
+}
+
+function montReduce(x){for(;
+x.t<=this.mt2;)x[x.t++]=0;
+for(var i=0;i<this.m.t;++i){
+var j=32767&x[i],
+u0=j*this.mpl+((j*this.mph+(x[i]>>15)*this.mpl&this.um)<<15)&x.DM;for(
+
+j=i+this.m.t,
+x[j]+=this.m.am(0,u0,x,i,0,this.m.t);
+
+x[j]>=x.DV;)
+x[j]-=x.DV,
+x[++j]++;
+
+}
+x.clamp(),
+x.drShiftTo(this.m.t,x),
+0<=x.compareTo(this.m)&&x.subTo(this.m,x);
+}
+
+function montSqrTo(x,r){
+x.squareTo(r),
+this.reduce(r);
+}
+
+function montMulTo(x,y,r){
+x.multiplyTo(y,r),
+this.reduce(r);
+}
+
+Montgomery.prototype.convert=montConvert,
+Montgomery.prototype.revert=montRevert,
+Montgomery.prototype.reduce=montReduce,
+Montgomery.prototype.mulTo=montMulTo,
+Montgomery.prototype.sqrTo=montSqrTo;
+
+function bnpIsEven(){
+return 0==(0<this.t?1&this[0]:this.s);
+}
+
+function bnpExp(e,z){
+if(4294967295<e||1>e)return BigInteger.ONE;
+var r=nbi(),
+r2=nbi(),
+g=z.convert(this),
+i=nbits(e)-1;for(
+g.copyTo(r);
+0<=--i;)
+
+if(z.sqrTo(r,r2),0<(e&1<<i))z.mulTo(r2,g,r);else{
+var t=r;
+r=r2,
+r2=t;
+}
+
+return z.revert(r);
+}
+
+function bnModPowInt(e,m){
+var z;
+
+return z=256>e||m.isEven()?new Classic(m):new Montgomery(m),this.exp(e,z);
+}
+
+BigInteger.prototype.copyTo=bnpCopyTo,
+BigInteger.prototype.fromInt=bnpFromInt,
+BigInteger.prototype.fromString=bnpFromString,
+BigInteger.prototype.clamp=bnpClamp,
+BigInteger.prototype.dlShiftTo=bnpDLShiftTo,
+BigInteger.prototype.drShiftTo=bnpDRShiftTo,
+BigInteger.prototype.lShiftTo=bnpLShiftTo,
+BigInteger.prototype.rShiftTo=bnpRShiftTo,
+BigInteger.prototype.subTo=bnpSubTo,
+BigInteger.prototype.multiplyTo=bnpMultiplyTo,
+BigInteger.prototype.squareTo=bnpSquareTo,
+BigInteger.prototype.divRemTo=bnpDivRemTo,
+BigInteger.prototype.invDigit=bnpInvDigit,
+BigInteger.prototype.isEven=bnpIsEven,
+BigInteger.prototype.exp=bnpExp,
+
+BigInteger.prototype.toString=bnToString,
+BigInteger.prototype.negate=bnNegate,
+BigInteger.prototype.abs=bnAbs,
+BigInteger.prototype.compareTo=bnCompareTo,
+BigInteger.prototype.bitLength=bnBitLength,
+BigInteger.prototype.mod=bnMod,
+BigInteger.prototype.modPowInt=bnModPowInt,
+
+BigInteger.ZERO=nbv(0),
+BigInteger.ONE=nbv(1);
+
+function bnClone(){
+var r=nbi();
+
+return this.copyTo(r),r;
+}
+
+function bnIntValue(){
+if(0>this.s){
+if(1==this.t)return this[0]-this.DV;if(0==this.t)return-1;
+}else{if(1==this.t)return this[0];if(0==this.t)return 0}
+
+return(this[1]&(1<<32-this.DB)-1)<<this.DB|this[0];
+}
+
+function bnByteValue(){
+return 0==this.t?this.s:this[0]<<24>>24;
+}
+
+function bnShortValue(){
+return 0==this.t?this.s:this[0]<<16>>16;
+}
+
+function bnpChunkSize(r){
+return Math.floor(Math.LN2*this.DB/Math.log(r));
+}
+
+function bnSigNum(){return(
+0>this.s?-1:0>=this.t||1==this.t&&0>=this[0]?0:1);
+}
+
+function bnpToRadix(b){
+
+if(null==b&&(b=10),0==this.signum()||2>b||36<b)return"0";
+var cs=this.chunkSize(b),
+a=Math.pow(b,cs),
+d=nbv(a),
+y=nbi(),
+z=nbi(),
+r="";for(
+this.divRemTo(d,y,z);
+0<y.signum();)
+r=(a+z.intValue()).toString(b).substr(1)+r,
+y.divRemTo(d,y,z);
+
+return z.intValue().toString(b)+r;
+}
+
+function bnpFromRadix(s,b){var _Mathpow=
+
+
+
+Math.pow;this.fromInt(0),null==b&&(b=10);
+
+
+
+for(var
+x,cs=this.chunkSize(b),d=_Mathpow(b,cs),mi=!1,j=0,w=0,i=0;i<s.length;++i){
+if(x=intAt(s,i),0>x){
+"-"==s.charAt(i)&&0==this.signum()&&(mi=!0);
+continue;
+}
+w=b*w+x,
+++j>=cs&&(
+this.dMultiply(d),
+this.dAddOffset(w,0),
+j=0,
+w=0);
+
+}
+0<j&&(
+this.dMultiply(_Mathpow(b,j)),
+this.dAddOffset(w,0)),
+
+mi&&BigInteger.ZERO.subTo(this,this);
+}
+
+function bnpFromNumber(a,b,c){
+if(!("number"==typeof b))
+
+
+
+
+
+
+
+
+
+{
+var x=[],
+t=7&a;
+x.length=(a>>3)+1,
+b.nextBytes(x),
+0<t?x[0]&=(1<<t)-1:x[0]=0,
+this.fromString(x,256);
+}else if(2>a)this.fromInt(1);else for(this.fromNumber(a,c),this.testBit(a-1)||this.bitwiseTo(BigInteger.ONE.shiftLeft(a-1),op_or,this),this.isEven()&&this.dAddOffset(1,0);!this.isProbablePrime(b);)this.dAddOffset(2,0),this.bitLength()>a&&this.subTo(BigInteger.ONE.shiftLeft(a-1),this);
+}
+
+function bnToByteArray(){
+var i=this.t,
+r=[];
+r[0]=this.s;
+var
+d,p=this.DB-i*this.DB%8,
+k=0;
+if(0<i--)for(
+p<this.DB&&(d=this[i]>>p)!=(this.s&this.DM)>>p&&(r[k++]=d|this.s<<this.DB-p);
+0<=i;)
+8>p?(
+d=(this[i]&(1<<p)-1)<<8-p,
+d|=this[--i]>>(p+=this.DB-8)):(
+
+d=255&this[i]>>(p-=8),
+0>=p&&(
+p+=this.DB,
+--i)),
+
+
+0!=(128&d)&&(d|=-256),
+0==k&&(128&this.s)!=(128&d)&&++k,(
+0<k||d!=this.s)&&(r[k++]=d);
+
+
+return r;
+}
+
+function bnEquals(a){
+return 0==this.compareTo(a);
+}
+
+function bnMin(a){
+return 0>this.compareTo(a)?this:a;
+}
+
+function bnMax(a){
+return 0<this.compareTo(a)?this:a;
+}
+
+function bnpBitwiseTo(a,op,r){
+var i,
+f,
+m=Math.min(a.t,this.t);
+for(i=0;i<m;++i)r[i]=op(this[i],a[i]);
+if(a.t<this.t){
+
+for(f=a.s&this.DM,i=m;i<this.t;++i)r[i]=op(this[i],f);
+r.t=this.t;
+}else{
+
+for(f=this.s&this.DM,i=m;i<a.t;++i)r[i]=op(f,a[i]);
+r.t=a.t;
+}
+r.s=op(this.s,a.s),
+r.clamp();
+}
+
+function op_and(x,y){
+return x&y;
+}
+
+function bnAnd(a){
+var r=nbi();
+
+return this.bitwiseTo(a,op_and,r),r;
+}
+
+function op_or(x,y){
+return x|y;
+}
+
+function bnOr(a){
+var r=nbi();
+
+return this.bitwiseTo(a,op_or,r),r;
+}
+
+function op_xor(x,y){
+return x^y;
+}
+
+function bnXor(a){
+var r=nbi();
+
+return this.bitwiseTo(a,op_xor,r),r;
+}
+
+function op_andnot(x,y){
+return x&~y;
+}
+
+function bnAndNot(a){
+var r=nbi();
+
+return this.bitwiseTo(a,op_andnot,r),r;
+}
+
+function bnNot(){
+
+for(var r=nbi(),i=0;i<this.t;++i)r[i]=this.DM&~this[i];
+
+
+return r.t=this.t,r.s=~this.s,r;
+}
+
+function bnShiftLeft(n){
+var r=nbi();
+
+return 0>n?this.rShiftTo(-n,r):this.lShiftTo(n,r),r;
+}
+
+function bnShiftRight(n){
+var r=nbi();
+
+return 0>n?this.lShiftTo(-n,r):this.rShiftTo(n,r),r;
+}
+
+function lbit(x){
+if(0==x)return-1;
+var r=0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+return 0==(65535&x)&&(x>>=16,r+=16),0==(255&x)&&(x>>=8,r+=8),0==(15&x)&&(x>>=4,r+=4),0==(3&x)&&(x>>=2,r+=2),0==(1&x)&&++r,r;
+}
+
+function bnGetLowestSetBit(){
+for(var i=0;i<this.t;++i)if(0!=this[i])return i*this.DB+lbit(this[i]);return(
+0>this.s?this.t*this.DB:
+-1);
+}
+
+function cbit(x){for(
+var r=0;
+0!=x;)
+x&=x-1,
+++r;
+
+return r;
+}
+
+function bnBitCount(){
+
+
+for(var r=0,x=this.s&this.DM,i=0;i<this.t;++i)r+=cbit(this[i]^x);
+return r;
+}
+
+function bnTestBit(n){
+var j=Math.floor(n/this.DB);return(
+j>=this.t?0!=this.s:
+0!=(this[j]&1<<n%this.DB));
+}
+
+function bnpChangeBit(n,op){
+var r=BigInteger.ONE.shiftLeft(n);
+
+return this.bitwiseTo(r,op,r),r;
+}
+
+function bnSetBit(n){
+return this.changeBit(n,op_or);
+}
+
+function bnClearBit(n){
+return this.changeBit(n,op_andnot);
+}
+
+function bnFlipBit(n){
+return this.changeBit(n,op_xor);
+}
+
+function bnpAddTo(a,r){for(
+var i=0,
+c=0,
+m=Math.min(a.t,this.t);
+i<m;)
+c+=this[i]+a[i],
+r[i++]=c&this.DM,
+c>>=this.DB;
+
+if(a.t<this.t){for(
+c+=a.s;
+i<this.t;)
+c+=this[i],
+r[i++]=c&this.DM,
+c>>=this.DB;
+
+c+=this.s;
+}else{for(
+c+=this.s;
+i<a.t;)
+c+=a[i],
+r[i++]=c&this.DM,
+c>>=this.DB;
+
+c+=a.s;
+}
+r.s=0>c?-1:0,
+0<c?r[i++]=c:-1>c&&(r[i++]=this.DV+c),
+r.t=i,
+r.clamp();
+}
+
+function bnAdd(a){
+var r=nbi();
+
+return this.addTo(a,r),r;
+}
+
+function bnSubtract(a){
+var r=nbi();
+
+return this.subTo(a,r),r;
+}
+
+function bnMultiply(a){
+var r=nbi();
+
+return this.multiplyTo(a,r),r;
+}
+
+function bnSquare(){
+var r=nbi();
+
+return this.squareTo(r),r;
+}
+
+function bnDivide(a){
+var r=nbi();
+
+return this.divRemTo(a,r,null),r;
+}
+
+function bnRemainder(a){
+var r=nbi();
+
+return this.divRemTo(a,null,r),r;
+}
+
+function bnDivideAndRemainder(a){
+var q=nbi(),
+r=nbi();
+
+return this.divRemTo(a,q,r),[q,r];
+}
+
+function bnpDMultiply(n){
+this[this.t]=this.am(0,n-1,this,0,0,this.t),
+++this.t,
+this.clamp();
+}
+
+function bnpDAddOffset(n,w){
+if(0!=n){for(;
+this.t<=w;)this[this.t++]=0;for(
+this[w]+=n;
+this[w]>=this.DV;)
+this[w]-=this.DV,
+++w>=this.t&&(this[this.t++]=0),
+++this[w]}
+
+}
+
+function NullExp(){}
+
+function nNop(x){
+return x;
+}
+
+function nMulTo(x,y,r){
+x.multiplyTo(y,r);
+}
+
+function nSqrTo(x,r){
+x.squareTo(r);
+}
+
+NullExp.prototype.convert=nNop,
+NullExp.prototype.revert=nNop,
+NullExp.prototype.mulTo=nMulTo,
+NullExp.prototype.sqrTo=nSqrTo;
+
+function bnPow(e){
+return this.exp(e,new NullExp);
+}
+
+function bnpMultiplyLowerTo(a,n,r){var _Mathmin=
+Math.min,i=_Mathmin(this.t+a.t,n);for(
+r.s=0,
+r.t=i;
+0<i;)r[--i]=0;
+var j;
+for(j=r.t-this.t;i<j;++i)r[i+this.t]=this.am(0,a[i],r,i,0,this.t);
+for(j=_Mathmin(a.t,n);i<j;++i)this.am(0,a[i],r,i,0,n-i);
+r.clamp();
+}
+
+function bnpMultiplyUpperTo(a,n,r){
+--n;
+var i=r.t=this.t+a.t-n;for(
+r.s=0;
+0<=--i;)r[i]=0;
+for(i=Math.max(n-this.t,0);i<a.t;++i)r[this.t+i-n]=this.am(n-i,a[i],r,0,0,this.t+i-n);
+r.clamp(),
+r.drShiftTo(1,r);
+}
+
+function Barrett(m){
+this.r2=nbi(),
+this.q3=nbi(),
+BigInteger.ONE.dlShiftTo(2*m.t,this.r2),
+this.mu=this.r2.divide(m),
+this.m=m;
+}
+
+function barrettConvert(x){
+if(0>x.s||x.t>2*this.m.t)return x.mod(this.m);if(0>x.compareTo(this.m))return x;
+var r=nbi();
+
+
+return x.copyTo(r),this.reduce(r),r;
+
+}
+
+function barrettRevert(x){
+return x;
+}
+
+function barrettReduce(x){for(
+x.drShiftTo(this.m.t-1,this.r2),
+x.t>this.m.t+1&&(
+x.t=this.m.t+1,
+x.clamp()),
+
+this.mu.multiplyUpperTo(this.r2,this.m.t+1,this.q3),
+this.m.multiplyLowerTo(this.q3,this.m.t+1,this.r2);
+0>x.compareTo(this.r2);)x.dAddOffset(1,this.m.t+1);for(
+x.subTo(this.r2,x);
+0<=x.compareTo(this.m);)x.subTo(this.m,x);
+}
+
+function barrettSqrTo(x,r){
+x.squareTo(r),
+this.reduce(r);
+}
+
+function barrettMulTo(x,y,r){
+x.multiplyTo(y,r),
+this.reduce(r);
+}
+
+Barrett.prototype.convert=barrettConvert,
+Barrett.prototype.revert=barrettRevert,
+Barrett.prototype.reduce=barrettReduce,
+Barrett.prototype.mulTo=barrettMulTo,
+Barrett.prototype.sqrTo=barrettSqrTo;
+
+function bnModPow(e,m){
+var
+k,
+
+z,i=e.bitLength(),r=nbv(1);
+if(0>=i)return r;k=18>i?1:48>i?3:144>i?4:768>i?5:6,
+z=8>i?new Classic(m):m.isEven()?new Barrett(m):new Montgomery(m);
+
+var g=[],
+n=3,
+k1=k-1,
+km=(1<<k)-1;
+
+if(g[1]=z.convert(this),1<k){
+var g2=nbi();for(
+z.sqrTo(g[1],g2);
+n<=km;)
+g[n]=nbi(),
+z.mulTo(g2,g[n-2],g[n]),
+n+=2;
+
+}
+
+var
+w,
+
+
+t,j=e.t-1,is1=!0,r2=nbi();for(
+i=nbits(e[j])-1;
+0<=j;){for(
+i>=k1?w=e[j]>>i-k1&km:(
+w=(e[j]&(1<<i+1)-1)<<k1-i,
+0<j&&(w|=e[j-1]>>this.DB+i-k1)),
+
+
+n=k;
+0==(1&w);)
+w>>=1,
+--n;
+
+
+
+
+
+if(0>(i-=n)&&(i+=this.DB,--j),is1)
+g[w].copyTo(r),
+is1=!1;else
+{for(;
+1<n;)
+z.sqrTo(r,r2),
+z.sqrTo(r2,r),
+n-=2;
+
+0<n?z.sqrTo(r,r2):(
+t=r,
+r=r2,
+r2=t),
+
+z.mulTo(r2,g[w],r);
+}for(;
+
+0<=j&&0==(e[j]&1<<i);)
+z.sqrTo(r,r2),
+t=r,
+r=r2,
+r2=t,
+0>--i&&(
+i=this.DB-1,
+--j);
+
+
+}
+return z.revert(r);
+}
+
+function bnGCD(a){
+var x=0>this.s?this.negate():this.clone(),
+y=0>a.s?a.negate():a.clone();
+if(0>x.compareTo(y)){
+var t=x;
+x=y,
+y=t;
+}
+var i=x.getLowestSetBit(),
+g=y.getLowestSetBit();
+if(0>g)return x;for(
+i<g&&(g=i),
+0<g&&(
+x.rShiftTo(g,x),
+y.rShiftTo(g,y));
+
+0<x.signum();)
+0<(i=x.getLowestSetBit())&&x.rShiftTo(i,x),
+0<(i=y.getLowestSetBit())&&y.rShiftTo(i,y),
+0<=x.compareTo(y)?(
+x.subTo(y,x),
+x.rShiftTo(1,x)):(
+
+y.subTo(x,y),
+y.rShiftTo(1,y));
+
+
+
+return 0<g&&y.lShiftTo(g,y),y;
+}
+
+function bnpModInt(n){
+if(0>=n)return 0;
+var d=this.DV%n,
+r=0>this.s?n-1:0;
+if(0<this.t)if(0==d)r=this[0]%n;else for(var i=this.t-1;0<=i;--i)r=(d*r+this[i])%n;
+return r;
+}
+
+function bnModInverse(m){
+var ac=m.isEven();
+if(this.isEven()&&ac||0==m.signum())return BigInteger.ZERO;for(
+var u=m.clone(),
+v=this.clone(),
+a=nbv(1),
+b=nbv(0),
+c=nbv(0),
+d=nbv(1);
+0!=u.signum();){for(;
+u.isEven();)
+u.rShiftTo(1,u),
+ac?((
+!a.isEven()||!b.isEven())&&(
+a.addTo(this,a),
+b.subTo(m,b)),
+
+a.rShiftTo(1,a)):
+!b.isEven()&&b.subTo(m,b),
+b.rShiftTo(1,b);for(;
+
+v.isEven();)
+v.rShiftTo(1,v),
+ac?((
+!c.isEven()||!d.isEven())&&(
+c.addTo(this,c),
+d.subTo(m,d)),
+
+c.rShiftTo(1,c)):
+!d.isEven()&&d.subTo(m,d),
+d.rShiftTo(1,d);
+
+0<=u.compareTo(v)?(
+u.subTo(v,u),
+ac&&a.subTo(c,a),
+b.subTo(d,b)):(
+
+v.subTo(u,v),
+ac&&c.subTo(a,c),
+d.subTo(b,d));
+
+}
+if(0!=v.compareTo(BigInteger.ONE))return BigInteger.ZERO;
+if(0<=d.compareTo(m))return d.subtract(m);
+if(0>d.signum())d.addTo(m,d);else return d;return(
+0>d.signum()?d.add(m):d);
+}
+
+var lowprimes=[2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,103,107,109,113,127,131,137,139,149,151,157,163,167,173,179,181,191,193,197,199,211,223,227,229,233,239,241,251,257,263,269,271,277,281,283,293,307,311,313,317,331,337,347,349,353,359,367,373,379,383,389,397,401,409,419,421,431,433,439,443,449,457,461,463,467,479,487,491,499,503,509,521,523,541,547,557,563,569,571,577,587,593,599,601,607,613,617,619,631,641,643,647,653,659,661,673,677,683,691,701,709,719,727,733,739,743,751,757,761,769,773,787,797,809,811,821,823,827,829,839,853,857,859,863,877,881,883,887,907,911,919,929,937,941,947,953,967,971,977,983,991,997],
+lplim=67108864/lowprimes[lowprimes.length-1];
+
+function bnIsProbablePrime(t){
+var i,
+x=this.abs();
+if(1==x.t&&x[0]<=lowprimes[lowprimes.length-1]){
+for(i=0;i<lowprimes.length;++i)if(x[0]==lowprimes[i])return!0;
+return!1;
+}
+if(x.isEven())return!1;for(
+i=1;
+i<lowprimes.length;){for(
+var m=lowprimes[i],
+j=i+1;
+j<lowprimes.length&&m<lplim;)m*=lowprimes[j++];for(
+m=x.modInt(m);
+i<j;)if(0==m%lowprimes[i++])return!1;
+}
+return x.millerRabin(t);
+}
+
+function bnpMillerRabin(t){
+var n1=this.subtract(BigInteger.ONE),
+k=n1.getLowestSetBit();
+if(0>=k)return!1;
+var r=n1.shiftRight(k);
+t=t+1>>1,
+t>lowprimes.length&&(t=lowprimes.length);
+
+for(var a=nbi(),i=0;i<t;++i){
+a.fromInt(lowprimes[Math.floor(Math.random()*lowprimes.length)]);
+var y=a.modPow(r,this);
+if(0!=y.compareTo(BigInteger.ONE)&&0!=y.compareTo(n1)){for(
+var j=1;
+j++<k&&0!=y.compareTo(n1);)
+
+if(y=y.modPowInt(2,this),0==y.compareTo(BigInteger.ONE))return!1;
+
+if(0!=y.compareTo(n1))return!1;
+}
+}
+return!0;
+}
+
+BigInteger.prototype.chunkSize=bnpChunkSize,
+BigInteger.prototype.toRadix=bnpToRadix,
+BigInteger.prototype.fromRadix=bnpFromRadix,
+BigInteger.prototype.fromNumber=bnpFromNumber,
+BigInteger.prototype.bitwiseTo=bnpBitwiseTo,
+BigInteger.prototype.changeBit=bnpChangeBit,
+BigInteger.prototype.addTo=bnpAddTo,
+BigInteger.prototype.dMultiply=bnpDMultiply,
+BigInteger.prototype.dAddOffset=bnpDAddOffset,
+BigInteger.prototype.multiplyLowerTo=bnpMultiplyLowerTo,
+BigInteger.prototype.multiplyUpperTo=bnpMultiplyUpperTo,
+BigInteger.prototype.modInt=bnpModInt,
+BigInteger.prototype.millerRabin=bnpMillerRabin,
+
+BigInteger.prototype.clone=bnClone,
+BigInteger.prototype.intValue=bnIntValue,
+BigInteger.prototype.byteValue=bnByteValue,
+BigInteger.prototype.shortValue=bnShortValue,
+BigInteger.prototype.signum=bnSigNum,
+BigInteger.prototype.toByteArray=bnToByteArray,
+BigInteger.prototype.equals=bnEquals,
+BigInteger.prototype.min=bnMin,
+BigInteger.prototype.max=bnMax,
+BigInteger.prototype.and=bnAnd,
+BigInteger.prototype.or=bnOr,
+BigInteger.prototype.xor=bnXor,
+BigInteger.prototype.andNot=bnAndNot,
+BigInteger.prototype.not=bnNot,
+BigInteger.prototype.shiftLeft=bnShiftLeft,
+BigInteger.prototype.shiftRight=bnShiftRight,
+BigInteger.prototype.getLowestSetBit=bnGetLowestSetBit,
+BigInteger.prototype.bitCount=bnBitCount,
+BigInteger.prototype.testBit=bnTestBit,
+BigInteger.prototype.setBit=bnSetBit,
+BigInteger.prototype.clearBit=bnClearBit,
+BigInteger.prototype.flipBit=bnFlipBit,
+BigInteger.prototype.add=bnAdd,
+BigInteger.prototype.subtract=bnSubtract,
+BigInteger.prototype.multiply=bnMultiply,
+BigInteger.prototype.divide=bnDivide,
+BigInteger.prototype.remainder=bnRemainder,
+BigInteger.prototype.divideAndRemainder=bnDivideAndRemainder,
+BigInteger.prototype.modPow=bnModPow,
+BigInteger.prototype.modInverse=bnModInverse,
+BigInteger.prototype.pow=bnPow,
+BigInteger.prototype.gcd=bnGCD,
+BigInteger.prototype.isProbablePrime=bnIsProbablePrime,
+
+BigInteger.prototype.square=bnSquare,
+
+function(pool,math,width,chunks,significance,overflow,startdenom){
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function ARC4(key){
+var t,
+u,
+me=this,
+keylen=key.length,
+i=0,
+j=me.i=me.j=me.m=0;for(
+me.S=[],
+me.c=[],
+
+keylen||(
+key=[keylen++]);
+
+
+i<width;)
+me.S[i]=i++;
+
+for(i=0;i<width;i++)
+t=me.S[i],
+j=lowbits(j+t+key[i%keylen]),
+u=me.S[j],
+me.S[i]=u,
+me.S[j]=t;
+
+
+me.g=function getnext(count){
+var s=me.S,
+i=lowbits(me.i+1),
+t=s[i],
+j=lowbits(me.j+t),
+u=s[j];
+s[i]=u,
+s[j]=t;for(
+var r=s[lowbits(t+u)];
+--count;)
+i=lowbits(i+1),
+t=s[i],
+j=lowbits(j+t),
+u=s[j],
+s[i]=u,
+s[j]=t,
+r=r*width+s[lowbits(t+u)];
+
+
+
+return me.i=i,me.j=j,r;
+},
+
+me.g(width);
+}
+
+function flatten(obj,depth,result,prop,typ){
+
+
+if(result=[],typ=typeof obj,depth&&"object"==typ)
+for(prop in obj)
+if(5>prop.indexOf("S"))
+try{
+result.push(flatten(obj[prop],depth-1));
+}catch(e){}
+
+
+
+return result.length?result:obj+("string"==typ?"":"\0");
+}
+
+function mixkey(seed,key,smear,j){
+
+
+for(seed+="",smear=0,j=0;j<seed.length;j++)
+key[lowbits(j)]=lowbits((smear^=19*key[lowbits(j)])+seed.charCodeAt(j));
+
+
+for(j in seed="",key)
+seed+=String.fromCharCode(key[j]);
+
+return seed;
+}
+
+function lowbits(n){
+return n&width-1;
+}math.seedrandom=function seedrandom(seed,use_entropy){var arc4,key=[];return seed=mixkey(flatten(use_entropy?[seed,pool]:arguments.length?seed:[new Date().getTime(),pool,window],3),key),arc4=new ARC4(key),mixkey(arc4.S,pool),math.random=function random(){for(var n=arc4.g(chunks),d=startdenom,x=0;n<significance;)n=(n+x)*width,d*=width,x=arc4.g(1);for(;n>=overflow;)n/=2,d/=2,x>>>=1;return(n+x)/d},seed},
+
+startdenom=math.pow(width,chunks),
+significance=math.pow(2,significance),
+overflow=2*significance,
+
+mixkey(math.random(),pool);
+}([],Math,256,6,52);
+
+function SeededRandom(){}
+
+function SRnextBytes(ba){
+var i;
+for(i=0;i<ba.length;i++)
+ba[i]=Math.floor(256*Math.random());
+
+}
+
+SeededRandom.prototype.nextBytes=SRnextBytes;
+
+function Arcfour(){
+this.i=0,
+this.j=0,
+this.S=[];
+}
+
+function ARC4init(key){
+var i,j,t;
+for(i=0;256>i;++i)this.S[i]=i;
+
+for(j=0,i=0;256>i;++i)
+j=255&j+this.S[i]+key[i%key.length],
+t=this.S[i],
+this.S[i]=this.S[j],
+this.S[j]=t;
+
+this.i=0,
+this.j=0;
+}
+
+function ARC4next(){
+var t;
+
+
+
+
+
+return this.i=255&this.i+1,this.j=255&this.j+this.S[this.i],t=this.S[this.i],this.S[this.i]=this.S[this.j],this.S[this.j]=t,this.S[255&t+this.S[this.i]];
+}
+
+Arcfour.prototype.init=ARC4init,
+Arcfour.prototype.next=ARC4next;
+
+function prng_newstate(){
+return new Arcfour;
+}
+
+var
+
+rng_state,
+rng_pool,
+rng_pptr,rng_psize=256;
+
+function rng_seed_int(x){
+rng_pool[rng_pptr++]^=255&x,
+rng_pool[rng_pptr++]^=255&x>>8,
+rng_pool[rng_pptr++]^=255&x>>16,
+rng_pool[rng_pptr++]^=255&x>>24,
+rng_pptr>=rng_psize&&(rng_pptr-=rng_psize);
+}
+
+function rng_seed_time(){
+rng_seed_int(new Date().getTime());
+}
+
+if(null==rng_pool){
+rng_pool=[],
+rng_pptr=0;for(
+var t;
+
+rng_pptr<rng_psize;)
+t=Math.floor(65536*Math.random()),
+rng_pool[rng_pptr++]=t>>>8,
+rng_pool[rng_pptr++]=255&t;
+
+rng_pptr=0,
+rng_seed_time();
+}
+
+function rng_get_byte(){
+if(null==rng_state){
+
+
+
+for(rng_seed_time(),rng_state=prng_newstate(),rng_state.init(rng_pool),rng_pptr=0;rng_pptr<rng_pool.length;++rng_pptr)rng_pool[rng_pptr]=0;
+rng_pptr=0;
+}
+
+return rng_state.next();
+}
+
+function rng_get_bytes(ba){
+var i;
+for(i=0;i<ba.length;++i)ba[i]=rng_get_byte();
+}
+
+function SecureRandom(){}
+
+SecureRandom.prototype.nextBytes=rng_get_bytes;
+
+function SHA256(s){
+
+
+
+
+function safe_add(x,y){
+var lsw=(65535&x)+(65535&y),
+msw=(x>>16)+(y>>16)+(lsw>>16);
+return msw<<16|65535&lsw;
+}
+
+function S(X,n){
+return X>>>n|X<<32-n;
+}
+function R(X,n){
+return X>>>n;
+}
+function Ch(x,y,z){
+return x&y^~x&z;
+}
+function Maj(x,y,z){
+return x&y^x&z^y&z;
+}
+function Sigma0256(x){
+return S(x,2)^S(x,13)^S(x,22);
+}
+function Sigma1256(x){
+return S(x,6)^S(x,11)^S(x,25);
+}
+function Gamma0256(x){
+return S(x,7)^S(x,18)^R(x,3);
+}
+function Gamma1256(x){
+return S(x,17)^S(x,19)^R(x,10);
+}
+
+function core_sha256(m,l){
+var
+
+
+a,b,c,d,e,f,g,h,i,j,
+T1,T2,K=[1116352408,1899447441,3049323471,3921009573,961987163,1508970993,2453635748,2870763221,3624381080,310598401,607225278,1426881987,1925078388,2162078206,2614888103,3248222580,3835390401,4022224774,264347078,604807628,770255983,1249150122,1555081692,1996064986,2554220882,2821834349,2952996808,3210313671,3336571891,3584528711,113926993,338241895,666307205,773529912,1294757372,1396182291,1695183700,1986661051,2177026350,2456956037,2730485921,2820302411,3259730800,3345764771,3516065817,3600352804,4094571909,275423344,430227734,506948616,659060556,883997877,958139571,1322822218,1537002063,1747873779,1955562222,2024104815,2227730452,2361852424,2428436474,2756734187,3204031479,3329325298],HASH=[1779033703,3144134277,1013904242,2773480762,1359893119,2600822924,528734635,1541459225],W=Array(64);
+
+m[l>>5]|=128<<24-l%32,
+m[(l+64>>9<<4)+15]=l;
+
+for(var i=0;i<m.length;i+=16){
+a=HASH[0],
+b=HASH[1],
+c=HASH[2],
+d=HASH[3],
+e=HASH[4],
+f=HASH[5],
+g=HASH[6],
+h=HASH[7];
+
+for(var j=0;64>j;j++)
+W[j]=16>j?m[j+i]:safe_add(safe_add(safe_add(Gamma1256(W[j-2]),W[j-7]),Gamma0256(W[j-15])),W[j-16]),
+
+T1=safe_add(safe_add(safe_add(safe_add(h,Sigma1256(e)),Ch(e,f,g)),K[j]),W[j]),
+T2=safe_add(Sigma0256(a),Maj(a,b,c)),
+
+h=g,
+g=f,
+f=e,
+e=safe_add(d,T1),
+d=c,
+c=b,
+b=a,
+a=safe_add(T1,T2);
+
+
+HASH[0]=safe_add(a,HASH[0]),
+HASH[1]=safe_add(b,HASH[1]),
+HASH[2]=safe_add(c,HASH[2]),
+HASH[3]=safe_add(d,HASH[3]),
+HASH[4]=safe_add(e,HASH[4]),
+HASH[5]=safe_add(f,HASH[5]),
+HASH[6]=safe_add(g,HASH[6]),
+HASH[7]=safe_add(h,HASH[7]);
+}
+return HASH;
+}
+
+function str2binb(str){
+
+
+for(var bin=[],mask=(1<<chrsz)-1,i=0;i<str.length*chrsz;i+=chrsz)
+bin[i>>5]|=(str.charCodeAt(i/chrsz)&mask)<<24-i%32;
+
+return bin;
+}
+
+function Utf8Encode(string){
+string=string.replace(/\r\n/g,"\n");
+
+
+for(var
+
+c,utftext="",n=0;n<string.length;n++)c=string.charCodeAt(n),
+
+128>c?
+utftext+=_StringfromCharCode(c):
+127<c&&2048>c?(
+utftext+=_StringfromCharCode(192|c>>6),
+utftext+=_StringfromCharCode(128|63&c)):(
+
+utftext+=_StringfromCharCode(224|c>>12),
+utftext+=_StringfromCharCode(128|63&c>>6),
+utftext+=_StringfromCharCode(128|63&c));
+
+
+
+return utftext;
+}
+
+function binb2hex(binarray){
+
+
+for(var hex_tab=hexcase?"0123456789ABCDEF":"0123456789abcdef",str="",i=0;i<4*binarray.length;i++)
+str+=hex_tab.charAt(15&binarray[i>>2]>>8*(3-i%4)+4)+hex_tab.charAt(15&binarray[i>>2]>>8*(3-i%4));
+
+return str;
+}var _StringfromCharCode=String.fromCharCode,chrsz=8,hexcase=0;
+
+
+return s=Utf8Encode(s),binb2hex(core_sha256(str2binb(s),s.length*chrsz));
+}
+
+var sha256={
+hex:function(s){
+return SHA256(s);
+}};
+
+function SHA1(msg){
+
+function rotate_left(n,s){
+var t4=n<<s|n>>>32-s;
+return t4;
+}
+
+function lsb_hex(val){
+var
+i,
+vh,
+vl,str="";
+
+for(i=0;6>=i;i+=2)
+vh=15&val>>>4*i+4,
+vl=15&val>>>4*i,
+str+=vh.toString(16)+vl.toString(16);
+
+return str;
+}
+
+function cvt_hex(val){
+var
+i,
+v,str="";
+
+for(i=7;0<=i;i--)
+v=15&val>>>4*i,
+str+=v.toString(16);
+
+return str;
+}
+
+function Utf8Encode(string){
+string=string.replace(/\r\n/g,"\n");
+
+
+for(var
+
+c,utftext="",n=0;n<string.length;n++)c=string.charCodeAt(n),
+
+128>c?
+utftext+=_StringfromCharCode2(c):
+127<c&&2048>c?(
+utftext+=_StringfromCharCode2(192|c>>6),
+utftext+=_StringfromCharCode2(128|63&c)):(
+
+utftext+=_StringfromCharCode2(224|c>>12),
+utftext+=_StringfromCharCode2(128|63&c>>6),
+utftext+=_StringfromCharCode2(128|63&c));
+
+
+
+return utftext;
+}var _StringfromCharCode2=String.fromCharCode;;;;;
+
+var blockstart,
+i,j,
+
+
+
+
+
+
+A,B,C,D,E,
+temp,W=Array(80),H0=1732584193,H1=4023233417,H2=2562383102,H3=271733878,H4=3285377520;
+
+msg=Utf8Encode(msg);
+
+var msg_len=msg.length,
+
+word_array=[];
+for(i=0;i<msg_len-3;i+=4)
+j=msg.charCodeAt(i)<<24|msg.charCodeAt(i+1)<<16|msg.charCodeAt(i+2)<<8|msg.charCodeAt(i+3),
+word_array.push(j);
+
+
+switch(msg_len%4){
+case 0:
+i=2147483648;
+break;
+case 1:
+i=8388608|msg.charCodeAt(msg_len-1)<<24;
+break;
+
+case 2:
+i=32768|(msg.charCodeAt(msg_len-2)<<24|msg.charCodeAt(msg_len-1)<<16);
+break;
+
+case 3:
+i=128|(msg.charCodeAt(msg_len-3)<<24|msg.charCodeAt(msg_len-2)<<16|msg.charCodeAt(msg_len-1)<<8);}for(
+
+
+
+word_array.push(i);
+
+14!=word_array.length%16;)word_array.push(0);
+
+
+
+
+for(word_array.push(msg_len>>>29),word_array.push(4294967295&msg_len<<3),blockstart=0;blockstart<word_array.length;blockstart+=16){
+
+for(i=0;16>i;i++)W[i]=word_array[blockstart+i];
+for(i=16;79>=i;i++)W[i]=rotate_left(W[i-3]^W[i-8]^W[i-14]^W[i-16],1);
+
+
+
+
+
+
+
+for(A=H0,B=H1,C=H2,D=H3,E=H4,i=0;19>=i;i++)
+temp=4294967295&rotate_left(A,5)+(B&C|~B&D)+E+W[i]+1518500249,
+E=D,
+D=C,
+C=rotate_left(B,30),
+B=A,
+A=temp;
+
+
+for(i=20;39>=i;i++)
+temp=4294967295&rotate_left(A,5)+(B^C^D)+E+W[i]+1859775393,
+E=D,
+D=C,
+C=rotate_left(B,30),
+B=A,
+A=temp;
+
+
+for(i=40;59>=i;i++)
+temp=4294967295&rotate_left(A,5)+(B&C|B&D|C&D)+E+W[i]+2400959708,
+E=D,
+D=C,
+C=rotate_left(B,30),
+B=A,
+A=temp;
+
+
+for(i=60;79>=i;i++)
+temp=4294967295&rotate_left(A,5)+(B^C^D)+E+W[i]+3395469782,
+E=D,
+D=C,
+C=rotate_left(B,30),
+B=A,
+A=temp;
+
+
+H0=4294967295&H0+A,
+H1=4294967295&H1+B,
+H2=4294967295&H2+C,
+H3=4294967295&H3+D,
+H4=4294967295&H4+E;
+}
+
+var temp=cvt_hex(H0)+cvt_hex(H1)+cvt_hex(H2)+cvt_hex(H3)+cvt_hex(H4);
+
+return temp.toLowerCase();
+}
+
+var sha1={
+hex:function(s){
+return SHA1(s);
+}},
+
+MD5=function(string){
+
+function RotateLeft(lValue,iShiftBits){
+return lValue<<iShiftBits|lValue>>>32-iShiftBits;
+}
+
+function AddUnsigned(lX,lY){
+var lX4,lY4,lX8,lY8,lResult;return(
+lX8=2147483648&lX,
+lY8=2147483648&lY,
+lX4=1073741824&lX,
+lY4=1073741824&lY,
+lResult=(1073741823&lX)+(1073741823&lY),
+lX4&lY4?
+2147483648^lResult^lX8^lY8:
+
+lX4|lY4?
+1073741824&lResult?
+3221225472^lResult^lX8^lY8:
+
+1073741824^lResult^lX8^lY8:
+
+
+lResult^lX8^lY8);
+
+}
+
+function F(x,y,z){
+return x&y|~x&z;
+}
+function G(x,y,z){
+return x&z|y&~z;
+}
+function H(x,y,z){
+return x^y^z;
+}
+function I(x,y,z){
+return y^(x|~z);
+}
+
+function FF(a,b,c,d,x,s,ac){
+
+return a=AddUnsigned(a,AddUnsigned(AddUnsigned(F(b,c,d),x),ac)),AddUnsigned(RotateLeft(a,s),b);
+}
+
+function GG(a,b,c,d,x,s,ac){
+
+return a=AddUnsigned(a,AddUnsigned(AddUnsigned(G(b,c,d),x),ac)),AddUnsigned(RotateLeft(a,s),b);
+}
+
+function HH(a,b,c,d,x,s,ac){
+
+return a=AddUnsigned(a,AddUnsigned(AddUnsigned(H(b,c,d),x),ac)),AddUnsigned(RotateLeft(a,s),b);
+}
+
+function II(a,b,c,d,x,s,ac){
+
+return a=AddUnsigned(a,AddUnsigned(AddUnsigned(I(b,c,d),x),ac)),AddUnsigned(RotateLeft(a,s),b);
+}
+
+function ConvertToWordArray(string){for(
+var lWordCount,
+lMessageLength=string.length,
+lNumberOfWords_temp1=lMessageLength+8,
+lNumberOfWords_temp2=(lNumberOfWords_temp1-lNumberOfWords_temp1%64)/64,
+lNumberOfWords=16*(lNumberOfWords_temp2+1),
+lWordArray=Array(lNumberOfWords-1),
+lBytePosition=0,
+lByteCount=0;
+lByteCount<lMessageLength;)
+lWordCount=(lByteCount-lByteCount%4)/4,
+lBytePosition=8*(lByteCount%4),
+lWordArray[lWordCount]|=string.charCodeAt(lByteCount)<<lBytePosition,
+lByteCount++;
+
+
+
+
+
+
+return lWordCount=(lByteCount-lByteCount%4)/4,lBytePosition=8*(lByteCount%4),lWordArray[lWordCount]|=128<<lBytePosition,lWordArray[lNumberOfWords-2]=lMessageLength<<3,lWordArray[lNumberOfWords-1]=lMessageLength>>>29,lWordArray;
+}
+
+function WordToHex(lValue){
+var
+
+lByte,
+lCount,WordToHexValue="",WordToHexValue_temp="";
+for(lCount=0;3>=lCount;lCount++)
+lByte=255&lValue>>>8*lCount,
+WordToHexValue_temp="0"+lByte.toString(16),
+WordToHexValue+=WordToHexValue_temp.substr(WordToHexValue_temp.length-2,2);
+
+return WordToHexValue;
+}
+
+function Utf8Encode(string){
+string=string.replace(/\r\n/g,"\n");
+
+
+for(var
+
+c,utftext="",n=0;n<string.length;n++)c=string.charCodeAt(n),
+
+128>c?
+utftext+=_StringfromCharCode3(c):
+127<c&&2048>c?(
+utftext+=_StringfromCharCode3(192|c>>6),
+utftext+=_StringfromCharCode3(128|63&c)):(
+
+utftext+=_StringfromCharCode3(224|c>>12),
+utftext+=_StringfromCharCode3(128|63&c>>6),
+utftext+=_StringfromCharCode3(128|63&c));
+
+
+
+return utftext;
+}var _StringfromCharCode3=String.fromCharCode;;;;;;;;
+
+var
+k,AA,BB,CC,DD,a,b,c,d,x=[],
+S11=7,
+S12=12,
+S13=17,
+S14=22,
+S21=5,
+S22=9,
+S23=14,
+S24=20,
+S31=4,
+S32=11,
+S33=16,
+S34=23,
+S41=6,
+S42=10,
+S43=15,
+S44=21;
+
+
+
+
+
+
+
+for(string=Utf8Encode(string),x=ConvertToWordArray(string),a=1732584193,b=4023233417,c=2562383102,d=271733878,k=0;k<x.length;k+=16)
+AA=a,BB=b,CC=c,DD=d,
+a=FF(a,b,c,d,x[k+0],S11,3614090360),
+d=FF(d,a,b,c,x[k+1],S12,3905402710),
+c=FF(c,d,a,b,x[k+2],S13,606105819),
+b=FF(b,c,d,a,x[k+3],S14,3250441966),
+a=FF(a,b,c,d,x[k+4],S11,4118548399),
+d=FF(d,a,b,c,x[k+5],S12,1200080426),
+c=FF(c,d,a,b,x[k+6],S13,2821735955),
+b=FF(b,c,d,a,x[k+7],S14,4249261313),
+a=FF(a,b,c,d,x[k+8],S11,1770035416),
+d=FF(d,a,b,c,x[k+9],S12,2336552879),
+c=FF(c,d,a,b,x[k+10],S13,4294925233),
+b=FF(b,c,d,a,x[k+11],S14,2304563134),
+a=FF(a,b,c,d,x[k+12],S11,1804603682),
+d=FF(d,a,b,c,x[k+13],S12,4254626195),
+c=FF(c,d,a,b,x[k+14],S13,2792965006),
+b=FF(b,c,d,a,x[k+15],S14,1236535329),
+a=GG(a,b,c,d,x[k+1],S21,4129170786),
+d=GG(d,a,b,c,x[k+6],S22,3225465664),
+c=GG(c,d,a,b,x[k+11],S23,643717713),
+b=GG(b,c,d,a,x[k+0],S24,3921069994),
+a=GG(a,b,c,d,x[k+5],S21,3593408605),
+d=GG(d,a,b,c,x[k+10],S22,38016083),
+c=GG(c,d,a,b,x[k+15],S23,3634488961),
+b=GG(b,c,d,a,x[k+4],S24,3889429448),
+a=GG(a,b,c,d,x[k+9],S21,568446438),
+d=GG(d,a,b,c,x[k+14],S22,3275163606),
+c=GG(c,d,a,b,x[k+3],S23,4107603335),
+b=GG(b,c,d,a,x[k+8],S24,1163531501),
+a=GG(a,b,c,d,x[k+13],S21,2850285829),
+d=GG(d,a,b,c,x[k+2],S22,4243563512),
+c=GG(c,d,a,b,x[k+7],S23,1735328473),
+b=GG(b,c,d,a,x[k+12],S24,2368359562),
+a=HH(a,b,c,d,x[k+5],S31,4294588738),
+d=HH(d,a,b,c,x[k+8],S32,2272392833),
+c=HH(c,d,a,b,x[k+11],S33,1839030562),
+b=HH(b,c,d,a,x[k+14],S34,4259657740),
+a=HH(a,b,c,d,x[k+1],S31,2763975236),
+d=HH(d,a,b,c,x[k+4],S32,1272893353),
+c=HH(c,d,a,b,x[k+7],S33,4139469664),
+b=HH(b,c,d,a,x[k+10],S34,3200236656),
+a=HH(a,b,c,d,x[k+13],S31,681279174),
+d=HH(d,a,b,c,x[k+0],S32,3936430074),
+c=HH(c,d,a,b,x[k+3],S33,3572445317),
+b=HH(b,c,d,a,x[k+6],S34,76029189),
+a=HH(a,b,c,d,x[k+9],S31,3654602809),
+d=HH(d,a,b,c,x[k+12],S32,3873151461),
+c=HH(c,d,a,b,x[k+15],S33,530742520),
+b=HH(b,c,d,a,x[k+2],S34,3299628645),
+a=II(a,b,c,d,x[k+0],S41,4096336452),
+d=II(d,a,b,c,x[k+7],S42,1126891415),
+c=II(c,d,a,b,x[k+14],S43,2878612391),
+b=II(b,c,d,a,x[k+5],S44,4237533241),
+a=II(a,b,c,d,x[k+12],S41,1700485571),
+d=II(d,a,b,c,x[k+3],S42,2399980690),
+c=II(c,d,a,b,x[k+10],S43,4293915773),
+b=II(b,c,d,a,x[k+1],S44,2240044497),
+a=II(a,b,c,d,x[k+8],S41,1873313359),
+d=II(d,a,b,c,x[k+15],S42,4264355552),
+c=II(c,d,a,b,x[k+6],S43,2734768916),
+b=II(b,c,d,a,x[k+13],S44,1309151649),
+a=II(a,b,c,d,x[k+4],S41,4149444226),
+d=II(d,a,b,c,x[k+11],S42,3174756917),
+c=II(c,d,a,b,x[k+2],S43,718787259),
+b=II(b,c,d,a,x[k+9],S44,3951481745),
+a=AddUnsigned(a,AA),
+b=AddUnsigned(b,BB),
+c=AddUnsigned(c,CC),
+d=AddUnsigned(d,DD);
+
+
+var temp=WordToHex(a)+WordToHex(b)+WordToHex(c)+WordToHex(d);
+
+return temp.toLowerCase();
+};
+
+function parseBigInt(str,r){
+return new BigInteger(str,r);
+}
+
+function linebrk(s,n){for(
+var ret="",
+i=0;
+i+n<s.length;)
+ret+=s.substring(i,i+n)+"\n",
+i+=n;
+
+return ret+s.substring(i,s.length);
+}
+
+function byte2Hex(b){return(
+16>b?"0"+b.toString(16):b.toString(16));
+}
+
+function pkcs1pad2(s,n){
+if(n<s.length+11)
+throw"Message too long for RSA (n="+n+", l="+s.length+")";for(
+
+var
+
+
+c,ba=[],i=s.length-1;0<=i&&0<n;)c=s.charCodeAt(i--),
+128>c?
+ba[--n]=c:
+127<c&&2048>c?(
+ba[--n]=128|63&c,
+ba[--n]=192|c>>6):(
+
+ba[--n]=128|63&c,
+ba[--n]=128|63&c>>6,
+ba[--n]=224|c>>12);
+
+
+ba[--n]=0;for(
+var rng=new SecureRandom,
+x=[];
+2<n;){for(
+x[0]=0;
+0==x[0];)rng.nextBytes(x);
+ba[--n]=x[0];
+}
+
+
+return ba[--n]=2,ba[--n]=0,new BigInteger(ba);
+}
+
+function RSAKey(){
+this.n=null,
+this.e=0,
+this.d=null,
+this.p=null,
+this.q=null,
+this.dmp1=null,
+this.dmq1=null,
+this.coeff=null;
+}
+
+
+function RSASetPublic(N,E){
+null!=N&&null!=E&&0<N.length&&0<E.length?(
+this.n=parseBigInt(N,16),
+this.e=parseInt(E,16)):
+alert("Invalid RSA public key");
+}
+
+function RSADoPublic(x){
+return x.modPowInt(this.e,this.n);
+}
+
+function RSAEncrypt(text){
+var m=pkcs1pad2(text,this.n.bitLength()+7>>3);
+if(null==m)return null;
+var c=this.doPublic(m);
+if(null==c)return null;
+var h=c.toString(16);return(
+0==(1&h.length)?h:"0"+h);
+}
+
+RSAKey.prototype.doPublic=RSADoPublic,
+
+RSAKey.prototype.setPublic=RSASetPublic,
+RSAKey.prototype.encrypt=RSAEncrypt;
+
+function pkcs1unpad2(d,n){for(var _StringfromCharCode4=
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+String.fromCharCode,b=d.toByteArray(),i=0;i<b.length&&0==b[i];)++i;if(b.length-i!=n-1||2!=b[i])return null;for(++i;0!=b[i];)if(++i>=b.length)return null;for(var ret="";++i<b.length;){var c=255&b[i];128>c?ret+=_StringfromCharCode4(c):
+191<c&&224>c?(
+ret+=_StringfromCharCode4((31&c)<<6|63&b[i+1]),
+++i):(
+
+ret+=_StringfromCharCode4((15&c)<<12|(63&b[i+1])<<6|63&b[i+2]),
+i+=2);
+
+}
+return ret;
+}
+
+function RSASetPrivate(N,E,D){
+null!=N&&null!=E&&0<N.length&&0<E.length?(
+this.n=parseBigInt(N,16),
+this.e=parseInt(E,16),
+this.d=parseBigInt(D,16)):
+alert("Invalid RSA private key");
+}
+
+function RSASetPrivateEx(N,E,D,P,Q,DP,DQ,C){
+null!=N&&null!=E&&0<N.length&&0<E.length?(
+this.n=parseBigInt(N,16),
+this.e=parseInt(E,16),
+this.d=parseBigInt(D,16),
+this.p=parseBigInt(P,16),
+this.q=parseBigInt(Q,16),
+this.dmp1=parseBigInt(DP,16),
+this.dmq1=parseBigInt(DQ,16),
+this.coeff=parseBigInt(C,16)):
+alert("Invalid RSA private key");
+}
+
+function RSAGenerate(B,E){
+var rng=new SeededRandom,
+qs=B>>1;
+this.e=parseInt(E,16);
+
+for(var ee=new BigInteger(E,16);;){
+for(;;)
+
+if(this.p=new BigInteger(B-qs,1,rng),0==this.p.subtract(BigInteger.ONE).gcd(ee).compareTo(BigInteger.ONE)&&this.p.isProbablePrime(10))break;
+
+for(;;)
+
+if(this.q=new BigInteger(qs,1,rng),0==this.q.subtract(BigInteger.ONE).gcd(ee).compareTo(BigInteger.ONE)&&this.q.isProbablePrime(10))break;
+
+if(0>=this.p.compareTo(this.q)){
+var t=this.p;
+this.p=this.q,
+this.q=t;
+}
+var p1=this.p.subtract(BigInteger.ONE),
+q1=this.q.subtract(BigInteger.ONE),
+phi=p1.multiply(q1);
+if(0==phi.gcd(ee).compareTo(BigInteger.ONE)){
+this.n=this.p.multiply(this.q),
+this.d=ee.modInverse(phi),
+this.dmp1=this.d.mod(p1),
+this.dmq1=this.d.mod(q1),
+this.coeff=this.q.modInverse(this.p);
+break;
+}
+}
+}
+
+function RSADoPrivate(x){
+if(null==this.p||null==this.q)return x.modPow(this.d,this.n);for(
+
+var xp=x.mod(this.p).modPow(this.dmp1,this.p),
+xq=x.mod(this.q).modPow(this.dmq1,this.q);
+0>xp.compareTo(xq);)xp=xp.add(this.p);
+
+var a=xp.subtract(xq).multiply(this.coeff).mod(this.p).multiply(this.q).add(xq);
+return a;
+}
+
+function RSADecrypt(ctext){
+var c=parseBigInt(ctext,16),
+m=this.doPrivate(c);
+if(null==m)return null;
+
+var hhh=pkcs1unpad2(m,this.n.bitLength()+7>>3);
+return hhh;
+}
+
+RSAKey.prototype.doPrivate=RSADoPrivate,
+
+RSAKey.prototype.setPrivate=RSASetPrivate,
+RSAKey.prototype.setPrivateEx=RSASetPrivateEx,
+RSAKey.prototype.generate=RSAGenerate,
+RSAKey.prototype.decrypt=RSADecrypt,
+
+RSAKey.prototype.toString=function(){
+var ret="{";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+return ret+=null==this.n?"n:null,":"n:\""+this.n.toString(16)+"\",",ret+="e:"+this.e+",",ret+=null==this.d?"d:null,":"d:\""+this.d.toString(16)+"\",",ret+=null==this.p?"p:null,":"p:\""+this.p.toString(16)+"\",",ret+=null==this.q?"q:null,":"q:\""+this.q.toString(16)+"\",",ret+=null==this.dmp1?"dmp1:null,":"dmp1:\""+this.dmp1.toString(16)+"\",",ret+=null==this.dmq1?"dmq1:null,":"dmq1:\""+this.dmq1.toString(16)+"\",",ret+=null==this.coeff?"coeff:null":"coeff:\""+this.coeff.toString(16)+"\"",ret+"}";
+},
+
+RSAKey.prototype.load=function(value){
+if(null==value||void 0==value||"string"!=typeof value)
+
+throw alert("error RSAKey.load : \u5F15\u6570\u304C\u4E0D\u6B63."),"error";
+
+var rs=eval("("+value.replace(/^\s+|\s+$/g,"")+")");
+this.n=parseBigInt(rs.n,16),
+this.e=rs.e,
+this.d=parseBigInt(rs.d,16),
+this.p=parseBigInt(rs.p,16),
+this.q=parseBigInt(rs.q,16),
+this.dmp1=parseBigInt(rs.dmp1,16),
+this.dmq1=parseBigInt(rs.dmq1,16),
+this.coeff=parseBigInt(rs.coeff,16);
+};
+
+var _RSASIGN_DIHEAD=[];
+_RSASIGN_DIHEAD.sha1="3021300906052b0e03021a05000414",
+_RSASIGN_DIHEAD.sha256="3031300d060960864801650304020105000420";
+
+var _RSASIGN_HASHHEXFUNC=[];
+_RSASIGN_HASHHEXFUNC.sha1=sha1.hex,
+_RSASIGN_HASHHEXFUNC.sha256=sha256.hex;
+
+function _rsasign_getHexPaddedDigestInfoForString(s,keySize,hashAlg){
+
+
+
+
+
+
+
+
+for(var pmStrLen=keySize/4,hashFunc=_RSASIGN_HASHHEXFUNC[hashAlg],sHashHex=hashFunc(s),sHead="0001",sTail="00"+_RSASIGN_DIHEAD[hashAlg]+sHashHex,sMid="",fLen=pmStrLen-sHead.length-sTail.length,i=0;i<fLen;i+=2)
+sMid+="ff";
+
+
+return sPaddedMessageHex=sHead+sMid+sTail,sPaddedMessageHex;
+}
+
+function _rsasign_signString(s,hashAlg){
+var hPM=_rsasign_getHexPaddedDigestInfoForString(s,this.n.bitLength(),hashAlg),
+biPaddedMessage=parseBigInt(hPM,16),
+biSign=this.doPrivate(biPaddedMessage),
+hexSign=biSign.toString(16);
+return hexSign;
+}
+
+function _rsasign_signStringWithSHA1(s){
+var hPM=_rsasign_getHexPaddedDigestInfoForString(s,this.n.bitLength(),"sha1"),
+biPaddedMessage=parseBigInt(hPM,16),
+biSign=this.doPrivate(biPaddedMessage),
+hexSign=biSign.toString(16);
+return hexSign;
+}
+
+function _rsasign_signStringWithSHA256(s){
+var hPM=_rsasign_getHexPaddedDigestInfoForString(s,this.n.bitLength(),"sha256"),
+biPaddedMessage=parseBigInt(hPM,16),
+biSign=this.doPrivate(biPaddedMessage),
+hexSign=biSign.toString(16);
+return hexSign;
+}
+
+function _rsasign_getDecryptSignatureBI(biSig,hN,hE){
+var rsa=new RSAKey;
+rsa.setPublic(hN,hE);
+var biDecryptedSig=rsa.doPublic(biSig);
+return biDecryptedSig;
+}
+
+function _rsasign_getHexDigestInfoFromSig(biSig,hN,hE){
+var biDecryptedSig=_rsasign_getDecryptSignatureBI(biSig,hN,hE),
+hDigestInfo=biDecryptedSig.toString(16).replace(/^1f+00/,"");
+return hDigestInfo;
+}
+
+function _rsasign_getAlgNameAndHashFromHexDisgestInfo(hDigestInfo){
+for(var algName in _RSASIGN_DIHEAD){
+var head=_RSASIGN_DIHEAD[algName],
+len=head.length;
+if(hDigestInfo.substring(0,len)==head){
+var a=[algName,hDigestInfo.substring(len)];
+return a;
+}
+}
+return[];
+}
+
+function _rsasign_verifySignatureWithArgs(sMsg,biSig,hN,hE){
+var hDigestInfo=_rsasign_getHexDigestInfoFromSig(biSig,hN,hE),
+digestInfoAry=_rsasign_getAlgNameAndHashFromHexDisgestInfo(hDigestInfo);
+if(0==digestInfoAry.length)return!1;
+var algName=digestInfoAry[0],
+diHashValue=digestInfoAry[1],
+ff=_RSASIGN_HASHHEXFUNC[algName],
+msgHashValue=ff(sMsg);
+return diHashValue==msgHashValue;
+}
+
+function _rsasign_verifyHexSignatureForMessage(hSig,sMsg){
+var biSig=parseBigInt(hSig,16),
+result=_rsasign_verifySignatureWithArgs(sMsg,biSig,this.n.toString(16),this.e.toString(16));
+return result;
+}
+
+function _rsasign_verifyString(sMsg,hSig){
+hSig=hSig.replace(/[ \n]+/g,"");
+var biSig=parseBigInt(hSig,16),
+biDecryptedSig=this.doPublic(biSig),
+hDigestInfo=biDecryptedSig.toString(16).replace(/^1f+00/,""),
+digestInfoAry=_rsasign_getAlgNameAndHashFromHexDisgestInfo(hDigestInfo);
+
+if(0==digestInfoAry.length)return!1;
+var algName=digestInfoAry[0],
+diHashValue=digestInfoAry[1],
+ff=_RSASIGN_HASHHEXFUNC[algName],
+msgHashValue=ff(sMsg);
+return diHashValue==msgHashValue;
+}
+
+RSAKey.prototype.signString=_rsasign_signString,
+RSAKey.prototype.signStringWithSHA1=_rsasign_signStringWithSHA1,
+RSAKey.prototype.signStringWithSHA256=_rsasign_signStringWithSHA256,
+
+RSAKey.prototype.verifyString=_rsasign_verifyString,
+RSAKey.prototype.verifyHexSignatureForMessage=_rsasign_verifyHexSignatureForMessage;
+
+var aes=function(){
+var self={};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+return self.Sbox=[99,124,119,123,242,107,111,197,48,1,103,43,254,215,171,118,202,130,201,125,250,89,71,240,173,212,162,175,156,164,114,192,183,253,147,38,54,63,247,204,52,165,229,241,113,216,49,21,4,199,35,195,24,150,5,154,7,18,128,226,235,39,178,117,9,131,44,26,27,110,90,160,82,59,214,179,41,227,47,132,83,209,0,237,32,252,177,91,106,203,190,57,74,76,88,207,208,239,170,251,67,77,51,133,69,249,2,127,80,60,159,168,81,163,64,143,146,157,56,245,188,182,218,33,16,255,243,210,205,12,19,236,95,151,68,23,196,167,126,61,100,93,25,115,96,129,79,220,34,42,144,136,70,238,184,20,222,94,11,219,224,50,58,10,73,6,36,92,194,211,172,98,145,149,228,121,231,200,55,109,141,213,78,169,108,86,244,234,101,122,174,8,186,120,37,46,28,166,180,198,232,221,116,31,75,189,139,138,112,62,181,102,72,3,246,14,97,53,87,185,134,193,29,158,225,248,152,17,105,217,142,148,155,30,135,233,206,85,40,223,140,161,137,13,191,230,66,104,65,153,45,15,176,84,187,22],self.ShiftRowTab=[0,5,10,15,4,9,14,3,8,13,2,7,12,1,6,11],self.Init=function(){self.Sbox_Inv=Array(256);for(var i=0;256>i;i++)self.Sbox_Inv[this.Sbox[i]]=i;self.ShiftRowTab_Inv=Array(16);for(var i=0;16>i;i++)self.ShiftRowTab_Inv[self.ShiftRowTab[i]]=i;self.xtime=Array(256);for(var i=0;128>i;i++)self.xtime[i]=i<<1,self.xtime[128+i]=27^i<<1},self.Done=function(){delete self.Sbox_Inv,delete self.ShiftRowTab_Inv,delete self.xtime},self.ExpandKey=function(key){var ks,kl=key.length,Rcon=1;16===kl?ks=176:24===kl?ks=208:32===kl?ks=240:alert("this.ExpandKey: Only key lengths of 16, 24 or 32 bytes allowed!");for(var temp,i=kl;i<ks;i+=4){temp=key.slice(i-4,i),0==i%kl?(temp=[self.Sbox[temp[1]]^Rcon,self.Sbox[temp[2]],self.Sbox[temp[3]],self.Sbox[temp[0]]],256<=(Rcon<<=1)&&(Rcon^=283)):24<kl&&16==i%kl&&(temp=[self.Sbox[temp[0]],self.Sbox[temp[1]],self.Sbox[temp[2]],self.Sbox[temp[3]]]);for(var j=0;4>j;j++)key[i+j]=key[i+j-kl]^temp[j]}},self.Encrypt=function(block,key){var l=key.length;self.AddRoundKey(block,key.slice(0,16));for(var i=16;i<l-16;i+=16)self.SubBytes(block,self.Sbox),self.ShiftRows(block,self.ShiftRowTab),self.MixColumns(block),self.AddRoundKey(block,key.slice(i,i+16));self.SubBytes(block,self.Sbox),self.ShiftRows(block,self.ShiftRowTab),self.AddRoundKey(block,key.slice(i,l))},self.Decrypt=function(block,key){var l=key.length;self.AddRoundKey(block,key.slice(l-16,l)),self.ShiftRows(block,self.ShiftRowTab_Inv),self.SubBytes(block,self.Sbox_Inv);for(var i=l-32;16<=i;i-=16)self.AddRoundKey(block,key.slice(i,i+16)),self.MixColumns_Inv(block),self.ShiftRows(block,self.ShiftRowTab_Inv),self.SubBytes(block,self.Sbox_Inv);self.AddRoundKey(block,key.slice(0,16))},self.SubBytes=function(state,sbox){for(var i=0;16>i;i++)state[i]=sbox[state[i]]},self.AddRoundKey=function(state,rkey){for(var i=0;16>i;i++)state[i]^=rkey[i]},self.ShiftRows=function(state,shifttab){for(var h=[].concat(state),i=0;16>i;i++)state[i]=h[shifttab[i]]},self.MixColumns=function(state){for(var i=0;16>i;i+=4){var s0=state[i+0],s1=state[i+1],s2=state[i+2],s3=state[i+3],h=s0^s1^s2^s3;state[i+0]^=h^self.xtime[s0^s1],state[i+1]^=h^self.xtime[s1^s2],state[i+2]^=h^self.xtime[s2^s3],state[i+3]^=h^self.xtime[s3^s0]}},self.MixColumns_Inv=function(state){for(var i=0;16>i;i+=4){var s0=state[i+0],s1=state[i+1],s2=state[i+2],s3=state[i+3],h=s0^s1^s2^s3,xh=self.xtime[h],h1=self.xtime[self.xtime[xh^s0^s2]]^h,h2=self.xtime[self.xtime[xh^s1^s3]]^h;state[i+0]^=h1^self.xtime[s0^s1],state[i+1]^=h2^self.xtime[s1^s2],state[i+2]^=h1^self.xtime[s2^s3],state[i+3]^=h2^self.xtime[s3^s0]}},self;
+}();
+
+module.exports=function(){var _StringfromCharCode5=
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+String.fromCharCode,self={};aes.Init();var base64Chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+return self.b256to64=function(t){var a,c,n,r="",l=0,s=0,tl=t.length;for(n=0;n<tl;n++)c=t.charCodeAt(n),0==s?(r+=base64Chars.charAt(63&c>>2),a=(3&c)<<4):1==s?(r+=base64Chars.charAt(a|15&c>>4),a=(15&c)<<2):2==s&&(r+=base64Chars.charAt(a|3&c>>6),l+=1,r+=base64Chars.charAt(63&c)),l+=1,s+=1,3==s&&(s=0);return 0<s&&(r+=base64Chars.charAt(a),l+=1,r+="=",l+=1),1==s&&(r+="="),r},self.b64to256=function(t){var c,n,r="",s=0,a=0,tl=t.length;for(n=0;n<tl;n++)c=base64Chars.indexOf(t.charAt(n)),0<=c&&(s&&(r+=_StringfromCharCode5(a|255&c>>6-s)),s=7&s+2,a=255&c<<s);return r},self.b16to64=function(h){var i,c,ret="";for(1==h.length%2&&(h="0"+h),i=0;i+3<=h.length;i+=3)c=parseInt(h.substring(i,i+3),16),ret+=base64Chars.charAt(c>>6)+base64Chars.charAt(63&c);for(i+1==h.length?(c=parseInt(h.substring(i,i+1),16),ret+=base64Chars.charAt(c<<2)):i+2==h.length&&(c=parseInt(h.substring(i,i+2),16),ret+=base64Chars.charAt(c>>2)+base64Chars.charAt((3&c)<<4));0<(3&ret.length);)ret+="=";return ret},self.b64to16=function(s){var i,slop,ret="",k=0;for(i=0;i<s.length&&"="!=s.charAt(i);++i)v=base64Chars.indexOf(s.charAt(i)),0>v||(0==k?(ret+=int2char(v>>2),slop=3&v,k=1):1==k?(ret+=int2char(slop<<2|v>>4),slop=15&v,k=2):2==k?(ret+=int2char(slop),ret+=int2char(v>>2),slop=3&v,k=3):(ret+=int2char(slop<<2|v>>4),ret+=int2char(15&v),k=0));return 1==k&&(ret+=int2char(slop<<2)),ret},self.string2bytes=function(string){for(var bytes=[],i=0;i<string.length;i++)bytes.push(string.charCodeAt(i));return bytes},self.bytes2string=function(bytes){for(var string="",i=0;i<bytes.length;i++)string+=_StringfromCharCode5(bytes[i]);return string},self.blockXOR=function(a,b){for(var xor=Array(16),i=0;16>i;i++)xor[i]=a[i]^b[i];return xor},self.blockIV=function(){var r=new SecureRandom,IV=Array(16);return r.nextBytes(IV),IV},self.pad16=function(bytes){var newBytes=bytes.slice(0),padding=(16-bytes.length%16)%16;for(i=bytes.length;i<bytes.length+padding;i++)newBytes.push(0);return newBytes},self.depad=function(bytes){for(var newBytes=bytes.slice(0);0==newBytes[newBytes.length-1];)newBytes=newBytes.slice(0,newBytes.length-1);return newBytes},self.encryptAESCBC=function(plaintext,key){var exkey=key.slice(0);aes.ExpandKey(exkey);var blocks=self.string2bytes(plaintext);blocks=self.pad16(blocks);for(var encryptedBlocks=self.blockIV(),i=0;i<blocks.length/16;i++){var tempBlock=blocks.slice(16*i,16*i+16),prevBlock=encryptedBlocks.slice(16*i,16*i+16);tempBlock=self.blockXOR(prevBlock,tempBlock),aes.Encrypt(tempBlock,exkey),encryptedBlocks=encryptedBlocks.concat(tempBlock)}var ciphertext=self.bytes2string(encryptedBlocks);return self.b256to64(ciphertext)},self.decryptAESCBC=function(encryptedText,key){var exkey=key.slice(0);aes.ExpandKey(exkey);for(var encryptedText=self.b64to256(encryptedText),encryptedBlocks=self.string2bytes(encryptedText),decryptedBlocks=[],i=1;i<encryptedBlocks.length/16;i++){var tempBlock=encryptedBlocks.slice(16*i,16*i+16),prevBlock=encryptedBlocks.slice(16*(i-1),16*(i-1)+16);aes.Decrypt(tempBlock,exkey),tempBlock=self.blockXOR(prevBlock,tempBlock),decryptedBlocks=decryptedBlocks.concat(tempBlock)}return decryptedBlocks=self.depad(decryptedBlocks),self.bytes2string(decryptedBlocks)},self.wrap60=function(string){for(var outstr="",i=0;i<string.length;i++)0==i%60&&0!=i&&(outstr+="\n"),outstr+=string[i];return outstr},self.generateAESKey=function(){var key=Array(32),r=new SecureRandom;return r.nextBytes(key),key},self.generateRSAKey=function(passphrase,bitlength){Math.seedrandom(sha256.hex(passphrase));var rsa=new RSAKey;return rsa.generate(bitlength,"03"),rsa},self.SHA256HEX=function(value){return sha256.hex(value)},self.publicKeyString=function(rsakey){return pubkey=self.b16to64(rsakey.n.toString(16)),pubkey},self.publicKeyID=function(publicKeyString){return MD5(publicKeyString)},self.publicKeyFromString=function(string){var N=self.b64to16(string.split("|")[0]),E="03",rsa=new RSAKey;return rsa.setPublic(N,E),rsa},self.encrypt=function(plaintext,publickeystring,signingkey){plaintext=encodeURIComponent(plaintext);var cipherblock="",aeskey=self.generateAESKey();try{var publickey=self.publicKeyFromString(publickeystring);cipherblock+=self.b16to64(publickey.encrypt(self.bytes2string(aeskey)))+"?"}catch(err){return{status:"Invalid public key"}}return signingkey&&(signString=cryptico.b16to64(signingkey.signString(plaintext,"sha256")),plaintext+="::52cee64bb3a38f6403386519a39ac91c::",plaintext+=cryptico.publicKeyString(signingkey),plaintext+="::52cee64bb3a38f6403386519a39ac91c::",plaintext+=signString),cipherblock+=self.encryptAESCBC(plaintext,aeskey),{status:"success",cipher:cipherblock}},self.decrypt=function(ciphertext,key){var cipherblock=ciphertext.split("?"),aeskey=key.decrypt(self.b64to16(cipherblock[0]));if(null==aeskey)return{status:"failure"};aeskey=self.string2bytes(aeskey);var plaintext=self.decryptAESCBC(cipherblock[1],aeskey).split("::52cee64bb3a38f6403386519a39ac91c::");if(3==plaintext.length){var publickey=self.publicKeyFromString(plaintext[1]),signature=self.b64to16(plaintext[2]);return publickey.verifyString(plaintext[0],signature)?{status:"success",plaintext:plaintext[0],signature:"verified",publicKeyString:self.publicKeyString(publickey)}:{status:"success",plaintext:plaintext[0],signature:"forged",publicKeyString:self.publicKeyString(publickey)}}return{status:"success",plaintext:decodeURIComponent(plaintext[0]),signature:"unsigned"}},self.loadRSAkey=function(str){var ret=new RSAKey;return ret.load(str),ret},self;
+}();

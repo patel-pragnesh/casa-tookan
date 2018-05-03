@@ -1,0 +1,604 @@
+(function(f){
+if("object"==typeof exports&&"undefined"!=typeof module)
+module.exports=f();else
+if("function"==typeof define&&define.amd)
+define([],f);else
+{
+var g;
+
+
+
+
+
+
+g="undefined"==typeof window?"undefined"==typeof global?"undefined"==typeof self?this:self:global:window,
+g.bip21lib=f();
+}
+})(function(){
+var define,module,exports;return function e(t,n,r){
+function s(o,u){
+if(!n[o]){
+if(!t[o]){
+var a="function"==typeof require&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f;
+}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){
+var n=t[o][1][e];return s(n?n:e);
+},l,l.exports,e,t,n,r);
+}return n[o].exports;
+}for(var i="function"==typeof require&&require,o=0;o<r.length;o++)s(r[o]);return s;
+}({1:[function(require,module,exports){
+module.exports={
+bip21lib:require("bip21")};
+
+},{bip21:2}],2:[function(require,module,exports){
+
+
+
+function decode(uri){
+var qregex=/bitcoin:\/?\/?([^?]+)(\?([^]+))?/.exec(uri);
+if(!qregex)throw new Error("Invalid BIP21 URI: "+uri);
+
+var address=qregex[1],
+query=qregex[3],
+options=qs.parse(query);
+
+if(options.amount){
+
+if(options.amount=+options.amount,!isFinite(options.amount))throw new Error("Invalid amount");
+if(0>options.amount)throw new Error("Invalid amount");
+}
+
+return{address:address,options:options};
+}
+
+function encode(address,options){
+options=options||{};
+var query=qs.stringify(options);
+
+if(options.amount){
+if(!isFinite(options.amount))throw new TypeError("Invalid amount");
+if(0>options.amount)throw new TypeError("Invalid amount");
+}
+
+return"bitcoin:"+address+(query?"?":"")+query;
+}var qs=require("qs");
+
+module.exports={
+decode:decode,
+encode:encode};
+
+},{qs:4}],3:[function(require,module,exports){
+"use strict";
+
+var replace=String.prototype.replace,
+percentTwenties=/%20/g;
+
+module.exports={
+default:"RFC3986",
+formatters:{
+RFC1738:function(value){
+return replace.call(value,percentTwenties,"+");
+},
+RFC3986:function(value){
+return value;
+}},
+
+RFC1738:"RFC1738",
+RFC3986:"RFC3986"};
+
+},{}],4:[function(require,module,exports){
+"use strict";
+
+var stringify=require("./stringify"),
+parse=require("./parse"),
+formats=require("./formats");
+
+module.exports={
+formats:formats,
+parse:parse,
+stringify:stringify};
+
+},{"./formats":3,"./parse":5,"./stringify":6}],5:[function(require,module,exports){
+"use strict";
+
+var utils=require("./utils"),
+
+has=Object.prototype.hasOwnProperty,
+
+defaults={
+allowDots:!1,
+allowPrototypes:!1,
+arrayLimit:20,
+decoder:utils.decode,
+delimiter:"&",
+depth:5,
+parameterLimit:1e3,
+plainObjects:!1,
+strictNullHandling:!1},
+
+
+parseValues=function parseQueryStringValues(str,options){
+
+
+
+
+
+for(var obj={},cleanStr=options.ignoreQueryPrefix?str.replace(/^\?/,""):str,limit=options.parameterLimit===Infinity?void 0:options.parameterLimit,parts=cleanStr.split(options.delimiter,limit),i=0;i<parts.length;++i){
+var
+
+
+
+
+key,val,part=parts[i],bracketEqualsPos=part.indexOf("]="),pos=-1===bracketEqualsPos?part.indexOf("="):bracketEqualsPos+1;
+-1===pos?(
+key=options.decoder(part,defaults.decoder),
+val=options.strictNullHandling?null:""):(
+
+key=options.decoder(part.slice(0,pos),defaults.decoder),
+val=options.decoder(part.slice(pos+1),defaults.decoder)),
+
+
+obj[key]=has.call(obj,key)?[].concat(obj[key]).concat(val):
+
+val;
+
+}
+
+return obj;
+},
+
+parseObject=function(chain,val,options){
+
+
+for(var leaf=val,i=chain.length-1;0<=i;--i){
+var obj,
+root=chain[i];
+
+if("[]"===root)
+obj=[],
+obj=obj.concat(leaf);else
+{
+obj=options.plainObjects?Object.create(null):{};
+var cleanRoot="["===root.charAt(0)&&"]"===root.charAt(root.length-1)?root.slice(1,-1):root,
+index=parseInt(cleanRoot,10);
+!isNaN(index)&&root!==cleanRoot&&index+""===cleanRoot&&0<=index&&options.parseArrays&&index<=options.arrayLimit?(
+obj=[],
+obj[index]=leaf):
+
+obj[cleanRoot]=leaf;
+
+}
+
+leaf=obj;
+}
+
+return leaf;
+},
+
+parseKeys=function parseQueryStringKeys(givenKey,val,options){
+if(givenKey){
+
+
+
+var key=options.allowDots?givenKey.replace(/\.([^.[]+)/g,"[$1]"):givenKey,
+
+brackets=/(\[[^[\]]*])/,
+child=/(\[[^[\]]*])/g,
+
+segment=brackets.exec(key),
+parent=segment?key.slice(0,segment.index):key,
+
+keys=[];
+if(parent){
+if(!options.plainObjects&&has.call(Object.prototype,parent)&&
+!options.allowPrototypes)
+return;
+
+
+
+keys.push(parent);
+}for(
+
+var i=0;
+null!==(segment=child.exec(key))&&i<options.depth;){
+
+if(i+=1,!options.plainObjects&&has.call(Object.prototype,segment[1].slice(1,-1))&&
+!options.allowPrototypes)
+return;
+
+
+keys.push(segment[1]);
+}
+
+
+
+
+
+return segment&&keys.push("["+key.slice(segment.index)+"]"),parseObject(keys,val,options)}
+};
+
+module.exports=function(str,opts){
+var options=opts?utils.assign({},opts):{};
+
+if(null!==options.decoder&&void 0!==options.decoder&&"function"!=typeof options.decoder)
+throw new TypeError("Decoder has to be a function.");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if(options.ignoreQueryPrefix=!0===options.ignoreQueryPrefix,options.delimiter="string"==typeof options.delimiter||utils.isRegExp(options.delimiter)?options.delimiter:defaults.delimiter,options.depth="number"==typeof options.depth?options.depth:defaults.depth,options.arrayLimit="number"==typeof options.arrayLimit?options.arrayLimit:defaults.arrayLimit,options.parseArrays=!1!==options.parseArrays,options.decoder="function"==typeof options.decoder?options.decoder:defaults.decoder,options.allowDots="boolean"==typeof options.allowDots?options.allowDots:defaults.allowDots,options.plainObjects="boolean"==typeof options.plainObjects?options.plainObjects:defaults.plainObjects,options.allowPrototypes="boolean"==typeof options.allowPrototypes?options.allowPrototypes:defaults.allowPrototypes,options.parameterLimit="number"==typeof options.parameterLimit?options.parameterLimit:defaults.parameterLimit,options.strictNullHandling="boolean"==typeof options.strictNullHandling?options.strictNullHandling:defaults.strictNullHandling,""===str||null===str||"undefined"==typeof str)
+return options.plainObjects?Object.create(null):{};
+
+
+
+
+
+
+for(var tempObj="string"==typeof str?parseValues(str,options):str,obj=options.plainObjects?Object.create(null):{},keys=Object.keys(tempObj),i=0;i<keys.length;++i){
+var key=keys[i],
+newObj=parseKeys(key,tempObj[key],options);
+obj=utils.merge(obj,newObj,options);
+}
+
+return utils.compact(obj);
+};
+},{"./utils":7}],6:[function(require,module,exports){
+"use strict";
+
+var utils=require("./utils"),
+formats=require("./formats"),
+
+arrayPrefixGenerators={
+brackets:function brackets(prefix){
+return prefix+"[]";
+},
+indices:function indices(prefix,key){
+return prefix+"["+key+"]";
+},
+repeat:function repeat(prefix){
+return prefix;
+}},
+
+
+toISO=Date.prototype.toISOString,
+
+defaults={
+delimiter:"&",
+encode:!0,
+encoder:utils.encode,
+encodeValuesOnly:!1,
+serializeDate:function serializeDate(date){
+return toISO.call(date);
+},
+skipNulls:!1,
+strictNullHandling:!1},
+
+
+stringify=function stringify(object,prefix,generateArrayPrefix,strictNullHandling,skipNulls,encoder,filter,sort,allowDots,serializeDate,formatter,encodeValuesOnly){
+var obj=object;
+if("function"==typeof filter)
+obj=filter(prefix,obj);else
+if(obj instanceof Date)
+obj=serializeDate(obj);else
+if(null===obj){
+if(strictNullHandling)
+return encoder&&!encodeValuesOnly?encoder(prefix,defaults.encoder):prefix;
+
+
+obj="";
+}
+
+if("string"==typeof obj||"number"==typeof obj||"boolean"==typeof obj||utils.isBuffer(obj)){
+if(encoder){
+var keyValue=encodeValuesOnly?prefix:encoder(prefix,defaults.encoder);
+return[formatter(keyValue)+"="+formatter(encoder(obj,defaults.encoder))];
+}
+return[formatter(prefix)+"="+formatter(obj+"")];
+}
+
+var values=[];
+
+if("undefined"==typeof obj)
+return values;
+
+
+var objKeys;
+if(Array.isArray(filter))
+objKeys=filter;else
+{
+var keys=Object.keys(obj);
+objKeys=sort?keys.sort(sort):keys;
+}
+
+for(var
+key,i=0;i<objKeys.length;++i)(key=objKeys[i],!(
+
+skipNulls&&null===obj[key]))&&(
+
+
+
+
+values=Array.isArray(obj)?values.concat(stringify(obj[key],generateArrayPrefix(prefix,key),generateArrayPrefix,strictNullHandling,skipNulls,encoder,filter,sort,allowDots,serializeDate,formatter,encodeValuesOnly)):
+
+values.concat(stringify(obj[key],prefix+(allowDots?"."+key:"["+key+"]"),generateArrayPrefix,strictNullHandling,skipNulls,encoder,filter,sort,allowDots,serializeDate,formatter,encodeValuesOnly)));
+
+
+
+return values;
+};
+
+module.exports=function(object,opts){
+var obj=object,
+options=opts?utils.assign({},opts):{};
+
+if(null!==options.encoder&&options.encoder!==void 0&&"function"!=typeof options.encoder)
+throw new TypeError("Encoder has to be a function.");
+
+
+var delimiter="undefined"==typeof options.delimiter?defaults.delimiter:options.delimiter,
+strictNullHandling="boolean"==typeof options.strictNullHandling?options.strictNullHandling:defaults.strictNullHandling,
+skipNulls="boolean"==typeof options.skipNulls?options.skipNulls:defaults.skipNulls,
+encode="boolean"==typeof options.encode?options.encode:defaults.encode,
+encoder="function"==typeof options.encoder?options.encoder:defaults.encoder,
+sort="function"==typeof options.sort?options.sort:null,
+allowDots="undefined"!=typeof options.allowDots&&options.allowDots,
+serializeDate="function"==typeof options.serializeDate?options.serializeDate:defaults.serializeDate,
+encodeValuesOnly="boolean"==typeof options.encodeValuesOnly?options.encodeValuesOnly:defaults.encodeValuesOnly;
+if("undefined"==typeof options.format)
+options.format=formats["default"];else
+if(!Object.prototype.hasOwnProperty.call(formats.formatters,options.format))
+throw new TypeError("Unknown format option provided.");
+
+var
+objKeys,
+filter,formatter=formats.formatters[options.format];
+
+"function"==typeof options.filter?(
+filter=options.filter,
+obj=filter("",obj)):
+Array.isArray(options.filter)&&(
+filter=options.filter,
+objKeys=filter);
+
+
+var keys=[];
+
+if("object"!=typeof obj||null===obj)
+return"";
+
+
+var arrayFormat;
+
+arrayFormat=options.arrayFormat in arrayPrefixGenerators?options.arrayFormat:
+"indices"in options?
+options.indices?"indices":"repeat":
+
+"indices";
+
+
+var generateArrayPrefix=arrayPrefixGenerators[arrayFormat];
+
+objKeys||(
+objKeys=Object.keys(obj)),
+
+
+sort&&
+objKeys.sort(sort);
+
+
+for(var
+key,i=0;i<objKeys.length;++i)(key=objKeys[i],!(
+
+skipNulls&&null===obj[key]))&&(
+
+
+
+keys=keys.concat(stringify(obj[key],key,generateArrayPrefix,strictNullHandling,skipNulls,encode?encoder:null,filter,sort,allowDots,serializeDate,formatter,encodeValuesOnly)));
+
+
+var joined=keys.join(delimiter),
+prefix=!0===options.addQueryPrefix?"?":"";
+
+return 0<joined.length?prefix+joined:"";
+};
+},{"./formats":3,"./utils":7}],7:[function(require,module,exports){
+"use strict";
+
+var has=Object.prototype.hasOwnProperty,
+
+hexTable=function(){
+
+for(var array=[],i=0;256>i;++i)
+array.push("%"+((16>i?"0":"")+i.toString(16)).toUpperCase());
+
+
+return array;
+}(),
+
+compactQueue=function compactQueue(queue){for(
+var obj,
+
+
+item;queue.length;)
+
+
+if(item=queue.pop(),obj=item.obj[item.prop],Array.isArray(obj)){
+
+
+for(var compacted=[],j=0;j<obj.length;++j)
+"undefined"!=typeof obj[j]&&
+compacted.push(obj[j]);
+
+
+
+item.obj[item.prop]=compacted;
+}
+
+
+return obj;
+};
+
+exports.arrayToObject=function arrayToObject(source,options){
+
+for(var obj=options&&options.plainObjects?Object.create(null):{},i=0;i<source.length;++i)
+"undefined"!=typeof source[i]&&(
+obj[i]=source[i]);
+
+
+
+return obj;
+},
+
+exports.merge=function merge(target,source,options){
+if(!source)
+return target;
+
+
+if("object"!=typeof source){
+if(Array.isArray(target))
+target.push(source);else
+if("object"==typeof target)(
+options.plainObjects||options.allowPrototypes||!has.call(Object.prototype,source))&&(
+target[source]=!0);else
+
+
+return[target,source];
+
+
+return target;
+}
+
+if("object"!=typeof target)
+return[target].concat(source);
+
+
+var mergeTarget=target;return(
+Array.isArray(target)&&!Array.isArray(source)&&(
+mergeTarget=exports.arrayToObject(target,options)),
+
+
+Array.isArray(target)&&Array.isArray(source)?(
+source.forEach(function(item,i){
+has.call(target,i)?
+target[i]&&"object"==typeof target[i]?
+target[i]=exports.merge(target[i],item,options):
+
+target.push(item):
+
+
+target[i]=item;
+
+}),
+target):
+
+
+Object.keys(source).reduce(function(acc,key){
+var value=source[key];
+
+
+
+
+
+
+return acc[key]=has.call(acc,key)?exports.merge(acc[key],value,options):value,acc;
+},mergeTarget));
+},
+
+exports.assign=function assignSingleSource(target,source){
+return Object.keys(source).reduce(function(acc,key){
+
+return acc[key]=source[key],acc;
+},target);
+},
+
+exports.decode=function(str){
+try{
+return decodeURIComponent(str.replace(/\+/g," "));
+}catch(e){
+return str;
+}
+},
+
+exports.encode=function encode(str){
+if(0===str.length)
+return str;
+
+
+
+
+
+for(var
+c,string="string"==typeof str?str:str+"",out="",i=0;i<string.length;++i){
+
+if(c=string.charCodeAt(i),45===c||46===c||95===c||126===c||48<=c&&57>=c||65<=c&&90>=c||97<=c&&122>=c){
+out+=string.charAt(i);
+continue;
+}
+
+if(128>c){
+out+=hexTable[c];
+continue;
+}
+
+if(2048>c){
+out+=hexTable[192|c>>6]+hexTable[128|63&c];
+continue;
+}
+
+if(55296>c||57344<=c){
+out+=hexTable[224|c>>12]+hexTable[128|63&c>>6]+hexTable[128|63&c];
+continue;
+}
+
+i+=1,
+c=65536+((1023&c)<<10|1023&string.charCodeAt(i)),
+out+=hexTable[240|c>>18]+hexTable[128|63&c>>12]+hexTable[128|63&c>>6]+hexTable[128|63&c];
+}
+
+return out;
+},
+
+exports.compact=function compact(value){
+
+
+
+for(var queue=[{obj:{o:value},prop:"o"}],refs=[],i=0;i<queue.length;++i)
+
+
+
+
+for(var item=queue[i],obj=item.obj[item.prop],keys=Object.keys(obj),j=0;j<keys.length;++j){
+var key=keys[j],
+val=obj[key];
+"object"==typeof val&&null!==val&&-1===refs.indexOf(val)&&(
+queue.push({obj:obj,prop:key}),
+refs.push(val));
+
+}
+
+
+return compactQueue(queue);
+},
+
+exports.isRegExp=function isRegExp(obj){
+return"[object RegExp]"===Object.prototype.toString.call(obj);
+},
+
+exports.isBuffer=function isBuffer(obj){return(
+null===obj||"undefined"==typeof obj?!1:
+
+
+
+!!(obj.constructor&&obj.constructor.isBuffer&&obj.constructor.isBuffer(obj)));
+};
+},{}]},{},[1])(1);
+});

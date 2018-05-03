@@ -1,0 +1,27 @@
+
+var UintArray=function(arg1){
+var
+
+
+
+
+
+
+result,subarray=function(start,end){return this.slice(start,end)},set_=function(array,offset){2>arguments.length&&(offset=0);for(var i=0,n=array.length;i<n;++i,++offset)this[offset]=255&array[i]};
+if("number"==typeof arg1){
+result=Array(arg1);
+for(var i=0;i<arg1;++i)result[i]=0;
+}else
+result=arg1.slice(0);
+
+
+
+
+
+
+
+
+return result.subarray=subarray,result.buffer=result,result.byteLength=result.length,result.set=set_,"object"==typeof arg1&&arg1.buffer&&(result.buffer=arg1.buffer),result;
+};
+
+Uint32Array=UintArray;

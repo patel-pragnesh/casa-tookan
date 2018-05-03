@@ -322,26 +322,10 @@
 		DBCFCB7C1F8261BF00A4CE61 /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = DBCFCB7B1F8261BF00A4CE61 /* SBJSON.m */; };
 		EF0ADCFA143F9ABF00977386 /* NSData+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0ADCF9143F9ABF00977386 /* NSData+Additions.m */; };
 		EF0ADD1A143FA0CD00977386 /* GeolocationModule.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0ADD19143FA0CD00977386 /* GeolocationModule.m */; };
-		000000000000000000000002 /* libinc.indiesquare.customuseragent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 000000000000000000000001 /* libinc.indiesquare.customuseragent.a */; };
-		000000000000000000000004 /* libti.touchid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 000000000000000000000003 /* libti.touchid.a */; };
-		000000000000000000000006 /* libhyperloop-jscore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 000000000000000000000005 /* libhyperloop-jscore.a */; };
-		000000000000000000000008 /* libfirebase.core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 000000000000000000000007 /* libfirebase.core.a */; };
-		000000000000000000000010 /* GoogleToolboxForMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000000000000000000000009 /* GoogleToolboxForMac.framework */; };
-		000000000000000000000012 /* GTMSessionFetcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000000000000000000000011 /* GTMSessionFetcher.framework */; };
-		000000000000000000000014 /* FirebaseNanoPB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000000000000000000000013 /* FirebaseNanoPB.framework */; };
-		000000000000000000000016 /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000000000000000000000015 /* FirebaseInstanceID.framework */; };
-		000000000000000000000018 /* FirebaseCoreDiagnostics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000000000000000000000017 /* FirebaseCoreDiagnostics.framework */; };
-		000000000000000000000020 /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000000000000000000000019 /* FirebaseCore.framework */; };
-		000000000000000000000022 /* web3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000000000000000000000021 /* web3.framework */; };
-		000000000000000000000023 /* web3.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 000000000000000000000021 /* web3.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		000000000000000000000026 /* Protobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000000000000000000000025 /* Protobuf.framework */; };
-		000000000000000000000028 /* nanopb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000000000000000000000027 /* nanopb.framework */; };
-		000000000000000000000031 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000000000000000000000030 /* WebKit.framework */; };
-		000000000000000000000035 /* webkit.m in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000034 /* webkit.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		000000000000000000000037 /* coregraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000036 /* coregraphics.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		000000000000000000000039 /* foundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000038 /* foundation.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		000000000000000000000041 /* uikit.m in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000040 /* uikit.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		000000000000000000000044 /* custom.m in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000043 /* custom.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		000000000000000000000002 /* libti.touchid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 000000000000000000000001 /* libti.touchid.a */; };
+		000000000000000000000004 /* libhyperloop-jscore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 000000000000000000000003 /* libhyperloop-jscore.a */; };
+		000000000000000000000006 /* web3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000000000000000000000005 /* web3.framework */; };
+		000000000000000000000007 /* web3.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 000000000000000000000005 /* web3.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -989,25 +973,9 @@
 		DBCFCB7B1F8261BF00A4CE61 /* SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJSON.m; path = Classes/SBJSON.m; sourceTree = "<group>"; };
 		EF0ADCF9143F9ABF00977386 /* NSData+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+Additions.m"; path = "Classes/NSData+Additions.m"; sourceTree = "<group>"; };
 		EF0ADD19143FA0CD00977386 /* GeolocationModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeolocationModule.m; sourceTree = "<group>"; };
-		000000000000000000000001 /* libinc.indiesquare.customuseragent.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libinc.indiesquare.customuseragent.a; path = "/Users/a/Documents/Appcelerator_Studio_Workspace/tookan/modules/iphone/inc.indiesquare.customuseragent/1/libinc.indiesquare.customuseragent.a"; sourceTree = "<absolute>"; };
-		000000000000000000000003 /* libti.touchid.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libti.touchid.a; path = "/Users/a/Library/Application Support/Titanium/modules/iphone/ti.touchid/2.1.4/libti.touchid.a"; sourceTree = "<absolute>"; };
-		000000000000000000000005 /* libhyperloop-jscore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libhyperloop-jscore.a; path = "/Users/a/Library/Application Support/Titanium/modules/iphone/hyperloop/3.0.3/libhyperloop-jscore.a"; sourceTree = "<absolute>"; };
-		000000000000000000000007 /* libfirebase.core.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfirebase.core.a; path = "/Users/a/Documents/Appcelerator_Studio_Workspace/tookan/modules/iphone/firebase.core/1.0.0/libfirebase.core.a"; sourceTree = "<absolute>"; };
-		000000000000000000000009 /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "GoogleToolboxForMac.framework"; path = "/Users/a/Documents/Appcelerator_Studio_Workspace/tookan/modules/iphone/firebase.core/1.0.0/platform/GoogleToolboxForMac.framework"; sourceTree = "<absolute>"; };
-		000000000000000000000011 /* GTMSessionFetcher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "GTMSessionFetcher.framework"; path = "/Users/a/Documents/Appcelerator_Studio_Workspace/tookan/modules/iphone/firebase.core/1.0.0/platform/GTMSessionFetcher.framework"; sourceTree = "<absolute>"; };
-		000000000000000000000013 /* FirebaseNanoPB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "FirebaseNanoPB.framework"; path = "/Users/a/Documents/Appcelerator_Studio_Workspace/tookan/modules/iphone/firebase.core/1.0.0/platform/FirebaseNanoPB.framework"; sourceTree = "<absolute>"; };
-		000000000000000000000015 /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "FirebaseInstanceID.framework"; path = "/Users/a/Documents/Appcelerator_Studio_Workspace/tookan/modules/iphone/firebase.core/1.0.0/platform/FirebaseInstanceID.framework"; sourceTree = "<absolute>"; };
-		000000000000000000000017 /* FirebaseCoreDiagnostics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "FirebaseCoreDiagnostics.framework"; path = "/Users/a/Documents/Appcelerator_Studio_Workspace/tookan/modules/iphone/firebase.core/1.0.0/platform/FirebaseCoreDiagnostics.framework"; sourceTree = "<absolute>"; };
-		000000000000000000000019 /* FirebaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "FirebaseCore.framework"; path = "/Users/a/Documents/Appcelerator_Studio_Workspace/tookan/modules/iphone/firebase.core/1.0.0/platform/FirebaseCore.framework"; sourceTree = "<absolute>"; };
-		000000000000000000000021 /* web3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "web3.framework"; path = "/Users/a/Documents/Appcelerator_Studio_Workspace/tookan/platform/ios/web3.framework"; sourceTree = "<absolute>"; };
-		000000000000000000000025 /* Protobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Protobuf.framework"; path = "/Users/a/Documents/Appcelerator_Studio_Workspace/tookan/modules/iphone/firebase.core/1.0.0/platform/Protobuf.framework"; sourceTree = "<absolute>"; };
-		000000000000000000000027 /* nanopb.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "nanopb.framework"; path = "/Users/a/Documents/Appcelerator_Studio_Workspace/tookan/modules/iphone/firebase.core/1.0.0/platform/nanopb.framework"; sourceTree = "<absolute>"; };
-		000000000000000000000030 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "WebKit.framework"; path = "System/Library/Frameworks/WebKit.framework"; sourceTree = "SDKROOT"; };
-		000000000000000000000034 /* webkit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "webkit.m"; path = "/Users/a/Documents/Appcelerator_Studio_Workspace/tookan/build/hyperloop/ios/js/webkit/webkit.m"; sourceTree = "<absolute>"; };
-		000000000000000000000036 /* coregraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "coregraphics.m"; path = "/Users/a/Documents/Appcelerator_Studio_Workspace/tookan/build/hyperloop/ios/js/coregraphics/coregraphics.m"; sourceTree = "<absolute>"; };
-		000000000000000000000038 /* foundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "foundation.m"; path = "/Users/a/Documents/Appcelerator_Studio_Workspace/tookan/build/hyperloop/ios/js/foundation/foundation.m"; sourceTree = "<absolute>"; };
-		000000000000000000000040 /* uikit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "uikit.m"; path = "/Users/a/Documents/Appcelerator_Studio_Workspace/tookan/build/hyperloop/ios/js/uikit/uikit.m"; sourceTree = "<absolute>"; };
-		000000000000000000000043 /* custom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "custom.m"; path = "/Users/a/Documents/Appcelerator_Studio_Workspace/tookan/build/hyperloop/ios/js/hyperloop/custom.m"; sourceTree = "<absolute>"; };
+		000000000000000000000001 /* libti.touchid.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libti.touchid.a; path = "/Users/a/Library/Application Support/Titanium/modules/iphone/ti.touchid/2.1.4/libti.touchid.a"; sourceTree = "<absolute>"; };
+		000000000000000000000003 /* libhyperloop-jscore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libhyperloop-jscore.a; path = "/Users/a/Library/Application Support/Titanium/modules/iphone/hyperloop/3.0.5/libhyperloop-jscore.a"; sourceTree = "<absolute>"; };
+		000000000000000000000005 /* web3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "web3.framework"; path = "/Users/a/Documents/Appcelerator_Studio_Workspace/tookan/platform/ios/web3.framework"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1044,20 +1012,9 @@
 				24EB0A58111E1BAE001DC2D1 /* libxml2.dylib in Frameworks */,
 				B606EF60190B42FB00663EFC /* libAPSHTTPClient.a in Frameworks */,
 				24D5C75911E6364F00F097E2 /* libtiverify.a in Frameworks */,
-				000000000000000000000002 /* libinc.indiesquare.customuseragent.a in Frameworks */,
-				000000000000000000000004 /* libti.touchid.a in Frameworks */,
-				000000000000000000000006 /* libhyperloop-jscore.a in Frameworks */,
-				000000000000000000000008 /* libfirebase.core.a in Frameworks */,
-				000000000000000000000010 /* GoogleToolboxForMac.framework in Frameworks */,
-				000000000000000000000012 /* GTMSessionFetcher.framework in Frameworks */,
-				000000000000000000000014 /* FirebaseNanoPB.framework in Frameworks */,
-				000000000000000000000016 /* FirebaseInstanceID.framework in Frameworks */,
-				000000000000000000000018 /* FirebaseCoreDiagnostics.framework in Frameworks */,
-				000000000000000000000020 /* FirebaseCore.framework in Frameworks */,
-				000000000000000000000022 /* web3.framework in Frameworks */,
-				000000000000000000000026 /* Protobuf.framework in Frameworks */,
-				000000000000000000000028 /* nanopb.framework in Frameworks */,
-				000000000000000000000031 /* WebKit.framework in Frameworks */,
+				000000000000000000000002 /* libti.touchid.a in Frameworks */,
+				000000000000000000000004 /* libhyperloop-jscore.a in Frameworks */,
+				000000000000000000000006 /* web3.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2059,7 +2016,6 @@
 				CEFFA0BB1A8A80810078F310 /* Extensions */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				000000000000000000000032 /* Hyperloop */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -2124,20 +2080,9 @@
 				24EB0A57111E1BAE001DC2D1 /* libxml2.dylib */,
 				DADE76D313D65C590079FC75 /* libicucore.dylib */,
 				84BBA58716570F90006B8C22 /* Security.framework */,
-				000000000000000000000001 /* libinc.indiesquare.customuseragent.a */,
-				000000000000000000000003 /* libti.touchid.a */,
-				000000000000000000000005 /* libhyperloop-jscore.a */,
-				000000000000000000000007 /* libfirebase.core.a */,
-				000000000000000000000009 /* GoogleToolboxForMac.framework */,
-				000000000000000000000011 /* GTMSessionFetcher.framework */,
-				000000000000000000000013 /* FirebaseNanoPB.framework */,
-				000000000000000000000015 /* FirebaseInstanceID.framework */,
-				000000000000000000000017 /* FirebaseCoreDiagnostics.framework */,
-				000000000000000000000019 /* FirebaseCore.framework */,
-				000000000000000000000021 /* web3.framework */,
-				000000000000000000000025 /* Protobuf.framework */,
-				000000000000000000000027 /* nanopb.framework */,
-				000000000000000000000030 /* WebKit.framework */,
+				000000000000000000000001 /* libti.touchid.a */,
+				000000000000000000000003 /* libhyperloop-jscore.a */,
+				000000000000000000000005 /* web3.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2490,34 +2435,6 @@
 			name = SBJSON;
 			sourceTree = "<group>";
 		};
-		000000000000000000000032 /* Hyperloop */ = {
-			isa = PBXGroup;
-			children = (
-				000000000000000000000033 /* Native */,
-				000000000000000000000042 /* Custom */,
-			);
-			name = Hyperloop;
-			sourceTree = "<group>";
-		};
-		000000000000000000000033 /* Native */ = {
-			isa = PBXGroup;
-			children = (
-				000000000000000000000034 /* webkit.m */,
-				000000000000000000000036 /* coregraphics.m */,
-				000000000000000000000038 /* foundation.m */,
-				000000000000000000000040 /* uikit.m */,
-			);
-			name = "Native";
-			sourceTree = "<group>";
-		};
-		000000000000000000000042 /* Custom */ = {
-			isa = PBXGroup;
-			children = (
-				000000000000000000000043 /* custom.m */,
-			);
-			name = "Custom";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2528,8 +2445,8 @@
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
 				838159D01B7A9632002EE811 /* Resources */,
-				000000000000000000000024,
-				000000000000000000000029,
+				000000000000000000000008,
+				000000000000000000000009,
 			);
 			buildRules = (
 			);
@@ -2561,6 +2478,7 @@
 								enabled = 0;
 							};
 						};
+						DevelopmentTeam = 73L2Z28CVF;
 					};
 				};
 			};
@@ -2596,7 +2514,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		000000000000000000000029 = {
+		000000000000000000000009 = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2608,7 +2526,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/bin/bash \"/Users/a/Library/Application Support/Titanium/mobilesdk/osx/7.1.0.GA/iphone/templates/build/strip-frameworks.sh\"";
+			shellScript = "/bin/bash \"/Users/a/Library/Application Support/Titanium/mobilesdk/osx/7.1.1.GA/iphone/templates/build/strip-frameworks.sh\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2902,11 +2820,6 @@
 				502A68E616EEAA7500661EF6 /* TiUIListViewProxy.m in Sources */,
 				502A68EB16F0428500661EF6 /* TiViewTemplate.m in Sources */,
 				84C3870217417CB800970D26 /* TiSelectedCellbackgroundView.m in Sources */,
-				000000000000000000000035 /* webkit.m in Sources */,
-				000000000000000000000037 /* coregraphics.m in Sources */,
-				000000000000000000000039 /* foundation.m in Sources */,
-				000000000000000000000041 /* uikit.m in Sources */,
-				000000000000000000000044 /* custom.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2923,14 +2836,14 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = NO;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 73L2Z28CVF;
 				ENABLE_BITCODE = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = jiko_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "DEPLOYTYPE=development DEBUG=1 TI_VERSION=7.1.0 TI_LOG_SERVER_PORT=2984";
+				GCC_PREPROCESSOR_DEFINITIONS = "DEPLOYTYPE=test TI_LOG_SERVER_PORT=2984";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -2940,10 +2853,8 @@
 					"\"$(SRCROOT)/lib\"",
 					"\"$(SRCROOT)/Classes/APSAnalytics\"",
 					"\"$(SRCROOT)/Classes/APSHTTPClient\"",
-					"\"/Users/a/Documents/Appcelerator_Studio_Workspace/tookan/modules/iphone/inc.indiesquare.customuseragent/1\"",
 					"\"/Users/a/Library/Application Support/Titanium/modules/iphone/ti.touchid/2.1.4\"",
-					"\"/Users/a/Library/Application Support/Titanium/modules/iphone/hyperloop/3.0.3\"",
-					"\"/Users/a/Documents/Appcelerator_Studio_Workspace/tookan/modules/iphone/firebase.core/1.0.0\"",
+					"\"/Users/a/Library/Application Support/Titanium/modules/iphone/hyperloop/3.0.5\"",
 				);
 				OTHER_CFLAGS = "-DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mandelduck.jiko";
@@ -2954,9 +2865,13 @@
 				DEAD_CODE_STRIPPING = YES;
 				SDKROOT = iphoneos;
 				CODE_SIGN_ENTITLEMENTS = "jiko.entitlements";
+				DEPLOYMENT_POSTPROCESSING = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				PROVISIONING_PROFILE = "5f45d1ed-47f9-4369-8fae-2f2dde8463b9";
+				PROVISIONING_PROFILE_SPECIFIER = "jikoDev";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"/Users/a/Documents/Appcelerator_Studio_Workspace/tookan/modules/iphone/firebase.core/1.0.0/platform\"",
 					"\"/Users/a/Documents/Appcelerator_Studio_Workspace/tookan/platform/ios\"",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2973,12 +2888,12 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = NO;
 				COPY_PHASE_STRIP = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 73L2Z28CVF;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = jiko_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "DEPLOYTYPE=development DEBUG=1 TI_VERSION=7.1.0 TI_LOG_SERVER_PORT=2984";
+				GCC_PREPROCESSOR_DEFINITIONS = "DEPLOYTYPE=test TI_LOG_SERVER_PORT=2984";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -2988,10 +2903,8 @@
 					"\"$(SRCROOT)/lib\"",
 					"\"$(SRCROOT)/Classes/APSAnalytics\"",
 					"\"$(SRCROOT)/Classes/APSHTTPClient\"",
-					"\"/Users/a/Documents/Appcelerator_Studio_Workspace/tookan/modules/iphone/inc.indiesquare.customuseragent/1\"",
 					"\"/Users/a/Library/Application Support/Titanium/modules/iphone/ti.touchid/2.1.4\"",
-					"\"/Users/a/Library/Application Support/Titanium/modules/iphone/hyperloop/3.0.3\"",
-					"\"/Users/a/Documents/Appcelerator_Studio_Workspace/tookan/modules/iphone/firebase.core/1.0.0\"",
+					"\"/Users/a/Library/Application Support/Titanium/modules/iphone/hyperloop/3.0.5\"",
 				);
 				OTHER_CFLAGS = "-DNDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mandelduck.jiko";
@@ -3002,9 +2915,13 @@
 				DEAD_CODE_STRIPPING = YES;
 				SDKROOT = iphoneos;
 				CODE_SIGN_ENTITLEMENTS = "jiko.entitlements";
+				DEPLOYMENT_POSTPROCESSING = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				PROVISIONING_PROFILE = "5f45d1ed-47f9-4369-8fae-2f2dde8463b9";
+				PROVISIONING_PROFILE_SPECIFIER = "jikoDev";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"/Users/a/Documents/Appcelerator_Studio_Workspace/tookan/modules/iphone/firebase.core/1.0.0/platform\"",
 					"\"/Users/a/Documents/Appcelerator_Studio_Workspace/tookan/platform/ios\"",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -3148,13 +3065,13 @@
 /* End XCConfigurationList section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		000000000000000000000024 /* Embed Frameworks */ = {
+		000000000000000000000008 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				000000000000000000000023 /* web3.framework in Embed Frameworks */,
+				000000000000000000000007 /* web3.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;

@@ -169,10 +169,7 @@ function $initialize () {
 			enumerable: false
 		},
 		refreshControl: {
-			get: function () {
-				if (!$init) { $initialize(); }
-				return new $imports.UIRefreshControl($dispatch(this.$native, 'refreshControl'));
-			},
+		
 		
 			set: function (_refreshControl) {
 				if (!$init) { $initialize(); }

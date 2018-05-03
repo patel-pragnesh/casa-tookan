@@ -1,0 +1,415 @@
+module.exports=function(){
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function isPassphraseDecrypted(passphrase){
+var words=passphrase.split(" ");return(
+1==words.length);
+
+}var self={};require("vendor/UintArray");var network=require("requires/network"),cache=require("requires/cache"),transactionParser=require("vendor/util/transactionParser.js"),tools=require("vendor/util/bitcoinJSLib"),bitcoin=tools.bitcoin,bitcoinJSMessage=tools.bitcoinJSMessage,bip39lib=require("vendor/bip39lib.js"),bip21lib=require("vendor/util/bip21lib.js").bip21lib,rbftools=require("vendor/util/RBFTools.js"),MnemonicJS=require("vendor/mnemonic"),cryptoJS=require("vendor/crypto-js.js"),account=null,basePath="m/0'/0/",currentHD=0;self.getBasePath=function(){return basePath},self.encryptPassphrase=function(passphrase,key){var encrypted=cryptoJS.AES.encrypt(passphrase,key).toString();globals.console.info("encrypted="+encrypted),cache.data.passphrase=encrypted,cache.save()};;
+
+self.decryptPassphrase=function(passphrase,key){
+var decrypted="error";
+try{
+decrypted=cryptoJS.AES.decrypt(passphrase,key).toString(cryptoJS.enc.Utf8);
+}catch(e){
+globals.console.info("error decrypt");
+}
+return decrypted;
+},
+
+self.signMessage=function(message,requestedBasePath){
+
+var seed=self.getSeedFromPassphrase(globals.decryptedPassphrase),
+
+master=bitcoin.HDNode.fromSeedHex(seed);
+null==requestedBasePath&&(
+requestedBasePath=basePath+currentHD);
+
+
+var keyPair=master.derivePath(requestedBasePath).keyPair,
+
+privateKey=keyPair.d.toBuffer(32),
+
+signature=bitcoinJSMessage.sign(message,privateKey,keyPair.compressed);
+
+
+return console.log(signature.toString("base64")),signature.toString("base64");
+},
+
+self.signMessageAnonymous=function(message){
+globals.console.info("here1");
+var passphrase=globals.decryptedPassphrase;
+if(isPassphraseDecrypted(passphrase))return"decrypted";
+
+var seed=self.getSeedFromPassphrase(passphrase),
+
+master=bitcoin.HDNode.fromSeedHex(seed),
+
+keyPair=master.derivePath("m/0\"/0/0/20150902"),
+privateKey=keyPair.d.toBuffer(32),
+
+signature=bitcoinJSMessage.sign(message,privateKey,keyPair.compressed),
+address=keyPair.getAddress(),
+
+sig=signature.toString("base64");
+return{
+address:address,
+sig:sig};
+
+},
+
+self.verifyMessage=function(message,signature,address){
+
+return bitcoinJSMessage.verify(message,address,signature);
+},
+
+self.getCurrentHD=function(){
+return currentHD;
+},
+
+self.setRBF=function(rawtx){return(
+0==Ti.App.Properties.getInt("dontUseRBF",0)?
+rbftools.setRBF(rawtx):
+
+rawtx);
+},
+
+self.verifyTransaction=function(params){
+
+function checkData(decodedTransaction,type){
+
+if(3>decodedTransaction.outputs.length){
+
+var firstOutput=decodedTransaction.outputs[0];
+
+if(console.log(firstOutput),"token"==type){
+if(firstOutput.type!=params.type)
+return"type does not match";
+
+
+if(firstOutput.token!=params.params.token)
+return"token does not match";
+
+}
+if(firstOutput.address==params.params.destination){
+var valueToCheck=firstOutput.satoshiValue,
+valueToCheckAgainst=1e8*parseFloat(params.params.quantity);
+if("token"==type)
+var valueToCheck=firstOutput.value,
+valueToCheckAgainst=params.params.quantity;
+
+if(valueToCheck==valueToCheckAgainst){
+
+if(void 0!=decodedTransaction.outputs[1]){
+var changeOutput=decodedTransaction.outputs[1];return(
+changeOutput.address==params.params.source?
+
+"verified":
+
+"change does not match");
+
+}
+return"verified";
+
+}
+return"quantity does not match";
+
+}
+return"destination does not match";
+
+}
+return"too many outputs";
+
+
+return"unknown error";
+}
+console.log(params),
+transactionParser.decodeBitcoinTransaction(params.transaction.tx,function(decodedTransaction,error){
+
+if(void 0!=error)
+
+return params.onError({
+title:"Error",
+message:error});
+
+
+
+if("send"==params.type){
+
+var result=checkData(decodedTransaction,"bitcoin");return(
+
+"verified"==result?void
+params.callback({
+fees:decodedTransaction.fees}):void
+
+
+
+params.onError({
+title:"Error",
+message:result}));
+
+
+
+}if("enhanced send"==params.type){
+
+var result=checkData(decodedTransaction,"token");return(
+
+"verified"==result?void
+
+params.callback({
+fees:decodedTransaction.fees}):void
+
+
+
+params.onError({
+title:"Error",
+message:result}));
+
+
+
+}
+
+params.onError({
+title:"Error",
+message:"Unknown error"});
+
+
+});
+},
+
+self.getSeedFromPassphrase=function(passphrase){
+
+try{
+
+var words=passphrase.split(" ");
+
+if(12!=words.length)
+
+throw"passphrase invalid length";
+
+
+var m=new MnemonicJS(words),
+seed=m.toHex();
+
+return seed;
+}catch(e){
+
+try{
+
+var isValid=!1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+if(!0==bip39lib.bip39.validateMnemonic(passphrase,bip39lib.bip39.wordlists.EN)?isValid=!0:!0==bip39lib.bip39.validateMnemonic(passphrase,bip39lib.bip39.wordlists.JA)?isValid=!0:!0==bip39lib.bip39.validateMnemonic(passphrase,bip39lib.bip39.wordlists.french)?isValid=!0:!0==bip39lib.bip39.validateMnemonic(passphrase,bip39lib.bip39.wordlists.italian)?isValid=!0:!0==bip39lib.bip39.validateMnemonic(passphrase,bip39lib.bip39.wordlists.spanish)&&(isValid=!0),!1==isValid)
+throw"passphrase invalid not bip39";
+
+
+var seed=bip39lib.bip39.mnemonicToSeedHex(passphrase);
+
+return seed;
+}catch(e){
+
+throw e;
+}
+}
+},
+
+self.init=function(passphrase,derive,nokeep){
+
+if(null==passphrase)return null;
+
+if(isPassphraseDecrypted(passphrase))return"decrypted";
+
+globals.decryptedPassphrase=passphrase;
+
+var seed=self.getSeedFromPassphrase(passphrase),
+master=bitcoin.HDNode.fromSeedHex(seed),
+d=basePath+"0";
+null!=derive&&(d=derive);
+
+var masterderive=master.derivePath(d);
+
+
+
+
+
+return nokeep||(account=masterderive,currentHD=d.split("/").pop()),masterderive;
+},
+
+self.createHDAddress=function(d){
+return self.getAddressForPath(basePath+d);
+},
+
+self.getWIFFromPath=function(d){
+var derive=self.init(globals.decryptedPassphrase,basePath+d,!0);
+return self.getPrivKeyWif(derive);
+},
+
+self.changeHD=function(d){
+self.init(globals.decryptedPassphrase,basePath+d),
+
+cache.data.address=self.getAddress(),
+cache.save();
+
+var f3=Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory,"qr_address.png");
+
+
+
+return f3.exists()&&f3.deleteFile(),cache.data.address;
+},
+
+self.getpassphrase=function(passphrase){
+
+
+
+return self.getSeedFromPassphrase(passphrase),passphrase;
+},
+
+self.getAddress=function(derive){return(
+null==account&&null==derive?null:
+
+account.getAddress());
+},
+
+self.getAddressForPath=function(requestedBasePath){
+
+globals.setCache();
+
+var cachedAddress=cache.data.addresses.bitcoin[requestedBasePath];
+
+if(void 0!=cachedAddress)
+
+return console.log("cache bitcoin"),cachedAddress;
+
+
+var seed=self.getSeedFromPassphrase(globals.decryptedPassphrase),
+
+master=bitcoin.HDNode.fromSeedHex(seed);
+null==requestedBasePath&&(
+requestedBasePath=basePath+currentHD);
+
+
+var keyPair=master.derivePath(requestedBasePath);
+
+
+return cache.data.addresses.bitcoin[requestedBasePath]=keyPair.getAddress(),cache.save(),cache.data.addresses.bitcoin[requestedBasePath];
+},
+
+self.getAddressFromWIF=function(WIF){
+if(null==WIF)return null;
+var keyPair=bitcoin.ECPair.fromWIF(WIF);
+return keyPair.getAddress();
+};
+
+var getPrivKey=function(){return(
+null==account?null:
+account.toWIF());
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+return self.getPrivKey=getPrivKey,self.getPrivKeyWif=function(derive){if(null==account&&null==derive)return null;var d=account;return null!=derive&&(d=derive),d.toWIF()},self.getPrivKeyFromWIF=function(WIF){return null==WIF?null:bitcoin.ECPair.fromWIF(WIF)},self.sign=function(raw_tx,requestedBasePath){var seed=self.getSeedFromPassphrase(globals.decryptedPassphrase),master=bitcoin.HDNode.fromSeedHex(seed);null==requestedBasePath&&(requestedBasePath=basePath+currentHD),console.log(requestedBasePath);var keyPair=master.derivePath(requestedBasePath).keyPair,unsignedTx=bitcoin.Transaction.fromHex(raw_tx),txb=bitcoin.TransactionBuilder.fromTransaction(unsignedTx,bitcoin.networks.bitcoin);txb.inputs.forEach(function(input,idx){txb.inputs[idx]={},txb.sign(idx,keyPair)});var signedTx=txb.build();return signedTx.toHex()},self.getPublicKey=function(passphrase,bool){return bool&&self.init(passphrase),null==account?null:account.getPublicKeyBuffer().toString("hex")},self.URI=function(uri){try{var decoded=bip21lib.decode(uri),uri={address:decoded.address,amount:decoded.options.amount};return uri}catch(e){return console.error(e),null}},self;
+}();

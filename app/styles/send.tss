@@ -53,7 +53,7 @@
 }
 
 ".keypad": {
-	backgroundColor: "#ececec"
+	backgroundColor: "rgba(0,0,0,0.4);"
 }
 
 ".padrow": {

@@ -4,6 +4,7 @@
 	borderRadius:20,
 	height: 90,
 	top: 5,
+	padding: 10,
 	backgroundColor: "white"
 }
 

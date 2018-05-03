@@ -11,7 +11,23 @@ var blockchain = require("requires/blockchain");
 
 
 if( cache.load() ){
-	
+	globals.setCache = function(){
+if(cache.data.blockchainWallets == undefined){
+  cache.data.blockchainWallets = [];
+    
+  	cache.data.blockchainWallets.push(blockchain.basePath+"0");
+  	
+  	cache.data.currentPath = cache.data.blockchainWallets[0];
+    cache.save();
+ }
+ if(cache.data.addresses == undefined){
+ 	cache.data.addresses = {"bitcoin":{},"ethereum":{}};
+ 	 cache.save();
+ }
+  
+};
+
+globals.setCache();
 	blockchain.updateUI();
 	
 	function startFrame(){

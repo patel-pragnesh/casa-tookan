@@ -9,7 +9,6 @@ function __processArg(obj, key) {
 	var arg = null;
 	if (obj) {
 		arg = obj[key] || null;
-		delete obj[key];
 	}
 	return arg;
 }
@@ -43,16 +42,16 @@ function Controller() {
 	{ left: 10, width: 30, bottom: 10, id: "settingsButton", image: "/images/tookan.png" });
 
 	$.__views.receiveTopBar.add($.__views.settingsButton);
-	$.__views.__alloyId23 = Ti.UI.createLabel(
+	$.__views.__alloyId30 = Ti.UI.createLabel(
 	function () {
 		var o = {};
 		Alloy.deepExtend(true, o, { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#gray", font: { fontFamily: "HelveticaNeue-Light", fontSize: 20, fontWeight: "normal" }, top: 28 });
 		if (Alloy.Globals.isiPhoneX) Alloy.deepExtend(true, o, { top: 38 });
-		Alloy.deepExtend(true, o, { text: L("label_tab_receive"), id: "__alloyId23" });
+		Alloy.deepExtend(true, o, { text: L("label_tab_receive"), id: "__alloyId30" });
 		return o;
 	}());
 
-	$.__views.receiveTopBar.add($.__views.__alloyId23);
+	$.__views.receiveTopBar.add($.__views.__alloyId30);
 	$.__views.mainView = Ti.UI.createView(
 	{ id: "mainView", layout: "vertical" });
 
@@ -102,11 +101,11 @@ function Controller() {
 
 	$.__views.secondView.add($.__views.buttonView);
 	$.__views.addAvatarButton = Ti.UI.createButton(
-	{ width: 120, height: 40, top: 10, backgroundColor: "#6dcf7d", font: { color: "black", fontSize: 15 }, title: 'ADD AVATAR', id: "addAvatarButton" });
+	{ width: 120, height: 40, top: 10, color: "white", backgroundColor: "#6dcf7d", font: { color: "black", fontSize: 15 }, title: 'ADD AVATAR', id: "addAvatarButton" });
 
 	$.__views.buttonView.add($.__views.addAvatarButton);
 	$.__views.changeNameButton = Ti.UI.createButton(
-	{ width: 120, height: 40, top: 10, backgroundColor: "#6dcf7d", font: { color: "black", fontSize: 15 }, title: 'CHANGE NAME', id: "changeNameButton" });
+	{ width: 120, height: 40, top: 10, color: "white", backgroundColor: "#6dcf7d", font: { color: "black", fontSize: 15 }, title: 'CHANGE NAME', id: "changeNameButton" });
 
 	$.__views.buttonView.add($.__views.changeNameButton);
 	exports.destroy = function () {};

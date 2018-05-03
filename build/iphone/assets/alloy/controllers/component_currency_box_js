@@ -1,0 +1,85 @@
+var Alloy=require('/alloy'),
+Backbone=Alloy.Backbone,
+_=Alloy._;
+
+
+
+
+function __processArg(obj,key){
+var arg=null;
+
+
+
+return obj&&(arg=obj[key]||null),arg;
+}
+
+function Controller(){
+
+
+
+
+
+if(require('/alloy/controllers/BaseController').apply(this,Array.prototype.slice.call(arguments)),this.__controllerPath='component_currency_box',this.args=arguments[0]||{},arguments[0])
+var __parentSymbol=__processArg(arguments[0],'__parentSymbol'),
+$model=__processArg(arguments[0],'$model'),
+__itemTemplate=__processArg(arguments[0],'__itemTemplate');
+
+var $=this,
+exports={},
+__defers={};
+
+
+
+
+
+
+
+$.__views.currencyBox=Ti.UI.createView(
+{width:Ti.UI.FILL,height:50,top:0,backgroundColor:'#ffffff',id:'currencyBox'}),
+
+$.__views.currencyBox&&$.addTopLevelView($.__views.currencyBox),
+$.__views.name=Ti.UI.createLabel(
+{width:Ti.UI.SIZE,height:Ti.UI.SIZE,color:'#000000',font:{fontFamily:'HelveticaNeue-Light',fontSize:20,fontWeight:'normal'},left:10,id:'name'}),
+
+$.__views.currencyBox.add($.__views.name),
+$.__views.checked=Ti.UI.createImageView(
+{right:10,width:25,height:25,id:'checked',image:'/images/icon_checked.png',visible:!1}),
+
+$.__views.currencyBox.add($.__views.checked),
+$.__views.__alloyId31=Ti.UI.createView(
+{width:Ti.UI.FILL,height:1,bottom:0,backgroundColor:'#ececec',id:'__alloyId31'}),
+
+$.__views.currencyBox.add($.__views.__alloyId31),
+exports.destroy=function(){},
+
+
+
+
+_.extend($,$.__views);
+
+
+var args=arguments[0]||{},
+
+util=require('requires/util'),
+cache=require('requires/cache');
+
+$.name.text=args.name,
+
+args.currentCurrency===args.name&&($.checked.visible=!0),
+
+$.currencyBox.addEventListener('touchend',function(){
+args.callback(args.name);
+}),
+
+
+
+
+
+
+
+
+
+_.extend($,exports);
+}
+
+module.exports=Controller;

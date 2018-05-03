@@ -3,6 +3,10 @@
 $.webview.height  = globals.display.height -  (Alloy.Globals.tabBarHeight + Alloy.Globals.topBarHeight);
 $.webview.top = $.browseTopBar.height;
  
+$.settingsButton.addEventListener("touchend", function(){
+	Alloy.createController("settings")
+	.getView();
+});
 
 Alloy.Globals.lastAction = null;
 setInterval(function(){ checkPressed(); }, 50);

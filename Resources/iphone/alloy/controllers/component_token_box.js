@@ -9,7 +9,6 @@ function __processArg(obj, key) {
   var arg = null;
   if (obj) {
     arg = obj[key] || null;
-    delete obj[key];
   }
   return arg;
 }
@@ -35,10 +34,18 @@ function Controller() {
 
 
 
-  $.__views.tokenBox = Ti.UI.createView(
-  { width: "94%", borderRadius: 20, height: 90, top: 5, backgroundColor: "white", id: "tokenBox", postlayout: "getBalance" });
+  $.__views.component_token_box = Ti.UI.createView(
+  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, id: "component_token_box" });
 
-  $.__views.tokenBox && $.addTopLevelView($.__views.tokenBox);
+  $.__views.component_token_box && $.addTopLevelView($.__views.component_token_box);
+  $.__views.__alloyId41 = Ti.UI.createView(
+  { top: 8, right: 8, width: "94%", height: 90, borderRadius: 20, backgroundColor: "rgba(0,0,0,0.05)", id: "__alloyId41" });
+
+  $.__views.component_token_box.add($.__views.__alloyId41);
+  $.__views.tokenBox = Ti.UI.createView(
+  { width: "94%", borderRadius: 20, height: 90, top: 5, padding: 10, backgroundColor: "white", id: "tokenBox", postlayout: "getBalance" });
+
+  $.__views.component_token_box.add($.__views.tokenBox);
   $.__views.tokenImage = Ti.UI.createImageView(
   { width: 48, height: 48, top: 7, left: 7, id: "tokenImage", defaultImage: "/images/image_blank.png" });
 
@@ -47,26 +54,26 @@ function Controller() {
   { width: 150, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 18, fontWeight: "normal" }, top: 10, left: 65, textAlign: "left", id: "tokenName" });
 
   $.__views.tokenBox.add($.__views.tokenName);
-  $.__views.__alloyId34 = Ti.UI.createView(
-  { id: "__alloyId34" });
+  $.__views.__alloyId42 = Ti.UI.createView(
+  { id: "__alloyId42" });
 
-  $.__views.tokenBox.add($.__views.__alloyId34);
+  $.__views.tokenBox.add($.__views.__alloyId42);
   $.__views.balances = Ti.UI.createView(
   { width: 150, top: 10, right: 10, id: "balances", layout: "vertical" });
 
-  $.__views.__alloyId34.add($.__views.balances);
-  $.__views.__alloyId35 = Ti.UI.createView(
-  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, right: 0, layout: "horizontal", id: "__alloyId35" });
+  $.__views.__alloyId42.add($.__views.balances);
+  $.__views.__alloyId43 = Ti.UI.createView(
+  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, right: 0, layout: "horizontal", id: "__alloyId43" });
 
-  $.__views.balances.add($.__views.__alloyId35);
+  $.__views.balances.add($.__views.__alloyId43);
   $.__views.tokenBalance = Ti.UI.createLabel(
   { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 18, fontWeight: "normal" }, right: 0, top: 0, id: "tokenBalance" });
 
-  $.__views.__alloyId35.add($.__views.tokenBalance);
+  $.__views.__alloyId43.add($.__views.tokenBalance);
   $.__views.tokenBalanceUnconfirmed = Ti.UI.createLabel(
   { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 10, fontWeight: "normal" }, bottom: 0, id: "tokenBalanceUnconfirmed", visible: false });
 
-  $.__views.__alloyId35.add($.__views.tokenBalanceUnconfirmed);
+  $.__views.__alloyId43.add($.__views.tokenBalanceUnconfirmed);
   $.__views.tokenBalanceFiat = Ti.UI.createLabel(
   { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#000000", font: { fontFamily: "HelveticaNeue-Light", fontSize: 12, fontWeight: "normal" }, right: 0, top: 1, id: "tokenBalanceFiat" });
 
@@ -74,27 +81,27 @@ function Controller() {
   $.__views.activityIndicator = Ti.UI.createActivityIndicator(
   { right: 10, top: 15, style: Ti.UI.ActivityIndicatorStyle.DARK, id: "activityIndicator", message: "" });
 
-  $.__views.__alloyId34.add($.__views.activityIndicator);
+  $.__views.__alloyId42.add($.__views.activityIndicator);
   $.__views.infoButton = Ti.UI.createView(
   { width: 60, height: 60, left: 45, top: 20, id: "infoButton" });
 
   $.__views.tokenBox.add($.__views.infoButton);
-  $.__views.__alloyId36 = Ti.UI.createImageView(
-  { width: 25, height: 25, image: "/images/icon_info.png", id: "__alloyId36" });
+  $.__views.__alloyId44 = Ti.UI.createImageView(
+  { width: 25, height: 25, image: "/images/icon_info.png", id: "__alloyId44" });
 
-  $.__views.infoButton.add($.__views.__alloyId36);
+  $.__views.infoButton.add($.__views.__alloyId44);
   $.__views.sendButton = Ti.UI.createView(
   { width: Ti.UI.SIZE, height: 50, right: 10, bottom: -22, id: "sendButton", layout: "horizontal" });
 
   $.__views.tokenBox.add($.__views.sendButton);
-  $.__views.__alloyId37 = Ti.UI.createImageView(
-  { width: 18, height: 18, image: "/images/icon_send.png", id: "__alloyId37" });
+  $.__views.__alloyId45 = Ti.UI.createImageView(
+  { width: 18, height: 18, image: "/images/icon_send.png", id: "__alloyId45" });
 
-  $.__views.sendButton.add($.__views.__alloyId37);
-  $.__views.__alloyId38 = Ti.UI.createLabel(
-  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#929292", font: { fontFamily: "HelveticaNeue-Light", fontSize: 15, fontWeight: "normal" }, left: 5, textAlign: "center", text: L("label_send"), id: "__alloyId38" });
+  $.__views.sendButton.add($.__views.__alloyId45);
+  $.__views.__alloyId46 = Ti.UI.createLabel(
+  { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#929292", font: { fontFamily: "HelveticaNeue-Light", fontSize: 15, fontWeight: "normal" }, left: 5, textAlign: "center", text: L("label_send"), id: "__alloyId46" });
 
-  $.__views.sendButton.add($.__views.__alloyId38);
+  $.__views.sendButton.add($.__views.__alloyId46);
   exports.destroy = function () {};
 
 
@@ -129,7 +136,7 @@ function Controller() {
     }
   }
 
-  if (args.type == blockchain.ETHEREUM) {
+  if (args.type == "ethereum") {
     if (args.token !== "ETH") {
       $.tokenBox.addEventListener('swipe', function (e) {
 
@@ -151,10 +158,10 @@ function Controller() {
       });
     }
 
-    $.removeButton.addEventListener('click', function (e) {
-      ethereum.removeToken(args.contractAddress);
-      globals.refreshTokens();
-    });
+
+
+
+
   }
 
   function showBalances() {
@@ -174,14 +181,14 @@ function Controller() {
     $.tokenName.text = args.token;
   }
 
-  if (args.type == blockchain.ETHEREUM) {
+  if (args.type == "ethereum") {
     if (args.token === "ETH") {
       $.tokenImage.image = "/images/asset_eth.png";
     } else {
       console.log(Alloy.CFG.api_uri + "eth/v1/tokens/" + args.contractAddress + "/image?width=100&X-Api-Key=" + Alloy.Globals.api_key);
       $.tokenImage.image = Alloy.CFG.api_uri + "eth/v1/tokens/" + args.contractAddress + "/image?width=100&X-Api-Key=" + Alloy.Globals.api_key;
     }
-  } else if (args.type == blockchain.BITCOIN) {
+  } else if (args.type == "bitcoin") {
     if (args.token === "BTC") {
       $.tokenImage.image = "/images/asset_btc.png";
     } else if (args.token === "XCP") {
@@ -192,26 +199,20 @@ function Controller() {
     }
   }
 
-  if (args.type == blockchain.ETHEREUM) {
+  if (args.type == "ethereum") {
     if (args.token === "ETH") {
       $.infoButton.visible = false;
     } else {
       globals.addButtonEvent($.infoButton, function (e) {
-        Alloy.createController("weblink", {
-          "path": "https://etherscan.io/token/" + args.contractAddress,
-          "barColor": "#009688" }).
-        getView().open();
+        Titanium.Platform.openURL("https://etherscan.io/token/" + args.contractAddress);
       });
     }
-  } else if (args.type == blockchain.BITCOIN) {
+  } else if (args.type == "bitcoin") {
     if (args.token === "BTC" || args.token === "XCP") {
       $.infoButton.visible = false;
     } else {
       globals.addButtonEvent($.infoButton, function (e) {
-        Alloy.createController("weblink", {
-          "path": Alloy.CFG.walletapp_uri + "explorer/#/tokens/" + args.token,
-          "barColor": "#009688" }).
-        getView().open();
+        Titanium.Platform.openURL("walletapp.indiesquare.me/explorer/#/tokens/" + args.token);
       });
     }
   }
@@ -220,7 +221,7 @@ function Controller() {
   function loadFiat() {
     if (!isFiatLoaded) {
 
-      if (args.type == blockchain.ETHEREUM) {
+      if (args.type == "ethereum") {
 
         if (args.token == "ETH") {
 
@@ -271,13 +272,14 @@ function Controller() {
   });
 
   function getBalance() {
-    if (args.type == blockchain.ETHEREUM) {
+    if (args.type == "ethereum") {
       if (balanceLoaded == false) {
         $.activityIndicator.show();
         $.balances.visible = false;
         var token = args.contractAddress;
 
         blockchain.API.getBalances({
+          "chain": "ethereum",
           "contractAddress": token,
           "callback": function (balances) {
             balanceLoaded = true;
@@ -298,7 +300,7 @@ function Controller() {
           } });
 
       }
-    } else if (args.type == blockchain.BITCOIN) {
+    } else if (args.type == "bitcoin") {
 
       loadFiat();
       showBalances();

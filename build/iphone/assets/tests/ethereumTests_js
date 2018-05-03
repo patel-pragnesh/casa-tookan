@@ -1,0 +1,30 @@
+require('ti-mocha'),
+mocha.setup({
+reporter:'ti-spec-studio'});
+
+var bitcoin=require('requires/bitcoin'),
+tools=require('vendor/util/bitcoinJSLib'),
+bitcoinjs=tools.bitcoin;
+
+describe('ti-mocha',function(){
+
+describe('Passphrases',function(){
+
+it('sdff',function(){
+
+var seed=bitcoin.getSeedFromPassphrase('pioneer acid organ walk panda female purity ecology gadget blind opinion range'),
+
+master=bitcoinjs.HDNode.fromSeedHex(seed),
+
+keyPair=master.derivePath('m/0\'/0/0'),
+
+address=keyPair.getAddress();
+
+if('1GT8u3CSqnNvi9xyBtwLWgyc7fz5JYopeL'!=address)
+throw new Error('address generation FAILED');
+
+});
+});
+}),
+
+mocha.run();

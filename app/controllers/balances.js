@@ -4,44 +4,105 @@ var network = require("requires/network");
 var blockchain = require("requires/blockchain");
 var bitcoin = require("requires/bitcoin");
  var ethereum = require("requires/ethereum");
-var isLoading = false;
-var loadingRequest = null;
+var isLoadingBitcoin = false;
+var loadingRequestBitcoin = null;
  
- var itemNumber = 0;
-var page = 1;
-var per_page = 25;  
-var tokensSection = null;
  
-$.tokenList.height = globals.display.height - (Alloy.Globals.tabBarHeight + Alloy.Globals.topBarHeight); 
+ var isLoadingEthereum = false;
+var loadingRequestEthereum = null;
  
-$.tokenList.top = $.tokenTopBar.height;
+ var itemNumberBitcoin = 0;
+var pageBitcoin = 1;
+var perPageBitcoin= 25;  
+var tokensSectionBitcoin = null;
+
+
+ var itemNumberEthereum = 0;
+var pageEthereum = 1;
+var perPageEthereum = 25;  
+var tokensSectionEthereum = null;
+$.registerButton.visible = false;
+globals.loadedEthereumBalances = false;
+ 
+ $.settingsButton.addEventListener("touchend", function(){
+	Alloy.createController("settings")
+	.getView();
+});
 
  
-$.tokenList.addEventListener("scroll", function(e){
+ $.tabCounterparty.backgroundColor = "rgba(0,0,0,0.2)";
+ 
+  var tabColor = "#f3f3f3";
+ 
+ 
+ $.tabCounterparty.addEventListener("touchend", function(){
+ 	 
+ 	 $.registerButton.visible = false;
+	$.tabCounterparty.backgroundColor = "rgba(0,0,0,0.2)";
+	$.tabEthereum.backgroundColor = tabColor;
+	
 	 
-	if(isLoading){
+	
+	 $.bitcoinList.visible=true;
+	 $.ethereumList.visible=false;
+	 
+	 loadBitcoinBalance(true);
+	
+	
+	});
+	
+	 $.tabEthereum.addEventListener("touchend", function(){
+	  $.registerButton.visible = true;
+	$.tabEthereum.backgroundColor = "rgba(0,0,0,0.2)";
+	$.tabCounterparty.backgroundColor = tabColor;
+	
+	 
+	 $.bitcoinList.visible=false;
+	 $.ethereumList.visible=true;
+	 
+	 if(globals.loadedEthereumBalances == false){
+	 globals.loadedEthereumBalances = true;
+	 loadEthereumBalance(true);
+	 
+	 }
+	
+	});
+  
+ $.chainBar.top =  Alloy.Globals.topBarHeight;
+$.bitcoinList.height = globals.display.height - (Alloy.Globals.tabBarHeight + Alloy.Globals.topBarHeight) - $.chainBar.height;
+ 
+$.bitcoinList.top = $.chainBar.height+$.chainBar.top;
+
+
+$.ethereumList.height = $.bitcoinList.height;
+$.ethereumList.top = $.bitcoinList.top;
+
+ 
+$.bitcoinList.addEventListener("scroll", function(e){
+	 
+	if(isLoadingBitcoin){
 		return;
 	}
-	  loadMore = false;
+	  loadMoreBitcoin = false;
 	  
 	if(OS_ANDROID){
 	//	console.log(e.firstVisibleItem + " " +  e.totalItemCount +" "+ e.visibleItemCount);
 		if(e.firstVisibleItem  ==  e.totalItemCount - e.visibleItemCount){
-			loadMore = true;
+			loadMoreBitcoin = true;
 		}
 	}else if(OS_IOS){
 		
 	//	console.log(e.contentOffset.y + " " +  e.contentSize.height +" "+ $.tokenList.height + ": "+ (e.contentSize.height - e.contentOffset.y - $.tokenList.height));
-		var offset = e.contentSize.height - e.contentOffset.y - $.tokenList.height;
+		var offset = e.contentSize.height - e.contentOffset.y - $.bitcoinList.height;
 		if(offset < 10 && offset >= 0 ){
-			loadMore = true;
+			loadMoreBitcoin = true;
 		}
 	}
 	
-	if(loadMore == true ){
-		$.tableViewFooter.visible = true;
-		page++;
-		loadBalance(true);
+	if(loadMoreBitcoin == true ){
+		$.tableViewFooterBitcoin.visible = true;
+		pageBitcoin++;
+		loadBitcoinBalance(true);
 		
 		if(OS_IOS){
 			//$.tokenList.scroll
@@ -50,42 +111,91 @@ $.tokenList.addEventListener("scroll", function(e){
  
 });
    
-var control = Ti.UI.createRefreshControl({
+var controlBitcoin = Ti.UI.createRefreshControl({
     tintColor:globals.currentColor
 });
-control.addEventListener('refreshstart',function(e){
+controlBitcoin.addEventListener('refreshstart',function(e){
      
-		page = 1;
-		itemNumber = 1; 
-		loadBalance(true);
+		pageBitcoin = 1;
+		itemNumberBitcoin = 1; 
+		loadBitcoinBalance(true);
        
 });
 	
-$.tokenList.refreshControl = control;
+$.bitcoinList.refreshControl = controlBitcoin;
 
 
 
-function addBalances( balances ){
+
+
+ 
+$.ethereumList.addEventListener("scroll", function(e){
+	 
+	if(isLoadingEthereum){
+		return;
+	}
+	  loadMoreEthereum = false;
+	  
+	if(OS_ANDROID){
+	//	console.log(e.firstVisibleItem + " " +  e.totalItemCount +" "+ e.visibleItemCount);
+		if(e.firstVisibleItem  ==  e.totalItemCount - e.visibleItemCount){
+			loadMoreEthereum = true;
+		}
+	}else if(OS_IOS){
+		
+	//	console.log(e.contentOffset.y + " " +  e.contentSize.height +" "+ $.tokenList.height + ": "+ (e.contentSize.height - e.contentOffset.y - $.tokenList.height));
+		var offset = e.contentSize.height - e.contentOffset.y - $.ethereumList.height;
+		if(offset < 10 && offset >= 0 ){
+			loadMoreEthereum = true;
+		}
+	}
+	
+	if(loadMoreEthereum == true ){
+		$.tableViewFooterEthereum.visible = true;
+		pageEthereum++;
+		loadEthereumBalance(true);
+		
+		if(OS_IOS){
+			//$.tokenList.scroll
+		}
+	}
+ 
+});
+   
+var controlEthereum = Ti.UI.createRefreshControl({
+    tintColor:globals.currentColor
+});
+controlEthereum.addEventListener('refreshstart',function(e){
+     
+		pageEthereum = 1;
+		itemNumberEthereum = 1; 
+		loadEthereumBalance(true);
+       
+});
+	
+$.ethereumList.refreshControl = controlEthereum;
+
+
+
+function addBalancesBitcoin( balances ){
 	
 	 
 	 var tableData = [];
-if(page == 1){
+if(pageBitcoin == 1){
  
- tokensSection = Ti.UI.createTableViewSection();
+ tokensSectionBitcoin = Ti.UI.createTableViewSection();
 }
-
-if(cache.data.chainId == blockchain.BITCOIN){
  
 	for( var i = 0; i < balances.length; i++ ){
-		itemNumber++;
+		itemNumberBitcoin++;
 		var args = {
-			"id":itemNumber,
+			"id":itemNumberBitcoin,
 			"token": balances[i].token,
 			"balance": Number(balances[i].balance),
 			"unconfirmedBalance": balances[i].unconfirmedBalance,
 			"balanceFiat": "",
-			"type":cache.data.chainId,
-			"parent": $.tokenList
+			"type":"bitcoin",
+			"parent": $.bitcoinList
 		};
 		var tokenBox = Alloy.createController('component_token_box', args).getView();
 		
@@ -99,12 +209,31 @@ if(cache.data.chainId == blockchain.BITCOIN){
   });
 		 row.add( tokenBox);
 		 
-		 tokensSection.add(row);
+		 tokensSectionBitcoin.add(row);
 	}
 	
 
+
+	
+	 
+		tableData.push(tokensSectionBitcoin);
+		$.bitcoinList.data = tableData;
+	
+		 
 }
-	else if(cache.data.chainId == blockchain.ETHEREUM){
+
+
+
+function addBalancesEthereum( balances ){
+	
+	 
+	 var tableData = [];
+if(pageEthereum == 1){
+ 
+ tokensSectionEthereum = Ti.UI.createTableViewSection();
+}
+ 
+	
 		var userTokens = {};
 		userTokens["ETH"]={name:"ETH"};
 		
@@ -116,59 +245,60 @@ if(cache.data.chainId == blockchain.BITCOIN){
 		for( var i = 0; i < tokenKeys.length; i++ ){
 			var aKey = tokenKeys[i];
 		var args = {
-			"type":cache.data.chainId,
+			"type":"ethereum",
 			"contractAddress":aKey,
 			"id": i,
 			"token": userTokens[aKey].name,
 			"balance":-1,
 			"unconfirmedBalance":-1,
 			"balanceFiat": "",
-			"parent": $.tokenList
+			"parent": $.ethereumList
 		};
 		var tokenBox = Alloy.createController('component_token_box', args).getView();
 			var row = Ti.UI.createTableViewRow({
     className:'token', 
     backgroundSelectedColor:'transparent',
     rowIndex:balances.length + i - 1, 
-    height:92
+    height:100
   });
 		 row.add( tokenBox);
-		 tokensSection.add(row);
+		 tokensSectionEthereum.add(row);
 	}
-	}
+	 
 	
 	 
-		tableData.push(tokensSection);
-		$.tokenList.data = tableData;
+		tableData.push(tokensSectionEthereum);
+		$.ethereumList.data = tableData;
 	
 		 
 }
 
-function loadBalance(hideLoading){ 
+function loadBitcoinBalance(hideLoading){ 
 	
 	
-	if(loadingRequest != null){
+	if(loadingRequestBitcoin != null){
 		console.log("aborting last request");
-		loadingRequest.abort();
+		loadingRequestBitcoin.abort();
 	}
 
-	if(cache.data.chainId == blockchain.BITCOIN){
-			isLoading = true;
+	 
+			isLoadingBitcoin = true;
 	if(hideLoading == false){
-	 $.activityIndicator.show();
+	 $.activityIndicatorBitcoin.show();
 	}
 	 
 
 	 loadingRequest = blockchain.API.getBalances({
-	 	"page":page,
- 		"per_page":per_page,
+	 	"chain":"bitcoin",
+	 	"page":pageBitcoin,
+ 		"per_page":perPageBitcoin,
 		"callback": function( balances ){
-			if(page == 1 && hideLoading){
-	 $.tokenList.setData([]);
+			if(pageBitcoin == 1 && hideLoading){
+	 $.bitcoinList.setData([]);
 	}
 	 
-			globals.balances = balances; 
-			addBalances(balances);  
+			 
+			addBalancesBitcoin(balances);  
 
 		},
 		"onError": function( error ){
@@ -180,62 +310,88 @@ function loadBalance(hideLoading){
 				"message": error.message,
 				"buttonNames": [L("label_close")]
 			}).show();
-			if(page != 1){
-				page--;
+			if(pageBitcoin != 1){
+				pageBitcoin--;
 			}
-			$.errorMessage.show();
+			$.errorMessageBitcoin.show();
 		},
 		"always": function(){
 			 
-			$.activityIndicator.hide(); 
-	 		control.endRefreshing();
-	 		$.tableViewFooter.visible = false;
-			isLoading = false;
+			$.activityIndicatorBitcoin.hide(); 
+	 		controlBitcoin.endRefreshing();
+	 		$.tableViewFooterBitcoin.visible = false;
+			isLoadingBitcoin = false;
 		}
 	});
-	}else if(cache.data.chainId == blockchain.ETHEREUM){
-		$.activityIndicator.hide();
-		addBalances([]);
-		setTimeout(function(){
-		control.endRefreshing();},700);
-	}
+	 
 	
+	
+	
+}
+
+function loadEthereumBalance(hideLoading){ 
+	
+	
+	if(loadingRequestEthereum != null){
+		console.log("aborting last request");
+		loadingRequestBitcoin.abort();
+	}
+ 
+		$.activityIndicatorEthereum.hide();
+		addBalancesEthereum([]);
+		setTimeout(function(){
+		controlEthereum.endRefreshing();},700);
+	 
 	
 	
 }
 
 function refreshTokens(){
-	page = 1;
-	itemNumber=0;
-	if( !isLoading ){
+	pageBitcoin = 1;
+	itemNumberBitcoin=0;
+	if( !isLoadingBitcoin ){
 		 
-		loadBalance(false);
+		loadBitcoinBalance(false);
+	}
+	
+	pageEthereum = 1;
+	itemNumberEthereum=0;
+	if( !isLoadingEthereum ){
+		 
+		loadEthereumBalance(false);
 	}
 }
+$.registerButton.addEventListener("click", function(){
+	Alloy.createController("add_token")
+	.getView(); 
+});
 
-$.errorMessage.addEventListener("touchend", function(){
-	$.errorMessage.hide();
+	
+
+
+$.errorMessageBitcoin.addEventListener("touchend", function(){
+	$.errorMessageBitcoin.hide();
 	 
-	loadBalance(false);
+	loadBitcoinBalance(false);
+});
+
+$.errorMessageEthereum.addEventListener("touchend", function(){
+	$.errorMessageEthereum.hide();
+	 
+	loadEthereumBalance(false);
 });
 
 
- $.activityIndicator.show();
+ $.activityIndicatorBitcoin.show();
+ 
+ $.activityIndicatorEthereum.show();
+ 
  util.initialSetup(function(){
   
-			loadBalance(false);
+			loadBitcoinBalance(false);
+			loadEthereumBalance(false);
 	});
  
 
 globals.refreshTokens = refreshTokens;
-
  
-globals.updateTokenUI = function(){
-	
- 
-
- 
-	
-};
-
-globals.updateTokenUI(); 

@@ -64,6 +64,7 @@
 	<string name="label_faq">FAQ</string>
 	<string name="label_fee">fee</string>
 	<string name="label_fee_priority">Fee Priority</string>
+	<string name="label_back">back</string>
 	<string name="label_goback">Back</string>
 	<string name="label_initializing">Now Initializing</string>
 	<string name="label_loading">loading...</string>
@@ -250,7 +251,7 @@
 	<string name="label_send_destination">Destination</string>
 	<string name="label_send_confirmation">Send\n{amount} {token}\n{amount2} to {address}</string>
 	
-	<string name="label_history_empty">No history\nTouch here to reload.</string>
+	<string name="label_history_empty">No news\nTouch here to reload.</string>
 	
 	<string name="text_history_order_sold_will">Place Sell Order: {price} {price_asset} for {quantity} {asset}</string>
 	<string name="text_history_order_bought_will">Place Buy Order: {price} {price_asset} for {quantity} {asset}</string>

@@ -9,7 +9,6 @@ function __processArg(obj, key) {
 	var arg = null;
 	if (obj) {
 		arg = obj[key] || null;
-		delete obj[key];
 	}
 	return arg;
 }
@@ -59,10 +58,10 @@ function Controller() {
 	{ right: 10, height: 40, width: 40, backgroundImage: "/images/icon_plus_blue.png", id: "addButton" });
 
 	$.__views.tokenBox.add($.__views.addButton);
-	addToken ? $.addListener($.__views.addButton, 'click', addToken) : __defers['$.__views.addButton!click!addToken'] = true;$.__views.__alloyId33 = Ti.UI.createView(
-	{ width: "95%", height: 1, bottom: 0, backgroundColor: "#ececec", id: "__alloyId33" });
+	addToken ? $.addListener($.__views.addButton, 'click', addToken) : __defers['$.__views.addButton!click!addToken'] = true;$.__views.__alloyId40 = Ti.UI.createView(
+	{ width: "95%", height: 1, bottom: 0, backgroundColor: "#ececec", id: "__alloyId40" });
 
-	$.__views.tokenBox.add($.__views.__alloyId33);
+	$.__views.tokenBox.add($.__views.__alloyId40);
 	exports.destroy = function () {};
 
 

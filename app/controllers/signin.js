@@ -16,8 +16,7 @@ var MnemonicJS = require('vendor/mnemonic');
 var crypto = require("vendor/crypto");
 var generatedPassphrase = null;
 $.inputFullPassphrase.hintText = L("label_recoveryphrase");
-$.inputFullPassphrase.hintTextColor = "gray";
-$.privecypolicy.top = globals.display.height - 60;
+$.inputFullPassphrase.hintTextColor = "gray"; 
 $.signinView.top = (globals.display.height - 400) / 2;
 $.signinButton.visible = false;
 
@@ -100,7 +99,7 @@ function createAccount(params) {
         pubkey = bitcoin.getPublicKey();
        
             	 
-                	 
+                	cache.data.addresses = [];
                     cache.data.address = address;
                     cache.data.passphrase = passphrase; 
                     cache.data.currentFee = "halfHourFee";
@@ -271,7 +270,7 @@ if( !cache.checkExists() ){
      
     
     var loadingTmp = util.showLoading($.signin, {
-        "color": "#ffffff",
+        "color": "gray",
         "message": L("label_initializing")
     });
     loadingTmp.bottom = 30;
@@ -287,18 +286,11 @@ if( !cache.checkExists() ){
     
     setTimeout(function() {
         loadingTmp.removeSelf();
-        $.buttons.show();
-		$.privecypolicy.show();
+        $.buttons.show(); 
     }, 3e3);
     
-	$.newwalletButton.addEventListener("touchend", function() {
-		var dialog = util.createDialog({
-			"title" : L("label_confirm"),
-			"message" : L("label_createaccount_message"),
-			"buttonNames" : [L("label_cancel"), L("label_create")]
-		});
-		dialog.addEventListener("click", function(e) {
-			if (e.index != e.source.cancel) {
+	$.newwalletButton.addEventListener("click", function() {
+		 
 				$.wrapper.visible = false;
 		        if (generatedPassphrase != null) {
 		           
@@ -308,7 +300,9 @@ if( !cache.checkExists() ){
         "style": "dark",
         "message": L("label_loading")
     });
+     setTimeout(function(){
 		                createAccount({ "passphrase": generatedPassphrase });
+		              },100);
 		          
 		        } else {
 		        	util.createDialog({
@@ -316,17 +310,16 @@ if( !cache.checkExists() ){
 		                "buttonNames": [ L("label_close") ]
 		            }).show();
 		        }
-			}
-		});
-		dialog.show();
+			 
+		 
 	});
 	
-	$.hasuserButton.addEventListener("touchend", function() {
+	$.hasuserButton.addEventListener("click", function() {
 		if( !isMoving ){
 			isMoving = true;
 			
 			$.newwalletButton.animate({
-	            "top": 0,
+	            
 	            "opacity": 0,
 	            "duration": 300
 	        });
@@ -344,7 +337,7 @@ if( !cache.checkExists() ){
 	        
 	        $.signinButton.visible = true;
 	        $.signinButton.animate({
-	            "top": 150,
+	             
 	            "opacity": 1,
 	            "duration": 300
 	        });
@@ -365,7 +358,6 @@ if( !cache.checkExists() ){
     		
 			$.newwalletButton.visible = true;
 			$.newwalletButton.animate({
-	            "top": 50,
 	            "opacity": 1,
 	            "duration": 300
 	        });
@@ -377,7 +369,6 @@ if( !cache.checkExists() ){
 	        });
 	        
 	        $.signinButton.animate({
-	            "top": 210,
 	            "opacity": 0,
 	            "duration": 300
 	        });
@@ -417,10 +408,10 @@ if( !cache.checkExists() ){
 	        if( globals.display.height <= 480 ) policy.visible = true;
 		}
 	}
-    $.signinCancel.addEventListener("touchend", cancel);
-    $.signinCancelEach.addEventListener("touchend", cancel);
+    $.signinCancel.addEventListener("click", cancel);
+    $.signinCancelEach.addEventListener("click", cancel);
 	
-	$.signinInputbyeach.addEventListener("touchend", function() {
+	$.signinInputbyeach.addEventListener("click", function() {
         $.signinButton.animate({
             "top": 210,
             "opacity": 0,
@@ -452,15 +443,15 @@ if( !cache.checkExists() ){
         moveNext();
     });
     
-    $.signinNext.addEventListener("touchend", function(){
+    $.signinNext.addEventListener("click", function(){
     	moveNext();
 	});
 	
-	$.signinPrev.addEventListener("touchend", function(){
+	$.signinPrev.addEventListener("click", function(){
 		movePrev();
 	});
     
-    $.signinButton.addEventListener("touchend", function() {
+    $.signinButton.addEventListener("click", function() {
         var passphrase = $.inputFullPassphrase.value;
         inputverify.set(new Array({
             "name": L("label_recoveryphrase"),
@@ -472,13 +463,17 @@ if( !cache.checkExists() ){
         if( true == (result = inputverify.check()) ){
             if( false == isCreatingAccount ){
                 isCreatingAccount = true;
-                loading = util.showLoading($.signin, {
+                        loading = util.showLoading($.signin, {
         "width": Ti.UI.FILL,
         "height": Ti.UI.FILL,
         "style": "dark",
         "message": L("label_loading")
     });
-                createAccount({ "passphrase": passphrase });
+                setTimeout(function(){
+        
+              createAccount({ "passphrase": passphrase });
+                
+                },100);
             }
         }
         else {
@@ -493,14 +488,7 @@ if( !cache.checkExists() ){
         }
     });
 	
-	$.privecypolicy.addEventListener("touchend", function(){
-		Alloy.createController("weblink", {
-			"path": Alloy.CFG.dashboard_uri + "terms",
-			"barColor":  Alloy.Globals.mainColor
-		})
-		.getView()
-		.open();
-	});
+	 
 }
 else {
 	alert(L("text_access_deny") + "\nError:1001");

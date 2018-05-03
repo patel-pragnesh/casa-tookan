@@ -9,7 +9,6 @@ function __processArg(obj, key) {
   var arg = null;
   if (obj) {
     arg = obj[key] || null;
-    delete obj[key];
   }
   return arg;
 }
@@ -47,16 +46,16 @@ function Controller() {
   { width: Ti.UI.FILL, height: 25, backgroundColor: Alloy.Globals.mainColor, top: 0, id: "webTopBar" });
 
   $.__views.weblink.add($.__views.webTopBar);
-  $.__views.__alloyId181 = Ti.UI.createLabel(
+  $.__views.__alloyId162 = Ti.UI.createLabel(
   function () {
     var o = {};
     Alloy.deepExtend(true, o, { width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#gray", font: { fontFamily: "HelveticaNeue-Light", fontSize: 20, fontWeight: "normal" }, top: 28 });
     if (Alloy.Globals.isiPhoneX) Alloy.deepExtend(true, o, { top: 38 });
-    Alloy.deepExtend(true, o, { text: 'Weblink', id: "__alloyId181" });
+    Alloy.deepExtend(true, o, { text: 'Weblink', id: "__alloyId162" });
     return o;
   }());
 
-  $.__views.webTopBar.add($.__views.__alloyId181);
+  $.__views.webTopBar.add($.__views.__alloyId162);
   $.__views.webBottomBar = Ti.UI.createView(
   { width: Ti.UI.FILL, height: 40, backgroundColor: Alloy.Globals.mainColor, bottom: 0, id: "webBottomBar" });
 

@@ -282,6 +282,9 @@ getTiker();
 			height: Ti.UI.FILL,
 			top: self.getDisplayHeight() - 1
 		});
+		if(params.type == "reconfirmInstant"){
+			inputView.view.top = 0;
+		}
 		
 		var back = Ti.UI.createView({
 			backgroundColor: "#ffffff",
@@ -353,7 +356,7 @@ getTiker();
 							number += numberArray[i];
 						}
 						var md5 = require("crypt/md5");
-						if( params.type === "reconfirm" ){
+						if( params.type === "reconfirm" || params.type === "reconfirmInstant"){
 							if( numbers.reconfirmed ){
 								if( numbers.number === number ){
 									params.callback(md5.MD5_hexhash(number));
@@ -402,7 +405,7 @@ getTiker();
 				}),
 				text: self.makeLabel({
 					text: sign,
-					color: Alloy.Globals.mainColor,
+					color: 'black',
 					font:{ fontSize: font },
 				}),
 			});
@@ -457,7 +460,7 @@ getTiker();
 			logos: logos,
 			text: self.makeLabel({
 				text: instruction_text,
-				color:Alloy.Globals.mainColor,
+				color:'black',
 				font:{ fontSize: 12 },
 				top: 95
 			}),
@@ -477,11 +480,15 @@ getTiker();
 		};
 		
 		inputView.close = function(){
+			if(params.type=="reconfirmInstant"){
+				
+			}else{
 			inputView.view.animate({ top: self.getDisplayHeight(), duration: 500 }, function(){
 				inputWindow.close();
 				inputWindow.remove(inputView.view);
 				inputView = null;
 			});
+			}
 		};
 		
 		return inputView;

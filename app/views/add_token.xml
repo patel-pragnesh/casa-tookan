@@ -45,7 +45,7 @@
 	</View>
 	
 		<View class="topbar" id="topbar">
-				<Label class="title size15 white pull-left" id="backButton">L("label_tab_tokens")</Label>
+				<Label class="title size15 gray pull-left" id="backButton">L("label_back")</Label>
 			 
 			<View class="addToken" id="addTokenButton" onClick="showAddContract">
 		 	

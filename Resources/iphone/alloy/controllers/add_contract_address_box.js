@@ -9,7 +9,6 @@ function __processArg(obj, key) {
 		var arg = null;
 		if (obj) {
 				arg = obj[key] || null;
-				delete obj[key];
 		}
 		return arg;
 }
@@ -56,7 +55,7 @@ function Controller() {
 
 		$.__views.__alloyId0.add($.__views.searchControls);
 		$.__views.title = Ti.UI.createLabel(
-		{ width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "#7083be", font: { fontFamily: "HelveticaNeue-Light", fontSize: 18, fontWeight: "bold" }, top: 10, text: 'enter contract address', id: "title" });
+		{ width: Ti.UI.SIZE, height: Ti.UI.SIZE, color: "gray", font: { fontFamily: "HelveticaNeue-Light", fontSize: 18, fontWeight: "bold" }, top: 10, text: 'enter contract address', id: "title" });
 
 		$.__views.searchControls.add($.__views.title);
 		$.__views.contractAddressField = Ti.UI.createTextField(
@@ -68,7 +67,7 @@ function Controller() {
 
 		$.__views.searchControls.add($.__views.__alloyId1);
 		$.__views.searchButton = Ti.UI.createButton(
-		{ top: 15, height: 40, width: 100, backgroundColor: "#7083be", color: "white", id: "searchButton" });
+		{ top: 15, height: 40, width: 100, backgroundColor: "gray", color: "white", id: "searchButton" });
 
 		$.__views.__alloyId1.add($.__views.searchButton);
 		searchToken ? $.addListener($.__views.searchButton, 'click', searchToken) : __defers['$.__views.searchButton!click!searchToken'] = true;$.__views.activityIndicator = Ti.UI.createActivityIndicator(
@@ -104,11 +103,11 @@ function Controller() {
 
 		$.__views.tokenInfo.add($.__views.__alloyId3);
 		$.__views.backButton = Ti.UI.createButton(
-		{ top: 15, height: 40, width: 100, backgroundColor: "#7083be", color: "white", id: "backButton" });
+		{ top: 15, height: 40, width: 100, backgroundColor: "gray", color: "white", id: "backButton" });
 
 		$.__views.__alloyId3.add($.__views.backButton);
 		backToSearch ? $.addListener($.__views.backButton, 'click', backToSearch) : __defers['$.__views.backButton!click!backToSearch'] = true;$.__views.addButton = Ti.UI.createButton(
-		{ left: 10, top: 15, height: 40, width: 100, backgroundColor: "#7083be", color: "white", id: "addButton" });
+		{ left: 10, top: 15, height: 40, width: 100, backgroundColor: "gray", color: "white", id: "addButton" });
 
 		$.__views.__alloyId3.add($.__views.addButton);
 		addToken ? $.addListener($.__views.addButton, 'click', addToken) : __defers['$.__views.addButton!click!addToken'] = true;exports.destroy = function () {};

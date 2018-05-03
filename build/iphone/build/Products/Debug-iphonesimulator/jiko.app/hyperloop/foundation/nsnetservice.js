@@ -103,6 +103,7 @@ Object.defineProperty(NSNetService, 'toString', {
 
 function $initialize () {
 	$imports = {};
+	$imports.NSArray = require('/hyperloop/foundation/nsarray');
 	$imports.NSObject = require('/hyperloop/foundation/nsobject');
 	$imports.NSString = require('/hyperloop/foundation/nsstring');
 
@@ -156,6 +157,14 @@ function $initialize () {
 
 	// instance properties
 	Object.defineProperties(NSNetService.prototype, {
+		addresses: {
+			get: function () {
+				if (!$init) { $initialize(); }
+				return new $imports.NSArray($dispatch(this.$native, 'addresses'));
+			},
+		
+			enumerable: false
+		},
 		delegate: {
 			get: function () {
 				if (!$init) { $initialize(); }

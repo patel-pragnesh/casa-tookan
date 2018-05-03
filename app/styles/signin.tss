@@ -19,18 +19,15 @@
 	backgroundColor: "#80FFFFFF"
 }
 
-".button-thin": {
-	width: "90%",
-	height: 35,
-	backgroundColor: "#80FFFFFF"
-}
-
+ 
 ".newwallet": {
-	top: 50
+	 top:10,
 }
-
+".orLabel": {
+  top:10,
+}
 ".hasuser": {
-	top: 120
+  top:10,
 }
 
 ".signin": {

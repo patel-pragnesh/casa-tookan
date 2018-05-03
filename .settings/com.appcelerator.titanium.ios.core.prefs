@@ -1,9 +1,9 @@
 eclipse.preferences.version=1
 iosLaunchConfigurationAttributes/ATTR_MINIFY=true
-iosLaunchConfigurationAttributes/ATTR_PROJECT_NAME=jiko
+iosLaunchConfigurationAttributes/ATTR_PROJECT_NAME=tookan
 iosLaunchConfigurationAttributes/ATTR_UPLOAD_DEBUG_SYMBOLS=false
 iosLaunchConfigurationAttributes/appid=com.mandelduck.jiko
 iosLaunchConfigurationAttributes/certificate=CHRISTIAN J MOSS (3LR5B8BV5E)
 iosLaunchConfigurationAttributes/keychain=
-iosLaunchConfigurationAttributes/sdk_version=11.2
-iosLaunchConfigurationAttributes/uuid=656bb6d0-bf38-40e2-8578-cecf0ce16ee9
+iosLaunchConfigurationAttributes/sdk_version=11.3
+iosLaunchConfigurationAttributes/uuid=5f45d1ed-47f9-4369-8fae-2f2dde8463b9

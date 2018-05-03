@@ -1,5 +1,6 @@
 var network = require("requires/network");
 
+var util = require("requires/util");
 var cache = require("requires/cache");
 var win = Ti.UI.createWindow({
 	"orientationModes": [Ti.UI.PORTRAIT],

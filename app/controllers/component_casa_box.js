@@ -13,18 +13,6 @@ $.usd_value.text = "USD Value: $0";
 
 $.mainView.addEventListener("click", function(){
 	
-	/*var loading = util.showLoading($.addressBox, {
-					"width": Ti.UI.FILL,
-					"height": Ti.UI.FILL
-				});
-				
-				setTimeout(function(){
-
-	if( cache.data.address != args.address ) args.setCurrent(args.index, args.address);
-	
-	if( loading != null ) loading.removeSelf();
-	},100);
-	*/
 	args.setCurrent(args.path);
 	
 });

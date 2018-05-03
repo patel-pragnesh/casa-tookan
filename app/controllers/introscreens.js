@@ -8,46 +8,31 @@ var closeDuration = 1000;
 var selectedBitcoin = true;
 $.passphraseLabel.text = globals.decryptedPassphrase;
 
-$.nextButtonSuccess.title = L("label_continue");
-$.nextButtonPassphrase.title = L("label_continue");
-$.nextButtonPassphrase.opacity = 0.2;
-$.nextButtonPincode.title = L("label_intro_setpincode");
+ 
+ 
+$.pincode.add(util.createEasyInput({
+		"type": "reconfirmInstant",
+		"callback": function(number) {
+			cache.data.easypass = number;
+			cache.save();
+			if( OS_IOS ) $.scrollableView.scrollToView($.touchid);
+			else close();
+		},
+		"cancel": function(){}
+	}).view);
+ 
+$.nextButtonPassphrase.title = "Show passphrase";
+$.nextButtonPassphrase.opacity = 0.2; 
 $.nextButtonTouchid.title = L("label_intro_settouchid");
-$.nextButtonTouchidSkip.title = L("label_intro_skip");
-$.nextButtonPush.title = L("label_intro_push_button");
+$.nextButtonTouchidSkip.title = L("label_intro_skip"); 
 
 if( args.isPassphraseOnly != null ){
 	$.scrollableView.scrollToView($.passphrase);
 	$.nextButtonPassphrase.title = L("label_close");
 	closeDuration = 300;
 }
+$.nextButtonPassphrase.opacity = 1.0;
 
-var slider = util.createSlider({
-	init: false,
-	on: function(){
-		$.nextButtonPassphrase.opacity = 1.0;
-	},
-	off: function(){
-		$.nextButtonPassphrase.opacity = 0.2;
-	}
-});
-
-var sliderGroup = util.group({
-	"slider": slider.origin,
-	"text": util.makeLabel({
-		text: L("label_intro_wroteitdown"),
-		textAlign: "left",
-		color: "white",
-		font: {
-			fontFamily: "HelveticaNeue-Light",
-			fontSize: 15,
-			fontWeight: "light"
-		},
-		left: 10
-	})
-}, "horizontal");
-sliderGroup.bottom = 80;
-$.passphrase.add(sliderGroup);
 
 function close(){
 	$.introscreens.animate({
@@ -59,18 +44,25 @@ function close(){
     	$.introscreens.close();
     }, closeDuration + 5);
 }
-
-$.nextButtonSuccess.addEventListener("click", function(e) {
-	$.scrollableView.scrollToView($.passphrase);
-});
-
+$.passphraseView.opacity = 0;
+ var didShowPassphrase = false;
 $.nextButtonPassphrase.addEventListener("click", function(e) {
-	if( slider.is ){
+	
+	if(!didShowPassphrase){
+		$.passphraseView.animate({
+		"curve": Ti.UI.ANIMATION_CURVE_EASE_IN_OUT, 
+		"opacity": 1.0, 
+		"duration": 500
+	}); 
+		$.nextButtonPassphrase.title = "Continue";
+		didShowPassphrase = true;
+	}else{
+	 
 		if( args.isPassphraseOnly != null ) close();
 		else $.scrollableView.scrollToView($.pincode);
 	}
 });
-
+/*
 $.nextButtonPincode.addEventListener("click", function(e) {
 	var easyInput = util.createEasyInput({
 		"type": "reconfirm",
@@ -78,15 +70,15 @@ $.nextButtonPincode.addEventListener("click", function(e) {
 			cache.data.easypass = number;
 			cache.save();
 			if( OS_IOS ) $.scrollableView.scrollToView($.touchid);
-			else $.scrollableView.scrollToView($.complete);
+			else close();
 		},
 		"cancel": function(){}
 	});
 	easyInput.open();
 });
-
+*/
 $.nextButtonTouchidSkip.addEventListener("click", function(e) {
-	$.scrollableView.scrollToView($.complete);
+	close();
 });
 
 $.nextButtonTouchid.addEventListener("click", function(e) {
@@ -95,7 +87,7 @@ $.nextButtonTouchid.addEventListener("click", function(e) {
 			if( e.success ){
 				cache.data.isTouchId = true;
 				cache.save();
-			    $.scrollableView.scrollToView($.complete);
+			   close();
 			}
 			else {
 				var dialog = util.createDialog({
@@ -104,7 +96,7 @@ $.nextButtonTouchid.addEventListener("click", function(e) {
 					"buttonNames": [L("label_close")]
 				});
 				dialog.addEventListener("click", function(e) {
-					$.scrollableView.scrollToView($.complete);
+					close();
 				});
 				dialog.show();
 			}
@@ -112,49 +104,7 @@ $.nextButtonTouchid.addEventListener("click", function(e) {
 	});
 });
 
-$.nextButtonPush.addEventListener("click", function(e) {
-	var fcm = require("requires/fcm");
-	fcm.start(function(){
-		$.scrollableView.scrollToView($.complete);
-	});
-});
-
+ 
  
 
-function selectBitcoin(){
-	 
-		selectedBitcoin = true;
-		$.bitcoinCheck.image = "/images/icon_checked.png";
-		$.ethereumCheck.image = "/images/icon_unchecked.png";
-		
-		 $.notSureCheck.image = "/images/icon_unchecked.png";
-		 
-		blockchain.changeCurrentChain(blockchain.BITCOIN );
-     
-	close();
-	 
-}
-
-function selectEthereum(){
-	
-		selectedBitcoin = false;
-		$.bitcoinCheck.image = "/images/icon_unchecked.png";
-		$.ethereumCheck.image = "/images/icon_checked.png";
-		 $.notSureCheck.image = "/images/icon_unchecked.png";
-			blockchain.changeCurrentChain(blockchain.ETHEREUM );
-	 
-	close();
-	
-}
-
-function selectEither(){
-	
-		selectedBitcoin = false;
-		$.bitcoinCheck.image = "/images/icon_unchecked.png";
-		$.ethereumCheck.image = "/images/icon_unchecked.png";
-		$.notSureCheck.image = "/images/icon_checked.png";
-		blockchain.changeCurrentChain(blockchain.BITCOIN );
-     
-	close();
-	
-}
+ 

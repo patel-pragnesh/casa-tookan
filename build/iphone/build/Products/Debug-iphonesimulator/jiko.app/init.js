@@ -8,19 +8,11 @@ var network = require("requires/network");
 var util = require("requires/util");
 var pubsub = require("requires/pubsub");
 var cache = require("requires/cache");
+
 var auth = require("requires/auth");
 var blockchain = require("requires/blockchain");
 var bitcoin = require("requires/bitcoin");
 var ethereum = require("requires/ethereum");
-
-var FirebaseCore = require('firebase.core');
-FirebaseCore.configure();
-
-if (globals.network === "testnet") {
-	if (Alloy.CFG.isLocal) Alloy.CFG.api_uri = "https://indietest:indie4936test@api.indiesquare.net/";
-	Alloy.CFG.api_uri = Alloy.CFG.api_uri.replace(/api/, "apitestnet");
-	globals.api_key = "a6db8ab60116e98d7920e5c65545835X";
-}
 
 globals.console = {
 	"info": function (str) {
@@ -164,14 +156,14 @@ globals.backgroundfetch = function (e) {
 
 					var intent = Ti.Android.createIntent({
 						action: Ti.Android.ACTION_MAIN,
-						className: "inc.lireneosoft.counterparty.IndiesquareWalletActivity",
-						packageName: "inc.lireneosoft.counterparty"
+						className: "com.mandelduck.jiko.tookanWalletActivity",
+						packageName: "com.mandelduck.jiko"
 					});
 					intent.flags |= Ti.Android.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Ti.Android.FLAG_ACTIVITY_SINGLE_TOP;
 					intent.addCategory(Ti.Android.CATEGORY_LAUNCHER);
 
 					var notification = Ti.Android.createNotification({
-						contentTitle: "IndieSquare Wallet",
+						contentTitle: "Casa Tookan",
 						contentText: L("text_finish_reorg"),
 						tickerText: L("text_finish_reorg"),
 						contentIntent: Ti.Android.createPendingIntent({ "intent": intent }),
@@ -992,7 +984,7 @@ globals._parseArguments = function (url, options) {
 			if (launchIntent != null && launchIntent.hasExtra("source")) {
 				url = launchIntent.getStringExtra("source");
 				if (!url.match(new RegExp("^" + Alloy.CFG.walletapp_uri))) {
-					url = "indiewallet://" + url;
+					url = "casatookan://" + url;
 				}
 			}
 		}
@@ -1030,8 +1022,8 @@ globals._parseArguments = function (url, options) {
 				}
 			});
 			dialog.show();
-		} else if (url.match(/^indiewallet:\/\/x-callback-url/)) {
-			var scheme = url.replace(/^indiewallet:\/\/x-callback-url\//, "").split("?");
+		} else if (url.match(/^casatookan:\/\/x-callback-url/)) {
+			var scheme = url.replace(/^casatookan:\/\/x-callback-url\//, "").split("?");
 			var func = scheme[0];
 			var params = new Array();
 
@@ -1057,8 +1049,8 @@ globals._parseArguments = function (url, options) {
 			}
 
 			track_params["func"] = func;
-		} else if (url.match(/^indiewallet:\/\//)) {
-			var scheme = url.replace(/^indiewallet:\/\//, "").split("?");
+		} else if (url.match(/^casatookan:\/\//)) {
+			var scheme = url.replace(/^casatookan:\/\//, "").split("?");
 
 			var func = scheme[0];
 			var params = JSON.parse(decodeURIComponent(scheme[1].split("=")[1]));

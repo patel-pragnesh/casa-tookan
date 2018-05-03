@@ -1,0 +1,126 @@
+var MD5_T=[0,3614090360,3905402710,606105819,3250441966,4118548399,1200080426,2821735955,4249261313,1770035416,2336552879,4294925233,2304563134,1804603682,4254626195,2792965006,1236535329,4129170786,3225465664,643717713,3921069994,3593408605,38016083,3634488961,3889429448,568446438,3275163606,4107603335,1163531501,2850285829,4243563512,1735328473,2368359562,4294588738,2272392833,1839030562,4259657740,2763975236,1272893353,4139469664,3200236656,681279174,3936430074,3572445317,76029189,3654602809,3873151461,530742520,3299628645,4096336452,1126891415,2878612391,4237533241,1700485571,2399980690,4293915773,2240044497,1873313359,4264355552,2734768916,1309151649,4149444226,3174756917,718787259,3951481745],
+
+MD5_round1=[[0,7,1],[1,12,2],[2,17,3],[3,22,4],[4,7,5],[5,12,6],[6,17,7],[7,22,8],[8,7,9],[9,12,10],[10,17,11],[11,22,12],[12,7,13],[13,12,14],[14,17,15],[15,22,16]],
+
+MD5_round2=[[1,5,17],[6,9,18],[11,14,19],[0,20,20],[5,5,21],[10,9,22],[15,14,23],[4,20,24],[9,5,25],[14,9,26],[3,14,27],[8,20,28],[13,5,29],[2,9,30],[7,14,31],[12,20,32]],
+
+MD5_round3=[[5,4,33],[8,11,34],[11,16,35],[14,23,36],[1,4,37],[4,11,38],[7,16,39],[10,23,40],[13,4,41],[0,11,42],[3,16,43],[6,23,44],[9,4,45],[12,11,46],[15,16,47],[2,23,48]],
+
+MD5_round4=[[0,6,49],[7,10,50],[14,15,51],[5,21,52],[12,6,53],[3,10,54],[10,15,55],[1,21,56],[8,6,57],[15,10,58],[6,15,59],[13,21,60],[4,6,61],[11,10,62],[2,15,63],[9,21,64]];
+
+function MD5_F(x,y,z){
+return x&y|~x&z;
+}
+function MD5_G(x,y,z){
+return x&z|y&~z;
+}
+function MD5_H(x,y,z){
+return x^y^z;
+}
+function MD5_I(x,y,z){
+return y^(x|~z);
+}
+
+var MD5_round=[[MD5_F,MD5_round1],[MD5_G,MD5_round2],[MD5_H,MD5_round3],[MD5_I,MD5_round4]];
+
+function MD5_pack(n32){var _StringfromCharCode=
+String.fromCharCode;return _StringfromCharCode(255&n32)+_StringfromCharCode(255&n32>>>8)+_StringfromCharCode(255&n32>>>16)+_StringfromCharCode(255&n32>>>24);
+}
+
+function MD5_unpack(s4){
+return s4.charCodeAt(0)|s4.charCodeAt(1)<<8|s4.charCodeAt(2)<<16|s4.charCodeAt(3)<<24;
+}
+
+function MD5_number(n){for(;
+0>n;)n+=4294967296;for(;
+4294967295<n;)n-=4294967296;
+return n;
+}
+
+function MD5_apply_round(x,s,f,abcd,r){
+var a,b,c,d,
+kk,ss,ii,
+t,u;
+
+a=abcd[0],
+b=abcd[1],
+c=abcd[2],
+d=abcd[3],
+kk=r[0],
+ss=r[1],
+ii=r[2],
+
+u=f(s[b],s[c],s[d]),
+t=s[a]+u+x[kk]+MD5_T[ii],
+t=MD5_number(t),
+t=t<<ss|t>>>32-ss,
+t+=s[b],
+s[a]=MD5_number(t);
+}
+
+module.exports=function(){
+var self={};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+return self.MD5_hash=function(data){var abcd,x,state,s,len,index,padLen,f,r,i,j,k,tmp;if(state=[1732584193,4023233417,2562383102,271733878],len=data.length,index=63&len,padLen=56>index?56-index:120-index,0<padLen)for(data+="\x80",i=0;i<padLen-1;i++)data+="\0";for(data+=MD5_pack(8*len),data+=MD5_pack(0),len+=padLen+8,abcd=[0,1,2,3],x=Array(16),s=[,,,,],k=0;k<len;k+=64){for(i=0,j=k;16>i;i++,j+=4)x[i]=data.charCodeAt(j)|data.charCodeAt(j+1)<<8|data.charCodeAt(j+2)<<16|data.charCodeAt(j+3)<<24;for(i=0;4>i;i++)s[i]=state[i];for(i=0;4>i;i++)for(f=MD5_round[i][0],r=MD5_round[i][1],j=0;16>j;j++)MD5_apply_round(x,s,f,abcd,r[j]),tmp=abcd[0],abcd[0]=abcd[3],abcd[3]=abcd[2],abcd[2]=abcd[1],abcd[1]=tmp;for(i=0;4>i;i++)state[i]+=s[i],state[i]=MD5_number(state[i])}return MD5_pack(state[0])+MD5_pack(state[1])+MD5_pack(state[2])+MD5_pack(state[3])},self.MD5_hexhash=function(data){var i,out,c,bit128;for(bit128=self.MD5_hash(data),out="",i=0;16>i;i++)c=bit128.charCodeAt(i),out+="0123456789abcdef".charAt(15&c>>4),out+="0123456789abcdef".charAt(15&c);return out},self;
+}();

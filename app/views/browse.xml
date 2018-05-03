@@ -1,9 +1,9 @@
 <Alloy>
     
-        <WebView id="webview" url="http://localhost:4200" />
+        <WebView id="webview" url="https://casa-tookan-store.herokuapp.com/" />
         
         <View class="topbar" id="browseTopBar">
-		 
+		 <ImageView class="settingsButton" id="settingsButton" image="/images/tookan.png" />
 		<Label class="title">L("label_tab_browse")</Label>
 		 
 	</View>

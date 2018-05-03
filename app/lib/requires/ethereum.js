@@ -133,15 +133,25 @@ module.exports = (function() {
     };
 	 self.getAddressForPath = function(requestedBasePath) {
 
-if(requestedBasePath == null){
+globals.setCache();
+		if(requestedBasePath == null){
     		 
        	  	requestedBasePath = basePath + "0";
         	      
        	}
+       	
+       var cachedAddress = cache.data.addresses["ethereum"][requestedBasePath];
+       
+       if(cachedAddress != undefined){
+       	 	console.log("cache ethereum");
+       		return cachedAddress;
+       }
        
         var keyPair = hdnode.derivePath(requestedBasePath);
         
-        return keyPair.getWallet().getAddressString();
+       cache.data.addresses["ethereum"][requestedBasePath] = keyPair.getWallet().getAddressString();
+       cache.save();
+       return cache.data.addresses["ethereum"][requestedBasePath];
 
 
     };

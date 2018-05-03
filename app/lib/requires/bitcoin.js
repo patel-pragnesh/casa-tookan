@@ -332,6 +332,7 @@ module.exports = (function() {
             account = masterderive;
             currentHD = d.split("/").pop();
         }
+        
 
         return masterderive;
 
@@ -373,7 +374,15 @@ module.exports = (function() {
     };
 
     self.getAddressForPath = function(requestedBasePath) {
+    	
+    	globals.setCache();
 
+	   var cachedAddress = cache.data.addresses["bitcoin"][requestedBasePath];
+       
+       if(cachedAddress != undefined){
+       	console.log("cache bitcoin");
+       		return cachedAddress;
+       }
 
         var seed = self.getSeedFromPassphrase(globals.decryptedPassphrase);
 
@@ -384,7 +393,9 @@ module.exports = (function() {
 
 
         var keyPair = master.derivePath(requestedBasePath);
-        return keyPair.getAddress();
+        cache.data.addresses["bitcoin"][requestedBasePath] = keyPair.getAddress();
+        cache.save();
+        return cache.data.addresses["bitcoin"][requestedBasePath];
 
 
     };
